@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#2563eb">
+    <title>PSE1/PSE2 - Révisions Secourisme</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg-main: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --bg-main: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border: #475569;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+            padding-bottom: 70px;
+        }
+
+        /* Header fixe */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 8px var(--shadow);
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: background 0.2s;
+        }
+
+        .btn-icon:active {
+            background: var(--bg-secondary);
+        }
+
+        /* Barre de recherche */
+        .search-bar {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 16px;
+            z-index: 999;
+            transform: translateY(-100%);
+            transition: transform 0.3s;
+        }
+
+        .search-bar.active {
+            transform: translateY(0);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 16px;
+            background: var(--bg-main);
+            color: var(--text-primary);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .search-results {
+            margin-top: 12px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .search-result {
+            padding: 12px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .search-result:active {
+            background: var(--border);
+        }
+
+        .search-result-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .search-result-path {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .search-result-snippet {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Menu latéral */
+        .sidebar {
+            position: fixed;
+            top: 60px;
+            left: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: calc(100vh - 60px);
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            transition: left 0.3s;
+            z-index: 998;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 997;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Navigation sections */
+        .nav-section {
+            margin-bottom: 24px;
+        }
+
+        .nav-section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 12px;
+            margin-bottom: 4px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item:active {
+            background: var(--bg-secondary);
+        }
+
+        .nav-item.active {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .nav-sub-item {
+            padding: 10px 12px 10px 28px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .nav-sub-item:active {
+            background: var(--bg-secondary);
+        }
+
+        .nav-sub-item.active {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Contenu principal */
+        .main-content {
+            margin-top: 60px;
+            padding: 20px 16px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .content-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 24px 20px;
+            box-shadow: 0 2px 8px var(--shadow);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 24px 0 12px;
+            color: var(--text-primary);
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+        }
+
+        .content-text {
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+
+        .content-list {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+
+        .content-list li {
+            margin-bottom: 8px;
+        }
+
+        .info-box {
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            border-left: 4px solid;
+        }
+
+        .info-box.warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--warning);
+        }
+
+        .info-box.danger {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--danger);
+        }
+
+        .info-box.success {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+        }
+
+        .info-box-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Cycle cardiaque interactif */
+        .cycle-container {
+            margin: 24px 0;
+        }
+
+        .cycle-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .cycle-tab {
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            min-width: fit-content;
+        }
+
+        .cycle-tab:active {
+            transform: scale(0.98);
+        }
+
+        .cycle-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .cycle-tab.pulmonaire {
+            border-color: #3b82f6;
+        }
+
+        .cycle-tab.pulmonaire.active {
+            background: #3b82f6;
+        }
+
+        .cycle-tab.systemique {
+            border-color: #ef4444;
+        }
+
+        .cycle-tab.systemique.active {
+            background: #ef4444;
+        }
+
+        .cycle-content {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 200px;
+        }
+
+        .cycle-step {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .cycle-step.active {
+            display: block;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .step-description {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .step-highlight {
+            background: rgba(37, 99, 235, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        .blood-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 13px;
+            margin: 0 4px;
+        }
+
+        .blood-riche {
+            background: rgba(239, 68, 68, 0.2);
+            color: #dc2626;
+        }
+
+        .blood-pauvre {
+            background: rgba(59, 130, 246, 0.2);
+            color: #2563eb;
+        }
+
+        .cycle-navigation {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+            justify-content: space-between;
+        }
+
+        .cycle-nav-btn {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .cycle-nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .cycle-nav-btn:not(:disabled):active {
+            transform: scale(0.98);
+        }
+
+        .cycle-progress {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        /* Image container avec zoom */
+        .image-container {
+            margin: 20px 0;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
+            margin-top: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .image-placeholder {
+            background: var(--bg-secondary);
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .upload-hint {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
+        /* Lightbox pour images */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Bouton retour en haut */
+        .scroll-top {
+            position: fixed;
+            bottom: 90px;
+            right: 16px;
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px var(--shadow);
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            box-shadow: 0 -2px 8px var(--shadow);
+            z-index: 996;
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 11px;
+            cursor: pointer;
+            flex: 1;
+            max-width: 100px;
+        }
+
+        .bottom-nav-item.active {
+            color: var(--primary);
+        }
+
+        .bottom-nav-icon {
+            font-size: 24px;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            body {
+                padding-bottom: 0;
+            }
+
+            .bottom-nav {
+                display: none;
+            }
+
+            .sidebar {
+                left: 0;
+                width: 280px;
+            }
+
+            .main-content {
+                margin-left: 280px;
+                margin-top: 60px;
+            }
+
+            .overlay {
+                display: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-card {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* Installation PWA prompt */
+        .install-prompt {
+            position: fixed;
+            bottom: 70px;
+            left: 16px;
+            right: 16px;
+            background: var(--primary);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow);
+            display: none;
+            gap: 12px;
+            align-items: center;
+            z-index: 995;
+        }
+
+        .install-prompt.show {
+            display: flex;
+        }
+
+        .install-btn {
+            padding: 8px 16px;
+            background: white;
+            color: var(--primary);
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                🚑 <span>PSE Révisions</span>
+            </div>
+            <div class="header-actions">
+                <button class="btn-icon" id="searchBtn" aria-label="Rechercher">🔍</button>
+                <button class="btn-icon" id="themeBtn" aria-label="Changer thème">🌙</button>
+                <button class="btn-icon" id="menuBtn" aria-label="Menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barre de recherche -->
+    <div class="search-bar" id="searchBar">
+        <input type="search" class="search-input" id="searchInput" placeholder="Rechercher... (ex: valve mitrale)" autocomplete="off">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="nav-section">
+            <div class="nav-section-title">📚 Contenu</div>
+            <div class="nav-item" data-section="intro">📌 Introduction</div>
+            <div class="nav-item" data-section="biologie">🧬 Biologie de base</div>
+            
+            <div class="nav-item" data-section="nerveux">🧠 Système nerveux</div>
+            <div class="nav-sub-item" data-section="nerveux-cerveau">Le cerveau</div>
+            <div class="nav-sub-item" data-section="nerveux-nerfs">Nerfs et transmission</div>
+            <div class="nav-sub-item" data-section="nerveux-snc">SNC (cerveau/moelle)</div>
+            <div class="nav-sub-item" data-section="nerveux-snp">SNP (somatique/autonome)</div>
+            
+            <div class="nav-item" data-section="respiratoire">🫁 Système respiratoire</div>
+            <div class="nav-sub-item" data-section="respiratoire-anatomie">Anatomie</div>
+            <div class="nav-sub-item" data-section="respiratoire-echanges">Échanges gazeux</div>
+            
+            <div class="nav-item" data-section="cardio">🫀 Système cardio-vasculaire</div>
+            <div class="nav-sub-item" data-section="cardio-coeur">Le cœur</div>
+            <div class="nav-sub-item" data-section="cardio-vaisseaux">Vaisseaux sanguins</div>
+            <div class="nav-sub-item" data-section="cardio-sang">Le sang</div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="main-content" id="mainContent">
+        <div class="breadcrumb" id="breadcrumb">
+            <span>🏠 Accueil</span>
+        </div>
+        
+        <div id="contentArea">
+            <!-- Le contenu sera injecté ici -->
+        </div>
+    </main>
+
+    <!-- Bouton retour en haut -->
+    <button class="scroll-top" id="scrollTop" aria-label="Retour en haut">↑</button>
+
+    <!-- Bottom Navigation (mobile) -->
+    <nav class="bottom-nav">
+        <button class="bottom-nav-item active" id="navHome">
+            <span class="bottom-nav-icon">🏠</span>
+            <span>Accueil</span>
+        </button>
+        <button class="bottom-nav-item" id="navSearch">
+            <span class="bottom-nav-icon">🔍</span>
+            <span>Recherche</span>
+        </button>
+        <button class="bottom-nav-item" id="navMenu">
+            <span class="bottom-nav-icon">📚</span>
+            <span>Sections</span>
+        </button>
+    </nav>
+
+    <!-- Install prompt -->
+    <div class="install-prompt" id="installPrompt">
+        <span>📲 Installer l'app pour un accès hors-ligne ?</span>
+        <button class="install-btn" id="installBtn">Installer</button>
+    </div>
+
+    <!-- Lightbox pour images -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">✕</button>
+        <img id="lightboxImg" src="" alt="">
+    </div>
+
+    <script>
+        // Données du contenu - Chargement depuis JSON
+        let content = {};
+        
+        // Fonction pour charger le contenu
+        async function loadContent() {
+            try {
+                const response = await fetch('data/content.json');
+                content = await response.json();
+                buildSearchIndex();
+                loadSection('intro');
+            } catch (error) {
+                console.error('Erreur chargement contenu:', error);
+                // Fallback avec contenu minimal si le JSON ne charge pas
+                content = {
+                    intro: {
+                        title: "📌 Introduction au secourisme",
+                        emoji: "📌",
+                        sections: [{
+                            subtitle: "Chargement...",
+                            text: "Le contenu est en cours de chargement. Si ce message persiste, vérifiez que le fichier data/content.json existe."
+                        }]
+                    }
+                };
+                loadSection('intro');
+            }
+        }
+
+        // État de l'app
+        let currentSection = 'intro';
+        let searchIndex = [];
+        let currentCycleStep = 0;
+        let currentCycleType = 'pulmonaire';
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            loadContent(); // Charge le JSON
+            initEventListeners();
+            checkScrollTop();
+            
+            // PWA install prompt
+            let deferredPrompt;
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                document.getElementById('installPrompt').classList.add('show');
+            });
+
+            document.getElementById('installBtn').addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    deferredPrompt = null;
+                    document.getElementById('installPrompt').classList.remove('show');
+                }
+            });
+        });
+
+        // Gestion du thème
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const newTheme = current === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+
+        function updateThemeIcon(theme) {
+            document.getElementById('themeBtn').textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+
+        // Construction de l'index de recherche
+        function buildSearchIndex() {
+            searchIndex = [];
+            Object.keys(content).forEach(key => {
+                const section = content[key];
+                section.sections.forEach(subsection => {
+                    searchIndex.push({
+                        section: key,
+                        title: section.title,
+                        subtitle: subsection.subtitle,
+                        text: subsection.text || '',
+                        list: subsection.list ? subsection.list.join(' ') : ''
+                    });
+                });
+            });
+        }
+
+        // Recherche
+        function performSearch(query) {
+            if (!query.trim()) {
+                document.getElementById('searchResults').innerHTML = '';
+                return;
+            }
+
+            const results = searchIndex.filter(item => {
+                const searchText = `${item.title} ${item.subtitle} ${item.text} ${item.list}`.toLowerCase();
+                return searchText.includes(query.toLowerCase());
+            }).slice(0, 10);
+
+            displaySearchResults(results, query);
+        }
+
+        function displaySearchResults(results, query) {
+            const container = document.getElementById('searchResults');
+            
+            if (results.length === 0) {
+                container.innerHTML = '<div class="search-result">Aucun résultat trouvé</div>';
+                return;
+            }
+
+            container.innerHTML = results.map(result => `
+                <div class="search-result" onclick="loadSection('${result.section}')">
+                    <div class="search-result-title">${result.subtitle}</div>
+                    <div class="search-result-path">${result.title}</div>
+                    <div class="search-result-snippet">${highlightText(result.text.substring(0, 100), query)}...</div>
+                </div>
+            `).join('');
+        }
+
+        function highlightText(text, query) {
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<mark>$1</mark>');
+        }
+
+        // Chargement d'une section
+        function loadSection(sectionKey) {
+            const section = content[sectionKey];
+            if (!section) {
+                console.error('Section non trouvée:', sectionKey);
+                return;
+            }
+
+            currentSection = sectionKey;
+            
+            // Mise à jour breadcrumb
+            const breadcrumbText = section.title.replace(/^[^\s]+\s/, ''); // Enlève l'emoji
+            document.getElementById('breadcrumb').innerHTML = `
+                <span>🏠 Accueil</span>
+                <span>›</span>
+                <span>${section.emoji} ${breadcrumbText}</span>
+            `;
+
+            // Génération du contenu
+            const html = `
+                <div class="content-card">
+                    <h1 class="section-title">${section.title}</h1>
+                    ${section.sections.map(subsection => `
+                        <h2 class="section-subtitle">${subsection.subtitle}</h2>
+                        ${subsection.cycle ? generateCycleHTML(subsection.cycle) : ''}
+                        ${subsection.image ? generateImageHTML(subsection.image) : ''}
+                        ${subsection.type ? `
+                            <div class="info-box ${subsection.type}">
+                                <div class="info-box-title">
+                                    ${subsection.type === 'warning' ? '⚠️' : subsection.type === 'danger' ? '🚨' : '✅'}
+                                    ${subsection.subtitle}
+                                </div>
+                                ${subsection.text ? `<p>${subsection.text}</p>` : ''}
+                                ${subsection.list ? `<ul>${subsection.list.map(item => `<li>${item}</li>`).join('')}</ul>` : ''}
+                            </div>
+                        ` : `
+                            ${subsection.text ? `<p class="content-text">${subsection.text}</p>` : ''}
+                            ${subsection.list ? `<ul class="content-list">${subsection.list.map(item => `<li>${item}</li>`).join('')}</ul>` : ''}
+                            ${subsection.examples ? `<ul class="content-list">${subsection.examples.map(item => `<li>${item}</li>`).join('')}</ul>` : ''}
+                        `}
+                    `).join('')}
+                </div>
+            `;
+
+            document.getElementById('contentArea').innerHTML = html;
+            
+            // Initialiser les event listeners pour le cycle cardiaque
+            initCycleListeners();
+            
+            // Initialiser les event listeners pour les images
+            initImageListeners();
+            
+            // Mise à jour navigation active
+            document.querySelectorAll('.nav-item, .nav-sub-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.section === sectionKey) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Fermeture menu et recherche
+            closeSidebar();
+            closeSearch();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Event listeners
+        function initEventListeners() {
+            // Menu
+            document.getElementById('menuBtn').addEventListener('click', toggleSidebar);
+            document.getElementById('navMenu').addEventListener('click', toggleSidebar);
+            document.getElementById('overlay').addEventListener('click', closeSidebar);
+
+            // Recherche
+            document.getElementById('searchBtn').addEventListener('click', toggleSearch);
+            document.getElementById('navSearch').addEventListener('click', toggleSearch);
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                performSearch(e.target.value);
+            });
+
+            // Thème
+            document.getElementById('themeBtn').addEventListener('click', toggleTheme);
+
+            // Navigation sections
+            document.querySelectorAll('.nav-item, .nav-sub-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    loadSection(item.dataset.section);
+                });
+            });
+
+            // Accueil
+            document.getElementById('navHome').addEventListener('click', () => {
+                loadSection('intro');
+            });
+
+            // Scroll to top
+            document.getElementById('scrollTop').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            window.addEventListener('scroll', checkScrollTop);
+        }
+
+        // Génération HTML du cycle cardiaque
+        function generateCycleHTML(cycleData) {
+            const pulmonaireSteps = cycleData.pulmonaire || [];
+            const systemiqueSteps = cycleData.systemique || [];
+            
+            return `
+                <div class="cycle-container">
+                    <div class="cycle-tabs">
+                        <button class="cycle-tab pulmonaire active" data-cycle="pulmonaire">
+                            🫁 Circulation Pulmonaire (${pulmonaireSteps.length} étapes)
+                        </button>
+                        <button class="cycle-tab systemique" data-cycle="systemique">
+                            🌍 Circulation Systémique (${systemiqueSteps.length} étapes)
+                        </button>
+                    </div>
+                    
+                    <div class="cycle-content">
+                        <div id="cycle-steps-container"></div>
+                        
+                        <div class="cycle-navigation">
+                            <button class="cycle-nav-btn" id="cycle-prev">← Précédent</button>
+                            <button class="cycle-nav-btn" id="cycle-next">Suivant →</button>
+                        </div>
+                        
+                        <div class="cycle-progress" id="cycle-progress"></div>
+                    </div>
+                    
+                    ${cycleData.image ? `
+                        <div class="image-container" onclick="openLightbox('${cycleData.image.src}')">
+                            <img src="${cycleData.image.src}" alt="${cycleData.image.alt}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=image-placeholder>📸 Image : ${cycleData.image.alt}<br><small>Placez votre image dans images/schemas/</small></div>'">
+                            <p class="image-caption">${cycleData.image.caption}</p>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        // Génération HTML des images
+        function generateImageHTML(imageData) {
+            return `
+                <div class="image-container" onclick="openLightbox('${imageData.src}')">
+                    <img src="${imageData.src}" alt="${imageData.alt}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=image-placeholder>📸 Image : ${imageData.alt}<br><small class=upload-hint>Placez votre image dans images/schemas/</small></div>'">
+                    <p class="image-caption">${imageData.caption}</p>
+                </div>
+            `;
+        }
+
+        // Initialiser les listeners du cycle
+        function initCycleListeners() {
+            const tabs = document.querySelectorAll('.cycle-tab');
+            const prevBtn = document.getElementById('cycle-prev');
+            const nextBtn = document.getElementById('cycle-next');
+            
+            if (!tabs.length) return;
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentCycleType = tab.dataset.cycle;
+                    currentCycleStep = 0;
+                    renderCycleStep();
+                });
+            });
+            
+            if (prevBtn) prevBtn.addEventListener('click', () => navigateCycle(-1));
+            if (nextBtn) nextBtn.addEventListener('click', () => navigateCycle(1));
+            
+            renderCycleStep();
+        }
+
+        // Naviguer dans le cycle
+        function navigateCycle(direction) {
+            const section = content[currentSection];
+            if (!section) return;
+            
+            const cycleData = section.sections.find(s => s.cycle);
+            if (!cycleData) return;
+            
+            const steps = cycleData.cycle[currentCycleType] || [];
+            currentCycleStep += direction;
+            
+            if (currentCycleStep < 0) currentCycleStep = 0;
+            if (currentCycleStep >= steps.length) currentCycleStep = steps.length - 1;
+            
+            renderCycleStep();
+        }
+
+        // Afficher l'étape courante
+        function renderCycleStep() {
+            const section = content[currentSection];
+            if (!section) return;
+            
+            const cycleData = section.sections.find(s => s.cycle);
+            if (!cycleData) return;
+            
+            const steps = cycleData.cycle[currentCycleType] || [];
+            const step = steps[currentCycleStep];
+            
+            if (!step) return;
+            
+            const container = document.getElementById('cycle-steps-container');
+            const prevBtn = document.getElementById('cycle-prev');
+            const nextBtn = document.getElementById('cycle-next');
+            const progress = document.getElementById('cycle-progress');
+            
+            if (!container) return;
+            
+            container.innerHTML = `
+                <div class="cycle-step active">
+                    <div class="step-header">
+                        <div class="step-number">${currentCycleStep + 1}</div>
+                        <div class="step-title">${step.title}</div>
+                    </div>
+                    <div class="step-description">${step.description}</div>
+                    ${step.highlight ? `<div class="step-highlight">${step.highlight}</div>` : ''}
+                </div>
+            `;
+            
+            if (prevBtn) prevBtn.disabled = currentCycleStep === 0;
+            if (nextBtn) nextBtn.disabled = currentCycleStep === steps.length - 1;
+            if (progress) progress.textContent = `Étape ${currentCycleStep + 1} sur ${steps.length}`;
+        }
+
+        // Ouvrir le lightbox
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightboxImg');
+            if (lightbox && img) {
+                img.src = src;
+                lightbox.classList.add('active');
+            }
+        }
+
+        // Initialiser les listeners d'images
+        function initImageListeners() {
+            const lightbox = document.getElementById('lightbox');
+            const closeBtn = document.getElementById('lightboxClose');
+            
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    lightbox.classList.remove('active');
+                });
+            }
+            
+            if (lightbox) {
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) {
+                        lightbox.classList.remove('active');
+                    }
+                });
+            }
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            const isActive = searchBar.classList.toggle('active');
+            if (isActive) {
+                document.getElementById('searchInput').focus();
+            } else {
+                document.getElementById('searchInput').value = '';
+                document.getElementById('searchResults').innerHTML = '';
+            }
+        }
+
+        function closeSearch() {
+            document.getElementById('searchBar').classList.remove('active');
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchResults').innerHTML = '';
+        }
+
+        function checkScrollTop() {
+            const btn = document.getElementById('scrollTop');
+            if (window.scrollY > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        }
+    </script>
+</body>
+</html>

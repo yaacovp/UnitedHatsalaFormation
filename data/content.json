@@ -1,0 +1,511 @@
+{
+  "intro": {
+    "title": "📌 Introduction au secourisme",
+    "emoji": "📌",
+    "sections": [
+      {
+        "subtitle": "Rôle du secouriste",
+        "text": "Le secouriste représente le premier maillon de la chaîne des secours, mais n'est pas l'ambulance. Son rôle est d'intervenir avant l'arrivée des services médicaux professionnels."
+      },
+      {
+        "subtitle": "Limites et interdictions",
+        "type": "danger",
+        "text": "Le secouriste ne doit jamais :",
+        "list": [
+          "Déclarer un décès",
+          "Adopter un comportement agressif",
+          "Violer le secret médical",
+          "Dépasser ses autorisations/compétences",
+          "Aggraver la situation de la victime"
+        ]
+      },
+      {
+        "subtitle": "Principes fondamentaux",
+        "type": "success",
+        "text": "Dans presque tous les cas, suivre cette logique :",
+        "list": [
+          "Sécurité (de soi-même, de la victime, des témoins)",
+          "A-B-C (Airway-Breathing-Circulation : voies aériennes, respiration, circulation)",
+          "Appel des secours (le téléphone = un geste de secours)",
+          "Gestes simples adaptés au niveau de formation"
+        ]
+      }
+    ]
+  },
+  "biologie": {
+    "title": "🧬 Biologie de base",
+    "emoji": "🧬",
+    "sections": [
+      {
+        "subtitle": "Organisation du corps humain",
+        "text": "Hiérarchie structurelle : Cellule → Tissu → Organe → Système → Corps",
+        "list": [
+          "Les cellules consomment nourriture et oxygène",
+          "Les cellules produisent CO₂, déchets et énergie",
+          "Les cellules meurent et se renouvellent en permanence"
+        ]
+      },
+      {
+        "subtitle": "Terminologie médicale",
+        "text": "Structure d'un terme médical : <strong>Préfixe + Radical + Suffixe</strong>",
+        "examples": [
+          "Hypothermie = hypo (en dessous) + therme (température) + ie (état)",
+          "Tachycardie = tachy (rapide) + cardie (cœur)",
+          "Hépatite = hépato (foie) + ite (inflammation)"
+        ]
+      }
+    ]
+  },
+  "nerveux": {
+    "title": "🧠 Système nerveux",
+    "emoji": "🧠",
+    "sections": [
+      {
+        "subtitle": "Vue d'ensemble",
+        "text": "Le système nerveux régule toutes les actions et mouvements du corps via l'activité électrique cérébrale. Il est particulièrement sensible à l'hypoxie (manque d'oxygène).",
+        "list": [
+          "SNC : Système Nerveux Central (cerveau + moelle épinière)",
+          "SNP : Système Nerveux Périphérique (nerfs dans tout le corps)"
+        ]
+      },
+      {
+        "subtitle": "Organisation générale",
+        "type": "success",
+        "text": "Le système nerveux est organisé de manière hiérarchique :",
+        "list": [
+          "Centre de commande : Cerveau (traitement et décisions)",
+          "Autoroute de communication : Moelle épinière",
+          "Réseau de distribution : Nerfs périphériques",
+          "Points de connexion : Synapses (communication chimique)"
+        ]
+      }
+    ]
+  },
+  "nerveux-cerveau": {
+    "title": "🧠 Le cerveau",
+    "emoji": "🧠",
+    "sections": [
+      {
+        "subtitle": "Protection du cerveau",
+        "text": "De l'extérieur vers l'intérieur :",
+        "list": [
+          "Cheveux",
+          "Cuir chevelu",
+          "Crâne",
+          "Méninges",
+          "Liquide céphalo-rachidien (LCR)"
+        ]
+      },
+      {
+        "subtitle": "Anatomie cérébrale",
+        "text": "Le grand cerveau est divisé en deux hémisphères, chacun composé de 4 lobes :",
+        "list": [
+          "Lobe frontal (devant, au niveau du front)",
+          "Lobe pariétal (milieu)",
+          "Lobe temporal (côté)",
+          "Lobe occipital (derrière)"
+        ]
+      },
+      {
+        "subtitle": "Le cervelet",
+        "text": "Fonctions principales :",
+        "list": [
+          "Équilibre",
+          "Coordination et précision des mouvements",
+          "Tonus/tension musculaire"
+        ]
+      },
+      {
+        "subtitle": "Le tronc cérébral",
+        "type": "warning",
+        "text": "Contrôle les fonctions vitales :",
+        "list": [
+          "Respiration",
+          "Pression artérielle",
+          "Fréquence cardiaque",
+          "Température corporelle",
+          "Taux de glucose"
+        ]
+      }
+    ]
+  },
+  "nerveux-snc": {
+    "title": "🧠 Système Nerveux Central (SNC)",
+    "emoji": "🧠",
+    "sections": [
+      {
+        "subtitle": "Composition du SNC",
+        "text": "Le SNC est composé de deux structures principales :",
+        "list": [
+          "Le cerveau (encéphale) : centre de contrôle et de traitement",
+          "La moelle épinière : autoroute de communication"
+        ]
+      },
+      {
+        "subtitle": "La moelle épinière",
+        "text": "La moelle épinière commence au foramen magnum (la plus grande ouverture à la base du crâne) et descend dans le canal vertébral.",
+        "list": [
+          "Réflexes de protection",
+          "Transmission des signaux du SNP vers le cerveau",
+          "Transmission des signaux du cerveau vers le SNP",
+          "31 paires de nerfs spinaux sortent d'entre les vertèbres"
+        ]
+      },
+      {
+        "subtitle": "Protection du SNC",
+        "type": "warning",
+        "text": "Le SNC est particulièrement vulnérable et nécessite une protection maximale :",
+        "list": [
+          "Cerveau : protégé par le crâne et les méninges",
+          "Moelle épinière : protégée par la colonne vertébrale",
+          "Les deux : baignent dans le liquide céphalo-rachidien (LCR)"
+        ]
+      },
+      {
+        "subtitle": "Sensibilité à l'hypoxie",
+        "type": "danger",
+        "text": "⚠️ Le SNC est extrêmement sensible au manque d'oxygène (hypoxie). Des dommages irréversibles peuvent survenir après seulement quelques minutes sans oxygène."
+      }
+    ]
+  },
+  "nerveux-nerfs": {
+    "title": "🔌 Nerfs et transmission nerveuse",
+    "emoji": "🔌",
+    "sections": [
+      {
+        "subtitle": "Types de nerfs",
+        "text": "Catégories générales :",
+        "list": [
+          "Moteur (commande les mouvements)",
+          "Sensoriel (perçoit les sensations)",
+          "Mixte (les deux fonctions)"
+        ]
+      },
+      {
+        "subtitle": "Le neurone",
+        "text": "Structure d'un neurone :",
+        "list": [
+          "Dendrites : réception des informations",
+          "Corps cellulaire (soma) : traitement de l'information",
+          "Axone : conduit le message nerveux",
+          "Terminaisons axonales : transmission vers la cellule suivante"
+        ]
+      },
+      {
+        "subtitle": "Transmission du signal",
+        "type": "warning",
+        "text": "⚡ À l'intérieur d'un neurone : signal électrique<br>🧪 Entre deux neurones : signal chimique<br><br>Le signal est électrique OU chimique, mais jamais les deux en même temps."
+      },
+      {
+        "subtitle": "La synapse",
+        "text": "Point de rencontre entre deux neurones. Ce n'est pas une cellule, mais un espace où la transmission est chimique."
+      }
+    ]
+  },
+  "nerveux-snp": {
+    "title": "🔀 Système nerveux périphérique (SNP)",
+    "emoji": "🔀",
+    "sections": [
+      {
+        "subtitle": "Système nerveux somatique",
+        "text": "🦾 Responsable des mouvements volontaires",
+        "list": [
+          "Tout mouvement conscient dépend du système somatique",
+          "Exemples : lever le bras, marcher, saisir un objet"
+        ]
+      },
+      {
+        "subtitle": "Système nerveux autonome",
+        "text": "❤️ Responsable des fonctions involontaires",
+        "list": [
+          "Battements du cœur",
+          "Respiration (partiellement autonome)",
+          "Digestion"
+        ]
+      },
+      {
+        "subtitle": "Sympathique vs Parasympathique",
+        "type": "warning",
+        "text": "<strong>🚨 Sympathique (mode alerte)</strong> : pupilles dilatées, cœur rapide, bronches dilatées, arrêt digestion, production d'adrénaline<br><br><strong>😌 Parasympathique (mode repos)</strong> : pupilles contractées, cœur ralenti, bronches contractées, digestion active"
+      }
+    ]
+  },
+  "respiratoire": {
+    "title": "🫁 Système respiratoire",
+    "emoji": "🫁",
+    "sections": [
+      {
+        "subtitle": "Vue d'ensemble",
+        "text": "👀 La respiration est un signe de vie facile à observer. Objectifs principaux :",
+        "list": [
+          "Apporter de l'oxygène (O₂) aux organes",
+          "Éliminer le dioxyde de carbone (CO₂)"
+        ]
+      },
+      {
+        "subtitle": "Cycle respiratoire",
+        "text": "➡️ <strong>Inspiration</strong> : Entrée de l'air, processus actif nécessitant de l'énergie<br>⬅️ <strong>Expiration</strong> : Sortie de l'air, processus principalement passif"
+      },
+      {
+        "subtitle": "Trajet de l'air",
+        "text": "Nez/Bouche → Pharynx (gorge) → Larynx → Trachée → Bronches → Poumons → Alvéoles"
+      }
+    ]
+  },
+  "respiratoire-anatomie": {
+    "title": "🛣️ Anatomie des voies respiratoires",
+    "emoji": "🛣️",
+    "sections": [
+      {
+        "subtitle": "Le nez : la meilleure voie",
+        "text": "🌬️ L'air y est filtré (par les poils), humidifié et réchauffé. La bouche est une voie alternative."
+      },
+      {
+        "subtitle": "L'épiglotte : système de protection",
+        "type": "warning",
+        "text": "Lors de la déglutition :",
+        "list": [
+          "Le larynx remonte",
+          "L'épiglotte couvre l'entrée de la trachée",
+          "Empêche les aliments d'entrer dans les voies respiratoires",
+          "⚠️ Fausse route = mécanisme défaillant → toux réflexe"
+        ]
+      },
+      {
+        "subtitle": "La trachée",
+        "text": "🧱 Conduit rigide composé d'anneaux cartilagineux en forme de C pour maintenir la trachée ouverte"
+      },
+      {
+        "subtitle": "Les bronches",
+        "text": "🌿 La trachée se divise en :",
+        "list": [
+          "Bronche droite → 3 lobes pulmonaires",
+          "Bronche gauche → 2 lobes pulmonaires"
+        ]
+      },
+      {
+        "subtitle": "Les alvéoles pulmonaires",
+        "text": "🫧 Petits sacs remplis d'air, entourés de capillaires sanguins. Lieu de rencontre entre l'air et le sang."
+      }
+    ]
+  },
+  "respiratoire-echanges": {
+    "title": "🔄 Échanges gazeux",
+    "emoji": "🔄",
+    "sections": [
+      {
+        "subtitle": "Au niveau des alvéoles",
+        "text": "Échanges gazeux par diffusion :",
+        "list": [
+          "L'oxygène (O₂) passe des alvéoles vers le sang",
+          "Le dioxyde de carbone (CO₂) passe du sang vers l'air",
+          "L'oxygène se fixe sur l'hémoglobine des globules rouges"
+        ]
+      },
+      {
+        "subtitle": "Trois conditions nécessaires",
+        "type": "success",
+        "text": "✅ Pour des échanges gazeux corrects :",
+        "list": [
+          "1️⃣ Ventilation : faire entrer et sortir l'air",
+          "2️⃣ Diffusion : échanges air ↔ sang au niveau des alvéoles",
+          "3️⃣ Perfusion : circulation du sang dans tout le corps"
+        ]
+      },
+      {
+        "subtitle": "Muscles respiratoires",
+        "text": "💪 Muscles principaux :",
+        "list": [
+          "Le diaphragme : principal muscle respiratoire, se contracte lors de l'inspiration",
+          "Les muscles intercostaux : entre les côtes, augmentent le volume thoracique"
+        ]
+      },
+      {
+        "subtitle": "Signe de détresse respiratoire",
+        "type": "danger",
+        "text": "🚨 L'utilisation des muscles accessoires (cou, thorax, abdomen) est un signe important de détresse, même si la personne ne s'en plaint pas."
+      }
+    ]
+  },
+  "cardio": {
+    "title": "🫀 Système cardio-vasculaire",
+    "emoji": "🫀",
+    "sections": [
+      {
+        "subtitle": "Vue d'ensemble",
+        "text": "Système cardio-vasculaire = ❤️ Cœur + 🩸 Sang + 🛣️ Vaisseaux"
+      },
+      {
+        "subtitle": "Objectifs principaux",
+        "list": [
+          "Apporter de l'oxygène (O₂) aux cellules",
+          "Apporter des nutriments aux organes",
+          "Récupérer les déchets (dont le CO₂)"
+        ]
+      }
+    ]
+  },
+  "cardio-coeur": {
+    "title": "❤️ Le cœur",
+    "emoji": "❤️",
+    "sections": [
+      {
+        "subtitle": "Anatomie : 4 cavités",
+        "type": "success",
+        "text": "Le cœur possède 4 cavités :",
+        "list": [
+          "2 atriums (oreillettes) en haut",
+          "2 ventricules en bas",
+          "Côté droit 🔵 : sang pauvre en O₂ → poumons",
+          "Côté gauche 🔴 : sang riche en O₂ → corps"
+        ]
+      },
+      {
+        "subtitle": "Les 4 valves cardiaques",
+        "text": "Valves = clapets anti-retour :",
+        "list": [
+          "Valve mitrale : Atrium gauche → Ventricule gauche",
+          "Valve aortique : Ventricule gauche → Aorte",
+          "Valve tricuspide : Atrium droit → Ventricule droit",
+          "Valve pulmonaire : Ventricule droit → Artère pulmonaire"
+        ]
+      },
+      {
+        "subtitle": "Systole et Diastole",
+        "type": "warning",
+        "text": "💥 <strong>SYSTOLE</strong> = Contraction des ventricules (phase d'éjection)<br>• Valves mitrale/tricuspide fermées<br>• Valves aortique/pulmonaire ouvertes<br><br>😌 <strong>DIASTOLE</strong> = Relâchement des ventricules (phase de remplissage)<br>• Valves aortique/pulmonaire fermées<br>• Valves mitrale/tricuspide ouvertes"
+      },
+      {
+        "subtitle": "Les deux circulations complètes",
+        "cycle": {
+          "pulmonaire": [
+            {
+              "title": "Arrivée à l'atrium droit",
+              "description": "Le sang <span class='blood-pauvre'>🔵 pauvre en O₂</span> (chargé en CO₂) arrive dans l'<strong>atrium droit</strong> par les <strong>veines caves</strong> (supérieure et inférieure).",
+              "highlight": "💡 Ce sang vient de faire le tour du corps et a déposé son oxygène aux cellules"
+            },
+            {
+              "title": "Passage au ventricule droit",
+              "description": "Le sang passe de l'<strong>atrium droit</strong> vers le <strong>ventricule droit</strong> en traversant la <strong>valve tricuspide</strong>.",
+              "highlight": "🚪 La valve tricuspide empêche le retour du sang vers l'atrium"
+            },
+            {
+              "title": "Éjection vers les poumons",
+              "description": "Le <strong>ventricule droit</strong> se contracte et éjecte le sang vers les <strong>poumons</strong> via l'<strong>artère pulmonaire</strong> (passage par la valve pulmonaire).",
+              "highlight": "⚠️ EXCEPTION : L'artère pulmonaire transporte du sang pauvre en O₂"
+            },
+            {
+              "title": "Échanges gazeux",
+              "description": "Au niveau des <strong>alvéoles pulmonaires</strong>, les échanges gazeux ont lieu :<br>• Le CO₂ est évacué du sang vers l'air<br>• L'O₂ entre dans le sang depuis l'air",
+              "highlight": "🫁 C'est ici que le sang devient riche en oxygène !"
+            },
+            {
+              "title": "Retour à l'atrium gauche",
+              "description": "Le sang <span class='blood-riche'>🔴 riche en O₂</span> revient vers le cœur par les <strong>veines pulmonaires</strong> et arrive dans l'<strong>atrium gauche</strong>.",
+              "highlight": "⚠️ EXCEPTION : Les veines pulmonaires transportent du sang riche en O₂"
+            }
+          ],
+          "systemique": [
+            {
+              "title": "Passage au ventricule gauche",
+              "description": "Le sang <span class='blood-riche'>🔴 riche en O₂</span> passe de l'<strong>atrium gauche</strong> vers le <strong>ventricule gauche</strong> par la <strong>valve mitrale</strong>.",
+              "highlight": "💪 Le ventricule gauche est le plus musclé car il doit envoyer le sang dans tout le corps"
+            },
+            {
+              "title": "Éjection par l'aorte",
+              "description": "Le <strong>ventricule gauche</strong> se contracte puissamment et éjecte le sang dans l'<strong>aorte</strong> (la plus grosse artère du corps) via la <strong>valve aortique</strong>.",
+              "highlight": "🚀 Pression maximale : le sang est propulsé avec force dans tout le corps"
+            },
+            {
+              "title": "Distribution dans le corps",
+              "description": "L'aorte se divise en plusieurs <strong>artères</strong> de plus en plus petites (<strong>artérioles</strong>) pour atteindre chaque cellule du corps.",
+              "highlight": "🌳 Comme les branches d'un arbre : de gros troncs aux petites ramifications"
+            },
+            {
+              "title": "Échanges au niveau cellulaire",
+              "description": "Dans les <strong>capillaires</strong> (micro-vaisseaux), les échanges gazeux ont lieu :<br>• Le sang dépose l'<strong>O₂</strong> aux cellules<br>• Le sang récupère le <strong>CO₂</strong> produit par les cellules",
+              "highlight": "🔬 Les capillaires sont si fins qu'un globule rouge passe tout juste"
+            },
+            {
+              "title": "Retour veineux",
+              "description": "Le sang <span class='blood-pauvre'>🔵 chargé en CO₂</span> repart par les <strong>veinules</strong> (petites veines), puis les <strong>veines</strong> de plus en plus grosses, jusqu'aux <strong>veines caves</strong> qui ramènent le sang à l'<strong>atrium droit</strong>.",
+              "highlight": "♻️ Le cycle recommence ! Le cœur bat environ 100 000 fois par jour"
+            }
+          ],
+          "image": {
+            "src": "images/schemas/cycle-cardiaque.svg",
+            "alt": "Schéma complet du cycle cardiaque avec circulation pulmonaire et systémique",
+            "caption": "Cycle cardiaque complet : circulation pulmonaire (bleu) et systémique (rouge)"
+          }
+        }
+      },
+      {
+        "subtitle": "Conduction cardiaque",
+        "text": "⚡ Le cœur bat grâce à un système électrique autonome :",
+        "list": [
+          "Nœud sino-auriculaire (SA) : stimulateur principal (60-100 BPM)",
+          "Nœud auriculo-ventriculaire (AV) : transmet avec délai, peut prendre le relais"
+        ]
+      },
+      {
+        "subtitle": "Artères coronaires",
+        "type": "danger",
+        "text": "❤️ Le muscle cardiaque a ses propres vaisseaux : les artères coronaires. Une obstruction peut causer une crise cardiaque."
+      }
+    ]
+  },
+  "cardio-vaisseaux": {
+    "title": "🛣️ Vaisseaux sanguins",
+    "emoji": "🛣️",
+    "sections": [
+      {
+        "subtitle": "Règle fondamentale",
+        "type": "warning",
+        "text": "🔴 <strong>Artère</strong> = vaisseau qui PART du cœur<br>🔵 <strong>Veine</strong> = vaisseau qui REVIENT vers le cœur<br><br>⚠️ Mémo : Veine = V = Vient vers le cœur"
+      },
+      {
+        "subtitle": "Exceptions importantes",
+        "type": "danger",
+        "text": "⚠️ Dans le circuit des poumons, c'est l'inverse :<br>• Veine pulmonaire : transporte du sang oxygéné 🔴<br>• Artère pulmonaire : transporte du sang désoxygéné 🔵"
+      },
+      {
+        "subtitle": "Différences artère/veine",
+        "text": "🔴 <strong>Artères</strong> : paroi épaisse, flux pulsatile (suit les battements)<br>🔵 <strong>Veines</strong> : paroi plus fine, valves anti-retour, flux continu"
+      },
+      {
+        "subtitle": "Capillaires",
+        "type": "success",
+        "text": "🔟 Les capillaires sont les vaisseaux où se fait l'essentiel du travail entre le sang et les cellules. Extrêmement fins, paroi semi-perméable."
+      }
+    ]
+  },
+  "cardio-sang": {
+    "title": "🩸 Le sang",
+    "emoji": "🩸",
+    "sections": [
+      {
+        "subtitle": "Rôles généraux",
+        "list": [
+          "Transporter l'oxygène et les nutriments",
+          "Récupérer et éliminer les déchets (CO₂)",
+          "Participer à l'immunité (défense)",
+          "Réguler la température",
+          "Maintenir l'homéostasie"
+        ]
+      },
+      {
+        "subtitle": "Composition du sang",
+        "text": "🟡 <strong>Plasma</strong> (~55%) : liquide contenant protéines, facteurs de coagulation, anticorps<br><br>🔴 <strong>Globules rouges</strong> (~45%) : transportent l'hémoglobine = transport de l'oxygène<br><br>⚪ <strong>Globules blancs</strong> (~1%) : cellules de défense immunitaire<br><br>🟠 <strong>Plaquettes</strong> (~1%) : essentielles pour la coagulation"
+      },
+      {
+        "subtitle": "Globules rouges (érythrocytes)",
+        "type": "success",
+        "text": "🔴 Fonction principale : transportent l'hémoglobine qui transporte l'oxygène. Donnent au sang sa couleur rouge."
+      },
+      {
+        "subtitle": "Plaquettes (thrombocytes)",
+        "text": "🟠 Essentielles pour la coagulation. Durée de vie : 7-10 jours. Sans plaquettes, les petites brèches ne se colmatent pas."
+      }
+    ]
+  }
+}
