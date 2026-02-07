@@ -191,6 +191,42 @@
             left: 0;
         }
 
+        /* Languette flottante pour ouvrir le menu */
+        .sidebar-tab {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 16px 8px;
+            border-radius: 0 12px 12px 0;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 2px 0 12px var(--shadow);
+            transition: all 0.3s;
+            writing-mode: vertical-rl;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .sidebar-tab:hover {
+            padding-left: 12px;
+            box-shadow: 4px 0 16px var(--shadow);
+        }
+
+        .sidebar.active + .sidebar-tab {
+            left: -100%;
+            opacity: 0;
+        }
+
+        /* Masquer sur desktop */
+        @media (min-width: 768px) {
+            .sidebar-tab {
+                display: none;
+            }
+        }
+
         .overlay {
             position: fixed;
             top: 60px;
@@ -788,6 +824,7 @@
             <div class="nav-sub-item" data-section="cardio-sang">Le sang</div>
         </div>
     </nav>
+    <div class="sidebar-tab" id="sidebarTab">📚 MENU</div>
 
     <!-- Contenu principal -->
     <main class="main-content" id="mainContent">
@@ -1065,6 +1102,9 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
+            // Languette sidebar
+            document.getElementById('sidebarTab')?.addEventListener('click', toggleSidebar);
+
             window.addEventListener('scroll', checkScrollTop);
         }
 
@@ -1255,6 +1295,36 @@
                 btn.classList.add('visible');
             } else {
                 btn.classList.remove('visible');
+            }
+        }
+
+        // Swipe pour ouvrir/fermer le menu
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const sidebar = document.getElementById('sidebar');
+            const swipeThreshold = 50;
+            
+            // Swipe de gauche à droite (ouvrir)
+            if (touchStartX < 30 && touchEndX - touchStartX > swipeThreshold) {
+                sidebar.classList.add('active');
+                document.getElementById('overlay').classList.add('active');
+            }
+            
+            // Swipe de droite à gauche (fermer)
+            if (touchEndX - touchStartX < -swipeThreshold) {
+                sidebar.classList.remove('active');
+                document.getElementById('overlay').classList.remove('active');
             }
         }
     </script>
