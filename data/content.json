@@ -107,6 +107,14 @@
         ]
       },
       {
+        "subtitle": "Schéma des lobes cérébraux",
+        "image": {
+          "src": "images/schemas/lobeCerveau.jpeg",
+          "alt": "Schéma anatomique du cerveau montrant les différents lobes (frontal, pariétal, temporal, occipital)",
+          "caption": "Les 4 lobes cérébraux et leurs localisations"
+        }
+      },
+      {
         "subtitle": "Le cervelet",
         "text": "Fonctions principales :",
         "list": [
@@ -257,6 +265,16 @@
     "emoji": "🛣️",
     "sections": [
       {
+        "subtitle": "Vue d'ensemble de l'appareil respiratoire",
+        "image": {
+          "src": "images/schemas/Respiratory_system_complete_fr.svg",
+          "alt": "Schéma complet du système respiratoire : nez, pharynx, larynx, trachée, bronches, poumons et alvéoles",
+          "caption": "Anatomie complète de l'appareil respiratoire, des voies aériennes supérieures aux alvéoles pulmonaires"
+        },
+        "type": "success",
+        "text": "Ce schéma montre l'ensemble du trajet de l'air, de l'entrée (nez/bouche) jusqu'aux échanges gazeux dans les alvéoles."
+      },
+      {
         "subtitle": "Le nez : la meilleure voie",
         "text": "🌬️ L'air y est filtré (par les poils), humidifié et réchauffé. La bouche est une voie alternative."
       },
@@ -369,6 +387,14 @@
           "Valve tricuspide : Atrium droit → Ventricule droit",
           "Valve pulmonaire : Ventricule droit → Artère pulmonaire"
         ]
+      },
+      {
+        "subtitle": "Anatomie détaillée du cœur",
+        "image": {
+          "src": "images/schemas/structure-anatomique-coeur.jpg",
+          "alt": "Coupe anatomique détaillée du cœur montrant les 4 cavités, valves, vaisseaux et structures internes",
+          "caption": "Vue en coupe du cœur avec toutes ses structures : oreillettes, ventricules, valves et principaux vaisseaux"
+        }
       },
       {
         "subtitle": "Systole et Diastole",
