@@ -16,6 +16,10 @@
                 🚑 <span>United hatzalah Révisions</span>
             </div>
             <div class="header-actions">
+                <button class="btn-icon" id="quickReviewBtn" aria-label="Révision rapide" title="Révision rapide">⚡</button>
+                <button class="btn-icon" id="fontSizeBtn" aria-label="Personnalisation" title="Personnalisation">A</button>
+                <button class="btn-icon desktop-only" id="flashcardsHeaderBtn" aria-label="Flashcards" title="Flashcards">🎴</button>
+                <button class="btn-icon desktop-only" id="progressHeaderBtn" aria-label="Progression" title="Progression">📊</button>
                 <button class="btn-icon" id="searchBtn" aria-label="Rechercher">🔍</button>
                 <button class="btn-icon" id="themeBtn" aria-label="Changer thème">🌙</button>
                 <button class="btn-icon" id="menuBtn" aria-label="Menu">☰</button>
@@ -85,6 +89,14 @@
             <span class="bottom-nav-icon">📚</span>
             <span>Sections</span>
         </button>
+        <button class="bottom-nav-item" id="navFlashcards">
+            <span class="bottom-nav-icon">🎴</span>
+            <span>Flashcards</span>
+        </button>
+        <button class="bottom-nav-item" id="navProgress">
+            <span class="bottom-nav-icon">📊</span>
+            <span>Progression</span>
+        </button>
     </nav>
 
     <!-- Install prompt -->
@@ -97,6 +109,202 @@
     <div class="lightbox" id="lightbox">
         <button class="lightbox-close" id="lightboxClose">✕</button>
         <img id="lightboxImg" src="" alt="">
+    </div>
+
+    <!-- Modal Flashcards -->
+    <div class="modal" id="flashcardModal">
+        <div class="modal-overlay" id="flashcardOverlay"></div>
+        <div class="modal-content flashcard-container">
+            <button class="modal-close" id="closeFlashcards">✕</button>
+            
+            <div class="flashcard-header">
+                <h2>🎴 Mode Flashcards</h2>
+                <div class="flashcard-filters">
+                    <select id="flashcardSection" class="flashcard-filter">
+                        <option value="all">Toutes les sections</option>
+                        <option value="intro">Introduction</option>
+                        <option value="biologie">Biologie</option>
+                        <option value="nerveux">Système nerveux</option>
+                        <option value="nerveux-cerveau">Le cerveau</option>
+                        <option value="nerveux-snp">SNP</option>
+                        <option value="nerveux-nerfs">Nerfs</option>
+                        <option value="respiratoire">Système respiratoire</option>
+                        <option value="respiratoire-anatomie">Anatomie respiratoire</option>
+                        <option value="respiratoire-echanges">Échanges gazeux</option>
+                        <option value="cardio">Système cardio-vasculaire</option>
+                        <option value="cardio-coeur">Le cœur</option>
+                        <option value="cardio-vaisseaux">Vaisseaux</option>
+                        <option value="cardio-sang">Le sang</option>
+                    </select>
+                    <button class="btn-secondary" id="shuffleFlashcards">🔀 Mélanger</button>
+                </div>
+            </div>
+
+            <div class="flashcard-progress">
+                <span id="flashcardCounter">0 / 0</span>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="flashcardProgressBar"></div>
+                </div>
+            </div>
+
+            <div class="flashcard" id="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <div class="flashcard-label">QUESTION</div>
+                        <div class="flashcard-text" id="flashcardQuestion"></div>
+                        <button class="btn-primary flashcard-flip-btn" id="flipToBack">
+                            Voir la réponse →
+                        </button>
+                    </div>
+                    <div class="flashcard-back">
+                        <div class="flashcard-label">RÉPONSE</div>
+                        <div class="flashcard-text" id="flashcardAnswer"></div>
+                        <div class="difficulty-buttons">
+                            <button class="btn-difficulty difficulty-hard" data-difficulty="3">
+                                😓 Difficile
+                            </button>
+                            <button class="btn-difficulty difficulty-medium" data-difficulty="2">
+                                😐 Moyen
+                            </button>
+                            <button class="btn-difficulty difficulty-easy" data-difficulty="1">
+                                😊 Facile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-navigation">
+                <button class="btn-secondary" id="prevFlashcard">← Précédente</button>
+                <button class="btn-secondary" id="skipFlashcard">Passer</button>
+                <button class="btn-secondary" id="nextFlashcard">Suivante →</button>
+            </div>
+
+            <div class="flashcard-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Faciles</span>
+                    <span class="stat-value" id="easyCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Moyennes</span>
+                    <span class="stat-value" id="mediumCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Difficiles</span>
+                    <span class="stat-value" id="hardCount">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Progression -->
+    <div class="modal" id="progressModal">
+        <div class="modal-overlay" id="progressOverlay"></div>
+        <div class="modal-content progress-container">
+            <button class="modal-close" id="closeProgress">✕</button>
+            
+            <div class="progress-header">
+                <h2>📊 Ma Progression</h2>
+                <div class="progress-percentage" id="progressPercentage">0%</div>
+            </div>
+
+            <div class="progress-bar-large">
+                <div class="progress-bar-fill" id="progressBarLarge"></div>
+            </div>
+
+            <div class="progress-stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="sectionsRead">0</span>
+                        <span class="stat-label">Sections lues</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="timeSpent">0 min</span>
+                        <span class="stat-label">Temps de révision</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="streakDays">0</span>
+                        <span class="stat-label">Jours consécutifs</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-actions">
+                <button class="btn-primary" id="markAllRead">✓ Tout marquer comme lu</button>
+                <button class="btn-danger" id="resetProgress">🔄 Réinitialiser</button>
+            </div>
+
+            <div class="sections-checklist">
+                <h3>Sections</h3>
+                <div id="sectionsChecklistContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Révision Rapide -->
+    <div class="modal" id="quickReviewModal">
+        <div class="modal-overlay" id="quickReviewOverlay"></div>
+        <div class="modal-content quick-review-container">
+            <button class="modal-close" id="closeQuickReview">✕</button>
+            
+            <div class="quick-review-header">
+                <h2>⚡ Révision Rapide</h2>
+                <p>Points critiques à retenir</p>
+            </div>
+
+            <div class="quick-review-actions">
+                <button class="btn-secondary" id="printReview">🖨️ Imprimer</button>
+                <button class="btn-secondary" id="copyReview">📋 Copier</button>
+            </div>
+
+            <div id="quickReviewContent"></div>
+        </div>
+    </div>
+
+    <!-- Modal Personnalisation -->
+    <div class="modal" id="customizeModal">
+        <div class="modal-overlay" id="customizeOverlay"></div>
+        <div class="modal-content customize-container">
+            <button class="modal-close" id="closeCustomize">✕</button>
+            
+            <h2>🎨 Personnalisation</h2>
+
+            <div class="customize-section">
+                <h3>Taille de police</h3>
+                <div class="font-size-controls">
+                    <button class="btn-secondary" id="fontSizeDecrease">A-</button>
+                    <span id="fontSizeDisplay">16px</span>
+                    <button class="btn-secondary" id="fontSizeIncrease">A+</button>
+                </div>
+            </div>
+
+            <div class="customize-section">
+                <h3>Couleur d'accentuation</h3>
+                <div class="color-picker">
+                    <button class="color-option active" data-color="#2563eb" style="background: #2563eb" title="Bleu"></button>
+                    <button class="color-option" data-color="#10b981" style="background: #10b981" title="Vert"></button>
+                    <button class="color-option" data-color="#8b5cf6" style="background: #8b5cf6" title="Violet"></button>
+                    <button class="color-option" data-color="#f59e0b" style="background: #f59e0b" title="Orange"></button>
+                    <button class="color-option" data-color="#ec4899" style="background: #ec4899" title="Rose"></button>
+                </div>
+            </div>
+
+            <div class="customize-section">
+                <h3>Accessibilité</h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="dyslexicModeToggle">
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label">Police dyslexie-friendly</span>
+                </label>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>

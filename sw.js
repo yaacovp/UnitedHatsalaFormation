@@ -1,16 +1,20 @@
-const CACHE_NAME = 'pse-revision-v1';
+const CACHE_NAME = 'pse-revision-v3'; // ← Version incrémentée
 const urlsToCache = [
   '/',
   '/index.html',
   '/manifest.json',
   '/data/content.json',
+  '/data/flashcards.json', // ← NOUVEAU
   '/images/icon-192.png',
-  '/images/icon-512.png'
+  '/images/icon-512.png',
+  '/images/schemas/lobeCerveau.jpeg',
+  '/images/schemas/structure-anatomique-du-cœur.jpg',
+  '/images/schemas/Respiratory_system_complete_fr.svg'
 ];
 
 // Installation du Service Worker
 self.addEventListener('install', event => {
-  console.log('[SW] Installation...');
+  console.log('[SW] Installation v3...');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
@@ -23,7 +27,7 @@ self.addEventListener('install', event => {
 
 // Activation du Service Worker
 self.addEventListener('activate', event => {
-  console.log('[SW] Activation...');
+  console.log('[SW] Activation v3...');
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(

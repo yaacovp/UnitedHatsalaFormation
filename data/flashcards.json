@@ -1,0 +1,214 @@
+{
+  "flashcards": [
+    {
+      "id": "card_001",
+      "section": "intro",
+      "question": "Quelles sont les 3 choses qu'un secouriste ne doit JAMAIS faire ?",
+      "answer": "1️⃣ Déclarer un décès<br>2️⃣ Violer le secret médical<br>3️⃣ Dépasser ses compétences/autorisations",
+      "difficulty": 0
+    },
+    {
+      "id": "card_002",
+      "section": "intro",
+      "question": "Quelle est la logique à suivre dans presque tous les cas d'intervention ?",
+      "answer": "1️⃣ Sécurité (soi, victime, témoins)<br>2️⃣ A-B-C (Airway-Breathing-Circulation)<br>3️⃣ Appel des secours<br>4️⃣ Gestes adaptés",
+      "difficulty": 0
+    },
+    {
+      "id": "card_003",
+      "section": "biologie",
+      "question": "Quelle est la hiérarchie structurelle du corps humain ?",
+      "answer": "Cellule → Tissu → Organe → Système → Corps",
+      "difficulty": 0
+    },
+    {
+      "id": "card_004",
+      "section": "nerveux",
+      "question": "Quelle est la différence entre le SNC et le SNP ?",
+      "answer": "🧠 <strong>SNC</strong> (Système Nerveux Central) : Cerveau + Moelle épinière<br><br>🔀 <strong>SNP</strong> (Système Nerveux Périphérique) : Tous les nerfs dans le corps",
+      "difficulty": 0
+    },
+    {
+      "id": "card_005",
+      "section": "nerveux-cerveau",
+      "question": "Quelles sont les 5 couches de protection du cerveau (de l'extérieur vers l'intérieur) ?",
+      "answer": "1️⃣ Cheveux<br>2️⃣ Cuir chevelu<br>3️⃣ Crâne<br>4️⃣ Méninges<br>5️⃣ Liquide céphalo-rachidien (LCR)",
+      "difficulty": 0
+    },
+    {
+      "id": "card_006",
+      "section": "nerveux-cerveau",
+      "question": "Quels sont les 4 lobes du cerveau ?",
+      "answer": "1️⃣ Lobe frontal (devant)<br>2️⃣ Lobe pariétal (milieu)<br>3️⃣ Lobe temporal (côté)<br>4️⃣ Lobe occipital (derrière)",
+      "difficulty": 0
+    },
+    {
+      "id": "card_007",
+      "section": "nerveux-cerveau",
+      "question": "Quelles sont les fonctions principales du cervelet ?",
+      "answer": "⚖️ Équilibre<br>🎯 Coordination et précision des mouvements<br>💪 Tonus/tension musculaire",
+      "difficulty": 0
+    },
+    {
+      "id": "card_008",
+      "section": "nerveux-cerveau",
+      "question": "Quelles fonctions vitales le tronc cérébral contrôle-t-il ?",
+      "answer": "🫁 Respiration<br>💓 Fréquence cardiaque<br>🩺 Pression artérielle<br>🌡️ Température corporelle<br>🍬 Taux de glucose",
+      "difficulty": 0
+    },
+    {
+      "id": "card_009",
+      "section": "nerveux-snp",
+      "question": "Quelle est la différence entre le système nerveux somatique et autonome ?",
+      "answer": "🦾 <strong>Somatique</strong> : Mouvements VOLONTAIRES (marcher, lever le bras)<br><br>❤️ <strong>Autonome</strong> : Fonctions INVOLONTAIRES (battements du cœur, digestion)",
+      "difficulty": 0
+    },
+    {
+      "id": "card_010",
+      "section": "nerveux-snp",
+      "question": "Quelles sont les différences entre le système sympathique et parasympathique ?",
+      "answer": "🚨 <strong>Sympathique (alerte)</strong> : Pupilles dilatées, cœur rapide, bronches dilatées, arrêt digestion<br><br>😌 <strong>Parasympathique (repos)</strong> : Pupilles contractées, cœur ralenti, bronches contractées, digestion active",
+      "difficulty": 0
+    },
+    {
+      "id": "card_011",
+      "section": "nerveux-nerfs",
+      "question": "Comment le signal nerveux est-il transmis ?",
+      "answer": "⚡ <strong>À l'intérieur d'un neurone</strong> : Signal ÉLECTRIQUE<br><br>🧪 <strong>Entre deux neurones (synapse)</strong> : Signal CHIMIQUE",
+      "difficulty": 0
+    },
+    {
+      "id": "card_012",
+      "section": "respiratoire",
+      "question": "Quels sont les 2 objectifs principaux de la respiration ?",
+      "answer": "1️⃣ Apporter de l'oxygène (O₂) aux organes<br>2️⃣ Éliminer le dioxyde de carbone (CO₂)",
+      "difficulty": 0
+    },
+    {
+      "id": "card_013",
+      "section": "respiratoire",
+      "question": "Quel est le trajet complet de l'air dans le système respiratoire ?",
+      "answer": "Nez/Bouche → Pharynx (gorge) → Larynx → Trachée → Bronches → Poumons → Alvéoles",
+      "difficulty": 0
+    },
+    {
+      "id": "card_014",
+      "section": "respiratoire-anatomie",
+      "question": "Quel est le rôle de l'épiglotte ?",
+      "answer": "🛡️ Lors de la déglutition :<br>• Le larynx remonte<br>• L'épiglotte couvre l'entrée de la trachée<br>• Empêche les aliments d'entrer dans les voies respiratoires",
+      "difficulty": 0
+    },
+    {
+      "id": "card_015",
+      "section": "respiratoire-anatomie",
+      "question": "Pourquoi la trachée a-t-elle des anneaux cartilagineux en forme de C ?",
+      "answer": "Pour maintenir la trachée ouverte en permanence et éviter qu'elle ne s'affaisse lors de la respiration",
+      "difficulty": 0
+    },
+    {
+      "id": "card_016",
+      "section": "respiratoire-echanges",
+      "question": "Quelles sont les 3 conditions nécessaires pour des échanges gazeux corrects ?",
+      "answer": "1️⃣ <strong>Ventilation</strong> : Faire entrer/sortir l'air<br>2️⃣ <strong>Diffusion</strong> : Échanges air ↔ sang (alvéoles)<br>3️⃣ <strong>Perfusion</strong> : Circulation du sang dans tout le corps",
+      "difficulty": 0
+    },
+    {
+      "id": "card_017",
+      "section": "respiratoire-echanges",
+      "question": "Quel est le rôle du diaphragme ?",
+      "answer": "💪 Principal muscle respiratoire qui se contracte lors de l'inspiration pour augmenter le volume thoracique",
+      "difficulty": 0
+    },
+    {
+      "id": "card_018",
+      "section": "cardio",
+      "question": "Quels sont les 3 objectifs principaux du système cardio-vasculaire ?",
+      "answer": "1️⃣ Apporter O₂ aux cellules<br>2️⃣ Apporter nutriments aux organes<br>3️⃣ Récupérer les déchets (dont CO₂)",
+      "difficulty": 0
+    },
+    {
+      "id": "card_019",
+      "section": "cardio-coeur",
+      "question": "Quelles sont les 4 cavités du cœur ?",
+      "answer": "⬆️ <strong>En haut</strong> : 2 atriums (oreillettes)<br>⬇️ <strong>En bas</strong> : 2 ventricules<br><br>🔵 Côté droit : sang pauvre en O₂<br>🔴 Côté gauche : sang riche en O₂",
+      "difficulty": 0
+    },
+    {
+      "id": "card_020",
+      "section": "cardio-coeur",
+      "question": "Quelles sont les 4 valves cardiaques et leur position ?",
+      "answer": "1️⃣ Valve mitrale : Atrium gauche → Ventricule gauche<br>2️⃣ Valve aortique : Ventricule gauche → Aorte<br>3️⃣ Valve tricuspide : Atrium droit → Ventricule droit<br>4️⃣ Valve pulmonaire : Ventricule droit → Artère pulmonaire",
+      "difficulty": 0
+    },
+    {
+      "id": "card_021",
+      "section": "cardio-coeur",
+      "question": "Quelle est la différence entre systole et diastole ?",
+      "answer": "💥 <strong>SYSTOLE</strong> : Contraction des ventricules (éjection du sang)<br>• Valves mitrale/tricuspide fermées<br>• Valves aortique/pulmonaire ouvertes<br><br>😌 <strong>DIASTOLE</strong> : Relâchement des ventricules (remplissage)<br>• Valves aortique/pulmonaire fermées<br>• Valves mitrale/tricuspide ouvertes",
+      "difficulty": 0
+    },
+    {
+      "id": "card_022",
+      "section": "cardio-coeur",
+      "question": "Quel est le rôle du nœud sino-auriculaire (SA) ?",
+      "answer": "⚡ C'est le stimulateur principal du cœur (pacemaker naturel) qui génère les impulsions électriques à un rythme de 60-100 battements par minute",
+      "difficulty": 0
+    },
+    {
+      "id": "card_023",
+      "section": "cardio-vaisseaux",
+      "question": "Quelle est la règle fondamentale pour différencier artères et veines ?",
+      "answer": "🔴 <strong>Artère</strong> : Vaisseau qui PART du cœur<br>🔵 <strong>Veine</strong> : Vaisseau qui REVIENT vers le cœur<br><br>💡 Mémo : Veine = V = Vient vers le cœur",
+      "difficulty": 0
+    },
+    {
+      "id": "card_024",
+      "section": "cardio-vaisseaux",
+      "question": "Quelles sont les 2 exceptions importantes dans le circuit pulmonaire ?",
+      "answer": "⚠️ Veine pulmonaire : Transporte du sang RICHE en O₂ 🔴<br>⚠️ Artère pulmonaire : Transporte du sang PAUVRE en O₂ 🔵<br><br>(L'inverse de la règle habituelle)",
+      "difficulty": 0
+    },
+    {
+      "id": "card_025",
+      "section": "cardio-vaisseaux",
+      "question": "Quelles sont les principales différences entre artères et veines ?",
+      "answer": "🔴 <strong>Artères</strong> :<br>• Paroi épaisse<br>• Flux pulsatile (suit les battements)<br><br>🔵 <strong>Veines</strong> :<br>• Paroi plus fine<br>• Valves anti-retour<br>• Flux continu",
+      "difficulty": 0
+    },
+    {
+      "id": "card_026",
+      "section": "cardio-vaisseaux",
+      "question": "Quel est le rôle des capillaires ?",
+      "answer": "🔬 Les capillaires sont les vaisseaux où se fait l'essentiel des échanges entre le sang et les cellules. Ils sont extrêmement fins avec une paroi semi-perméable.",
+      "difficulty": 0
+    },
+    {
+      "id": "card_027",
+      "section": "cardio-sang",
+      "question": "Quels sont les 5 rôles généraux du sang ?",
+      "answer": "1️⃣ Transporter O₂ et nutriments<br>2️⃣ Récupérer déchets (CO₂)<br>3️⃣ Participer à l'immunité<br>4️⃣ Réguler la température<br>5️⃣ Maintenir l'homéostasie",
+      "difficulty": 0
+    },
+    {
+      "id": "card_028",
+      "section": "cardio-sang",
+      "question": "Quelle est la composition du sang (en pourcentage) ?",
+      "answer": "🟡 <strong>Plasma</strong> : ~55% (liquide avec protéines)<br>🔴 <strong>Globules rouges</strong> : ~45% (transport O₂)<br>⚪ <strong>Globules blancs</strong> : ~1% (défense immunitaire)<br>🟠 <strong>Plaquettes</strong> : ~1% (coagulation)",
+      "difficulty": 0
+    },
+    {
+      "id": "card_029",
+      "section": "cardio-sang",
+      "question": "Quel est le rôle des globules rouges (érythrocytes) ?",
+      "answer": "🔴 Fonction principale : Transportent l'hémoglobine qui elle-même transporte l'oxygène. Donnent au sang sa couleur rouge.",
+      "difficulty": 0
+    },
+    {
+      "id": "card_030",
+      "section": "cardio-sang",
+      "question": "Quelle est la durée de vie des plaquettes et leur rôle ?",
+      "answer": "🟠 <strong>Durée de vie</strong> : 7-10 jours<br><strong>Rôle</strong> : Essentielles pour la coagulation. Sans plaquettes, les petites brèches ne se colmatent pas.",
+      "difficulty": 0
+    }
+  ]
+}
