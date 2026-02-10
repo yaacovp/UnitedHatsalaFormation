@@ -994,7 +994,6 @@
     color: white;
     transform: rotate(90deg);
 }
-
 /* ========================================
    FLASHCARDS
    ======================================== */
@@ -1067,14 +1066,15 @@
 .flashcard {
     perspective: 1000px;
     margin-bottom: 24px;
-    min-height: 350px;
+    min-height: 450px;
+    height: 450px;
 }
 
 .flashcard-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 350px;
+    min-height: 450px;
     text-align: center;
     transition: transform 0.6s;
     transform-style: preserve-3d;
@@ -1092,12 +1092,13 @@
     backface-visibility: hidden;
     background: var(--bg-secondary);
     border-radius: 16px;
-    padding: 32px;
+    padding: 24px 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
 .flashcard-back {
@@ -1105,50 +1106,66 @@
 }
 
 .flashcard-label {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
+    flex-shrink: 0;
 }
 
 .flashcard-text {
-    font-size: 18px; /* ← Réduit de 20px à 18px pour mobile */
-    line-height: 1.6;
+    font-size: 17px;
+    line-height: 1.5;
     color: var(--text-primary);
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     flex: 1;
-    display: flex;
-    align-items: flex-start; /* ← Change de center à flex-start */
-    justify-content: flex-start; /* ← Change de center à flex-start */
-    overflow-y: auto; /* ← AJOUTER : permet le scroll */
-    max-height: 100%; /* ← AJOUTER */
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
     width: 100%;
-    padding: 8px; /* ← AJOUTER : un peu d'espace */
-    text-align: left; /* ← AJOUTER : alignement à gauche pour les listes */
+    padding: 4px 8px;
+    text-align: left;
+}
+
+/* Scrollbar pour flashcard-text */
+.flashcard-text::-webkit-scrollbar {
+    width: 6px;
+}
+
+.flashcard-text::-webkit-scrollbar-track {
+    background: var(--bg-main);
+    border-radius: 3px;
+}
+
+.flashcard-text::-webkit-scrollbar-thumb {
+    background: var(--text-secondary);
+    border-radius: 3px;
 }
 
 .flashcard-flip-btn {
     margin-top: auto;
+    flex-shrink: 0;
 }
 
 .difficulty-buttons {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     margin-top: auto;
     flex-wrap: wrap;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .btn-difficulty {
-    padding: 12px 24px;
+    padding: 10px 20px;
     border: none;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .difficulty-easy {
@@ -1580,31 +1597,34 @@
         max-width: 100%;
     }
 
-    .flashcard-text {
-        font-size: 16px; /* ← Plus petit sur mobile */
-    }
-    
-    /* ← AJOUTER CES LIGNES */
     .flashcard {
-        min-height: 400px; /* ← Augmente de 350px à 400px */
+        min-height: 500px !important;
+        height: 500px !important;
     }
     
     .flashcard-inner {
-        min-height: 400px; /* ← Augmente de 350px à 400px */
+        min-height: 500px !important;
     }
     
     .flashcard-front,
     .flashcard-back {
-        padding: 20px; /* ← Réduit de 32px à 20px pour avoir plus d'espace */
+        padding: 16px !important;
     }
-
-    .difficulty-buttons {
-        flex-direction: column;
-        width: 100%;
+    
+    .flashcard-text {
+        font-size: 15px !important;
+        line-height: 1.4 !important;
     }
 
     .btn-difficulty {
         width: 100%;
+        padding: 8px 16px !important;
+        font-size: 14px !important;
+    }
+    
+    .difficulty-buttons {
+        flex-direction: column;
+        gap: 6px;
     }
 
     .progress-stats-grid {
