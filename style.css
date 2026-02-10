@@ -993,9 +993,8 @@
     background: var(--danger);
     color: white;
     transform: rotate(90deg);
-}
-/* ========================================
-   FLASHCARDS
+}/* ========================================
+   FLASHCARDS - VERSION UX OPTIMISÉE
    ======================================== */
 
 .flashcard-container {
@@ -1066,15 +1065,16 @@
 .flashcard {
     perspective: 1000px;
     margin-bottom: 24px;
-    min-height: 450px;
-    height: 450px;
+    min-height: 350px;
+    max-height: 65vh;
 }
 
 .flashcard-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 450px;
+    min-height: 350px;
+    max-height: 65vh;
     text-align: center;
     transition: transform 0.6s;
     transform-style: preserve-3d;
@@ -1092,13 +1092,12 @@
     backface-visibility: hidden;
     background: var(--bg-secondary);
     border-radius: 16px;
-    padding: 24px 20px;
+    padding: 28px 24px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    justify-content: space-between;
+    align-items: stretch;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
 }
 
 .flashcard-back {
@@ -1111,61 +1110,70 @@
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
+    text-align: center;
     flex-shrink: 0;
 }
 
 .flashcard-text {
-    font-size: 17px;
-    line-height: 1.5;
+    font-size: 18px;
+    line-height: 1.55;
     color: var(--text-primary);
-    margin-bottom: 16px;
     flex: 1;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow-y: auto;
     overflow-x: hidden;
     width: 100%;
-    padding: 4px 8px;
-    text-align: left;
+    padding: 8px;
+    text-align: center;
+    margin: 0;
 }
 
-/* Scrollbar pour flashcard-text */
+/* Scrollbar personnalisée */
 .flashcard-text::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
 }
 
 .flashcard-text::-webkit-scrollbar-track {
-    background: var(--bg-main);
-    border-radius: 3px;
+    background: transparent;
 }
 
 .flashcard-text::-webkit-scrollbar-thumb {
     background: var(--text-secondary);
-    border-radius: 3px;
+    border-radius: 10px;
+    opacity: 0.5;
+}
+
+.flashcard-text::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
 }
 
 .flashcard-flip-btn {
-    margin-top: auto;
+    margin-top: 20px;
     flex-shrink: 0;
 }
 
 .difficulty-buttons {
     display: flex;
-    gap: 8px;
-    margin-top: auto;
+    gap: 10px;
+    margin-top: 20px;
     flex-wrap: wrap;
     justify-content: center;
     flex-shrink: 0;
 }
 
 .btn-difficulty {
-    padding: 10px 20px;
+    padding: 11px 22px;
     border: none;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
     font-size: 15px;
+    flex: 1;
+    min-width: 100px;
 }
 
 .difficulty-easy {
@@ -1176,6 +1184,7 @@
 .difficulty-easy:hover {
     background: #059669;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 .difficulty-medium {
@@ -1186,6 +1195,7 @@
 .difficulty-medium:hover {
     background: #d97706;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }
 
 .difficulty-hard {
@@ -1196,6 +1206,7 @@
 .difficulty-hard:hover {
     background: #dc2626;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
 .flashcard-navigation {
@@ -1586,7 +1597,7 @@
 
 @media (max-width: 768px) {
     .modal-content {
-        padding: 24px;
+        padding: 20px;
         max-height: 95vh;
     }
 
@@ -1598,33 +1609,34 @@
     }
 
     .flashcard {
-        min-height: 500px !important;
-        height: 500px !important;
+        min-height: 400px;
+        max-height: 70vh;
     }
     
     .flashcard-inner {
-        min-height: 500px !important;
+        min-height: 400px;
+        max-height: 70vh;
     }
     
     .flashcard-front,
     .flashcard-back {
-        padding: 16px !important;
+        padding: 20px 16px;
     }
     
     .flashcard-text {
-        font-size: 15px !important;
-        line-height: 1.4 !important;
+        font-size: 16px;
+        line-height: 1.5;
+        padding: 4px;
     }
 
     .btn-difficulty {
-        width: 100%;
-        padding: 8px 16px !important;
-        font-size: 14px !important;
+        padding: 10px 16px;
+        font-size: 14px;
+        min-width: 90px;
     }
     
     .difficulty-buttons {
-        flex-direction: column;
-        gap: 6px;
+        gap: 8px;
     }
 
     .progress-stats-grid {
@@ -1712,6 +1724,6 @@ body.dyslexic-mode .flashcard-text {
     }
     
     body {
-        padding-bottom: 0;
+        padding-bottom: 0; 
     }
 }
