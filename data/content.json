@@ -176,7 +176,35 @@
       }
     ]
   },
-  "nerveux-nerfs": {
+  "nerveux-snp": {
+    "title": "🔀 Système nerveux périphérique (SNP)",
+    "emoji": "🔀",
+    "sections": [
+      {
+        "subtitle": "Système nerveux somatique",
+        "text": "🦾 Responsable des mouvements volontaires",
+        "list": [
+          "Tout mouvement conscient dépend du système somatique",
+          "Exemples : lever le bras, marcher, saisir un objet"
+        ]
+      },
+      {
+        "subtitle": "Système nerveux autonome",
+        "text": "❤️ Responsable des fonctions involontaires",
+        "list": [
+          "Battements du cœur",
+          "Respiration (partiellement autonome)",
+          "Digestion"
+        ]
+      },
+      {
+        "subtitle": "Sympathique vs Parasympathique",
+        "type": "warning",
+        "text": "<strong>🚨 Sympathique (mode alerte)</strong> : pupilles dilatées, cœur rapide, bronches dilatées, arrêt digestion, production d'adrénaline<br><br><strong>😌 Parasympathique (mode repos)</strong> : pupilles contractées, cœur ralenti, bronches contractées, digestion active"
+      }
+    ]
+  },
+    "nerveux-nerfs": {
     "title": "🔌 Nerfs et transmission nerveuse",
     "emoji": "🔌",
     "sections": [
@@ -207,34 +235,6 @@
       {
         "subtitle": "La synapse",
         "text": "Point de rencontre entre deux neurones. Ce n'est pas une cellule, mais un espace où la transmission est chimique."
-      }
-    ]
-  },
-  "nerveux-snp": {
-    "title": "🔀 Système nerveux périphérique (SNP)",
-    "emoji": "🔀",
-    "sections": [
-      {
-        "subtitle": "Système nerveux somatique",
-        "text": "🦾 Responsable des mouvements volontaires",
-        "list": [
-          "Tout mouvement conscient dépend du système somatique",
-          "Exemples : lever le bras, marcher, saisir un objet"
-        ]
-      },
-      {
-        "subtitle": "Système nerveux autonome",
-        "text": "❤️ Responsable des fonctions involontaires",
-        "list": [
-          "Battements du cœur",
-          "Respiration (partiellement autonome)",
-          "Digestion"
-        ]
-      },
-      {
-        "subtitle": "Sympathique vs Parasympathique",
-        "type": "warning",
-        "text": "<strong>🚨 Sympathique (mode alerte)</strong> : pupilles dilatées, cœur rapide, bronches dilatées, arrêt digestion, production d'adrénaline<br><br><strong>😌 Parasympathique (mode repos)</strong> : pupilles contractées, cœur ralenti, bronches contractées, digestion active"
       }
     ]
   },

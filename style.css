@@ -236,7 +236,7 @@
             pointer-events: all;
         }
 
-        /* Navigation sections */
+/* Navigation sections */
         .nav-section {
             margin-bottom: 24px;
         }
@@ -256,20 +256,21 @@
             margin-bottom: 4px;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
             font-size: 15px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .nav-item:active {
+        .nav-item:hover {
             background: var(--bg-secondary);
         }
 
         .nav-item.active {
-            background: var(--primary);
-            color: white;
+            background: rgba(37, 99, 235, 0.15);
+            border-left: 4px solid var(--primary);
+            color: var(--primary);
             font-weight: 600;
         }
 
@@ -278,16 +279,30 @@
             font-size: 14px;
             color: var(--text-secondary);
             cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 8px;
+            margin-bottom: 4px;
         }
 
-        .nav-sub-item:active {
+        .nav-sub-item:hover {
             background: var(--bg-secondary);
         }
 
         .nav-sub-item.active {
-            background: var(--primary);
-            color: white;
+            background: rgba(37, 99, 235, 0.15);
+            border-left: 4px solid var(--primary);
+            color: var(--primary);
             font-weight: 600;
+        }
+
+
+        /* Indicateur de section active dans le menu */
+        .nav-item.active,
+        .nav-sub-item.active {
+            background: rgba(37, 99, 235, 0.15);
+            border-left: 4px solid var(--primary);
+            font-weight: 600;
+            color: var(--primary);
         }
 
         /* Contenu principal */

@@ -7,7 +7,7 @@
                 const response = await fetch('data/content.json');
                 content = await response.json();
                 buildSearchIndex();
-                loadSection('intro');
+                loadAllSections('intro');
             } catch (error) {
                 console.error('Erreur chargement contenu:', error);
                 // Fallback avec contenu minimal si le JSON ne charge pas
@@ -21,7 +21,7 @@
                         }]
                     }
                 };
-                loadSection('intro');
+                loadAllSections('intro');
             }
         }
 
@@ -129,7 +129,7 @@
             return text.replace(regex, '<mark>$1</mark>');
         }
 
-        // Chargement d'une section
+// Chargement d'une section individuelle (utilisé par la recherche)
         function loadSection(sectionKey) {
             const section = content[sectionKey];
             if (!section) {
@@ -139,27 +139,44 @@
 
             currentSection = sectionKey;
             
-            // Mise à jour breadcrumb
-            const breadcrumbText = section.title.replace(/^[^\s]+\s/, ''); // Enlève l'emoji
-            document.getElementById('breadcrumb').innerHTML = `
-                <span>🏠 Accueil</span>
-                <span>›</span>
-                <span>${section.emoji} ${breadcrumbText}</span>
-            `;
+            // Scroll vers la section au lieu de la recharger
+            const sectionElement = document.getElementById(`section-${sectionKey}`);
+            if (sectionElement) {
+                sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
 
-            // Génération du contenu
-            const html = `
-                <div class="content-card">
-                    <h1 class="section-title">${section.title}</h1>
-                    ${section.sections.map(subsection => `
-                        <h2 class="section-subtitle">${subsection.subtitle}</h2>
+            // Fermeture menu et recherche
+            closeSidebar();
+            closeSearch();
+        }
+
+
+        // Charger toutes les sections à la fois
+        function loadAllSections() {
+            if (!content || Object.keys(content).length === 0) {
+                document.getElementById('contentArea').innerHTML = '<div class="content-card"><p>Chargement du contenu...</p></div>';
+                return;
+            }
+
+            let html = '';
+            
+            // Parcourir toutes les sections
+            Object.keys(content).forEach(sectionKey => {
+                const section = content[sectionKey];
+                
+                html += `<div class="content-card section-content" id="section-${sectionKey}" data-section="${sectionKey}">`;
+                html += `<h1 class="section-title">${section.title}</h1>`;
+
+                if (section.sections && section.sections.length > 0) {
+                    html += section.sections.map(subsection => `
+                        <h2 class="section-subtitle">${subsection.subtitle || ''}</h2>
                         ${subsection.cycle ? generateCycleHTML(subsection.cycle) : ''}
                         ${subsection.image ? generateImageHTML(subsection.image) : ''}
                         ${subsection.type ? `
                             <div class="info-box ${subsection.type}">
                                 <div class="info-box-title">
                                     ${subsection.type === 'warning' ? '⚠️' : subsection.type === 'danger' ? '🚨' : '✅'}
-                                    ${subsection.subtitle}
+                                    ${subsection.subtitle || ''}
                                 </div>
                                 ${subsection.text ? `<p>${subsection.text}</p>` : ''}
                                 ${subsection.list ? `<ul>${subsection.list.map(item => `<li>${item}</li>`).join('')}</ul>` : ''}
@@ -169,32 +186,69 @@
                             ${subsection.list ? `<ul class="content-list">${subsection.list.map(item => `<li>${item}</li>`).join('')}</ul>` : ''}
                             ${subsection.examples ? `<ul class="content-list">${subsection.examples.map(item => `<li>${item}</li>`).join('')}</ul>` : ''}
                         `}
-                    `).join('')}
-                </div>
-            `;
-
-            document.getElementById('contentArea').innerHTML = html;
-            
-            // Initialiser les event listeners pour le cycle cardiaque
-            initCycleListeners();
-            
-            // Initialiser les event listeners pour les images
-            initImageListeners();
-            
-            // Mise à jour navigation active
-            document.querySelectorAll('.nav-item, .nav-sub-item').forEach(item => {
-                item.classList.remove('active');
-                if (item.dataset.section === sectionKey) {
-                    item.classList.add('active');
+                    `).join('');
                 }
+
+                html += '</div>';
             });
 
-            // Fermeture menu et recherche
-            closeSidebar();
-            closeSearch();
-            
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('contentArea').innerHTML = html;
+
+            // Initialiser tous les listeners
+            initCycleListeners();
+            initImageListeners();
+
+            // Démarrer l'observation du scroll
+            observeSections();
+        }
+
+        // Observer les sections visibles pendant le scroll
+        function observeSections() {
+            const options = {
+                root: null,
+                rootMargin: '-20% 0px -70% 0px', // Section active = dans les 20-30% du haut de l'écran
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const sectionKey = entry.target.getAttribute('data-section');
+                        updateActiveMenuItem(sectionKey);
+                        currentSection = sectionKey;
+                        
+                        // Mettre à jour le breadcrumb
+                        const section = content[sectionKey];
+                        if (section) {
+                            const breadcrumbText = section.title.replace(/^[^\s]+\s/, ''); // Enlève l'emoji
+                            document.getElementById('breadcrumb').innerHTML = `
+                                <span>🏠 Accueil</span>
+                                <span>›</span>
+                                <span>${section.emoji} ${breadcrumbText}</span>
+                            `;
+                        }
+                    }
+                });
+            }, options);
+
+            // Observer toutes les sections
+            document.querySelectorAll('.section-content').forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Mettre à jour l'élément actif dans le menu
+        function updateActiveMenuItem(sectionKey) {
+            // Retirer tous les "active"
+            document.querySelectorAll('.nav-item, .nav-sub-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Ajouter "active" à la section courante
+            const activeItem = document.querySelector(`.nav-item[data-section="${sectionKey}"], .nav-sub-item[data-section="${sectionKey}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
         }
 
         // Event listeners
@@ -214,16 +268,35 @@
             // Thème
             document.getElementById('themeBtn').addEventListener('click', toggleTheme);
 
-            // Navigation sections
+            // Navigation sections - Scroll vers section
             document.querySelectorAll('.nav-item, .nav-sub-item').forEach(item => {
                 item.addEventListener('click', () => {
-                    loadSection(item.dataset.section);
+                    const section = item.getAttribute('data-section');
+                    
+                    // Scroll vers la section
+                    const sectionElement = document.getElementById(`section-${section}`);
+                    if (sectionElement) {
+                        sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                    
+                    // Fermer le menu sur mobile
+                    if (window.innerWidth <= 768) {
+                        closeSidebar();
+                    }
                 });
             });
 
-            // Accueil
+            // Accueil - Scroll vers le haut
             document.getElementById('navHome').addEventListener('click', () => {
-                loadSection('intro');
+                // Scroll vers le haut (première section)
+                const firstSection = document.querySelector('.section-content');
+                if (firstSection) {
+                    firstSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                
+                // Mettre à jour la bottom nav
+                document.querySelectorAll('.bottom-nav-item').forEach(i => i.classList.remove('active'));
+                document.getElementById('navHome').classList.add('active');
             });
 
             // Scroll to top
