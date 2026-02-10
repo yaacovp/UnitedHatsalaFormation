@@ -1114,14 +1114,19 @@
 }
 
 .flashcard-text {
-    font-size: 20px;
+    font-size: 18px; /* ← Réduit de 20px à 18px pour mobile */
     line-height: 1.6;
     color: var(--text-primary);
     margin-bottom: 24px;
     flex: 1;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start; /* ← Change de center à flex-start */
+    justify-content: flex-start; /* ← Change de center à flex-start */
+    overflow-y: auto; /* ← AJOUTER : permet le scroll */
+    max-height: 100%; /* ← AJOUTER */
+    width: 100%;
+    padding: 8px; /* ← AJOUTER : un peu d'espace */
+    text-align: left; /* ← AJOUTER : alignement à gauche pour les listes */
 }
 
 .flashcard-flip-btn {
@@ -1576,7 +1581,21 @@
     }
 
     .flashcard-text {
-        font-size: 18px;
+        font-size: 16px; /* ← Plus petit sur mobile */
+    }
+    
+    /* ← AJOUTER CES LIGNES */
+    .flashcard {
+        min-height: 400px; /* ← Augmente de 350px à 400px */
+    }
+    
+    .flashcard-inner {
+        min-height: 400px; /* ← Augmente de 350px à 400px */
+    }
+    
+    .flashcard-front,
+    .flashcard-back {
+        padding: 20px; /* ← Réduit de 32px à 20px pour avoir plus d'espace */
     }
 
     .difficulty-buttons {
