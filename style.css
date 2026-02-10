@@ -908,3 +908,771 @@
             font-weight: 600;
             cursor: pointer;
         }
+
+
+        /* ========================================
+   🆕 NOUVELLES FONCTIONNALITÉS
+   À ajouter à la fin de style.css
+   ======================================== */
+
+/* ========================================
+   MODAL SYSTEM
+   ======================================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    position: relative;
+    background: var(--bg-card);
+    border-radius: 16px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 32px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--bg-secondary);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+    z-index: 1;
+}
+
+.modal-close:hover {
+    background: var(--danger);
+    color: white;
+    transform: rotate(90deg);
+}
+
+/* ========================================
+   FLASHCARDS
+   ======================================== */
+
+.flashcard-container {
+    max-width: 600px;
+}
+
+.flashcard-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.flashcard-header h2 {
+    margin: 0 0 16px 0;
+    color: var(--text-primary);
+}
+
+.flashcard-filters {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.flashcard-filter {
+    padding: 8px 16px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-main);
+    color: var(--text-primary);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.flashcard-filter:hover {
+    border-color: var(--primary);
+}
+
+.flashcard-progress {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.flashcard-progress span {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--success));
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+.flashcard {
+    perspective: 1000px;
+    margin-bottom: 24px;
+    min-height: 350px;
+}
+
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 350px;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.flashcard-back {
+    transform: rotateY(180deg);
+}
+
+.flashcard-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+}
+
+.flashcard-text {
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flashcard-flip-btn {
+    margin-top: auto;
+}
+
+.difficulty-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-difficulty {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 16px;
+}
+
+.difficulty-easy {
+    background: var(--success);
+    color: white;
+}
+
+.difficulty-easy:hover {
+    background: #059669;
+    transform: translateY(-2px);
+}
+
+.difficulty-medium {
+    background: var(--warning);
+    color: white;
+}
+
+.difficulty-medium:hover {
+    background: #d97706;
+    transform: translateY(-2px);
+}
+
+.difficulty-hard {
+    background: var(--danger);
+    color: white;
+}
+
+.difficulty-hard:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+.flashcard-navigation {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.flashcard-stats {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* ========================================
+   PROGRESSION
+   ======================================== */
+
+.progress-container {
+    max-width: 700px;
+}
+
+.progress-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.progress-header h2 {
+    margin: 0 0 8px 0;
+}
+
+.progress-percentage {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--primary);
+    animation: numberScale 0.5s ease-out;
+}
+
+@keyframes numberScale {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.progress-bar-large {
+    width: 100%;
+    height: 24px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progress-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    background: var(--bg-secondary);
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.stat-icon {
+    font-size: 32px;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-number {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.progress-actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.progress-actions button {
+    flex: 1;
+}
+
+.sections-checklist {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+}
+
+.sections-checklist h3 {
+    margin: 0 0 16px 0;
+    color: var(--text-primary);
+}
+
+.section-check-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: background 0.2s;
+}
+
+.section-check-item:hover {
+    background: var(--bg-secondary);
+}
+
+.section-checkbox-input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--primary);
+}
+
+.section-check-label {
+    flex: 1;
+    cursor: pointer;
+    color: var(--text-primary);
+}
+
+.section-check-item.completed .section-check-label {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+/* ========================================
+   RÉVISION RAPIDE
+   ======================================== */
+
+.quick-review-container {
+    max-width: 900px;
+}
+
+.quick-review-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.quick-review-header h2 {
+    margin: 0 0 8px 0;
+}
+
+.quick-review-header p {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.quick-review-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.critical-point {
+    background: var(--bg-secondary);
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border-left: 4px solid var(--warning);
+}
+
+.critical-point.danger {
+    border-left-color: var(--danger);
+}
+
+.critical-point-section {
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.critical-point-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-primary);
+}
+
+.critical-point-text strong {
+    color: var(--primary);
+}
+
+/* ========================================
+   PERSONNALISATION
+   ======================================== */
+
+.customize-container {
+    max-width: 500px;
+}
+
+.customize-section {
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+}
+
+.customize-section:last-child {
+    border-bottom: none;
+}
+
+.customize-section h3 {
+    margin: 0 0 16px 0;
+    color: var(--text-primary);
+}
+
+.font-size-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+#fontSizeDisplay {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--primary);
+    min-width: 60px;
+    text-align: center;
+}
+
+.color-picker {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.color-option {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.active {
+    border-color: var(--text-primary);
+    box-shadow: 0 0 0 4px var(--bg-secondary);
+}
+
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.toggle-switch input {
+    display: none;
+}
+
+.toggle-slider {
+    width: 52px;
+    height: 28px;
+    background: var(--bg-secondary);
+    border-radius: 14px;
+    position: relative;
+    transition: background 0.3s;
+}
+
+.toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: white;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background: var(--primary);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+    transform: translateX(24px);
+}
+
+.toggle-label {
+    color: var(--text-primary);
+}
+
+/* ========================================
+   BADGES DANS LE MENU
+   ======================================== */
+
+.section-read-badge {
+    margin-left: auto;
+    font-size: 16px;
+}
+
+/* ========================================
+   BOUTONS COMMUNS
+   ======================================== */
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 12px 24px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary);
+    background: var(--bg-main);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 24px;
+        max-height: 95vh;
+    }
+
+    .flashcard-container,
+    .progress-container,
+    .quick-review-container,
+    .customize-container {
+        max-width: 100%;
+    }
+
+    .flashcard-text {
+        font-size: 18px;
+    }
+
+    .difficulty-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-difficulty {
+        width: 100%;
+    }
+
+    .progress-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .progress-actions {
+        flex-direction: column;
+    }
+
+    .quick-review-actions {
+        flex-direction: column;
+    }
+}
+
+/* ========================================
+   IMPRESSION (Mode Révision Rapide)
+   ======================================== */
+
+@media print {
+    .modal-overlay,
+    .modal-close,
+    .quick-review-actions,
+    .header,
+    .sidebar,
+    .bottom-nav,
+    .scroll-top {
+        display: none !important;
+    }
+
+    .modal-content {
+        max-width: 100%;
+        padding: 0;
+        box-shadow: none;
+    }
+
+    .critical-point {
+        page-break-inside: avoid;
+    }
+}
+
+/* ========================================
+   MODE DYSLEXIE
+   ======================================== */
+
+body.dyslexic-mode {
+    font-family: 'OpenDyslexic', sans-serif;
+    letter-spacing: 0.05em;
+    line-height: 1.8;
+}
+
+body.dyslexic-mode .content-text,
+body.dyslexic-mode .section-subtitle,
+body.dyslexic-mode .flashcard-text {
+    word-spacing: 0.2em;
+}
+
+/* ========================================
+   ANIMATIONS AU SCROLL
+   ======================================== */
+
+.section-content {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.section-content.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Boutons desktop uniquement */
+.desktop-only {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .desktop-only {
+        display: flex;
+    }
+    
+    .bottom-nav {
+        display: none;
+    }
+    
+    body {
+        padding-bottom: 0;
+    }
+}
