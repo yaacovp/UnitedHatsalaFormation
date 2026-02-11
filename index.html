@@ -111,85 +111,87 @@
         <img id="lightboxImg" src="" alt="">
     </div>
 
-<!-- SECTION FLASHCARDS - NOUVELLE CONCEPTION -->
-<div id="flashcards-section" class="content-card" style="display: none;">
-    <div class="flashcard-new-container">
+<!-- SECTION FLASHCARDS - VERSION MINIMALISTE -->
+<div id="flashcards-section" style="display: none;">
+    <div style="max-width: 500px; margin: 0 auto; padding: 20px;">
         
-        <!-- Header -->
-        <div class="flashcard-new-header">
-            <h2>🎴 Flashcards</h2>
-            <button class="btn-close-flashcards" onclick="hideFlashcardsSection()">✕</button>
+        <!-- Header simple -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="margin: 0;">🎴 Flashcards</h2>
+            <button onclick="hideFlashcardsSection()" style="font-size: 24px; background: none; border: none; cursor: pointer;">✕</button>
         </div>
 
         <!-- Compteur -->
-        <div class="flashcard-new-counter">
-            <span id="flashcard-counter-new">1 / 30</span>
+        <div id="fc-counter" style="text-align: center; font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+            1 / 30
         </div>
 
         <!-- Barre de progression -->
-        <div class="flashcard-new-progress">
-            <div class="flashcard-new-progress-fill" id="flashcard-progress-new"></div>
+        <div style="width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px; margin-bottom: 30px; overflow: hidden;">
+            <div id="fc-progress" style="height: 100%; background: #2563eb; width: 0%; transition: width 0.3s;"></div>
         </div>
 
-        <!-- CARTE (nouvelle conception) -->
-        <div class="flashcard-new-wrapper">
-            <div class="flashcard-new" id="flashcard-new">
-                
-                <!-- Face QUESTION -->
-                <div class="flashcard-new-face flashcard-new-question">
-                    <div class="flashcard-new-label">QUESTION</div>
-                    <div class="flashcard-new-text" id="flashcard-q-new"></div>
-                    <button class="flashcard-new-btn-flip" onclick="flipCardNew()">
-                        👁️ Voir la réponse
-                    </button>
+        <!-- CARTE -->
+        <div id="fc-card" style="background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); min-height: 350px; display: flex; flex-direction: column; justify-content: space-between;">
+            
+            <!-- Zone question/réponse -->
+            <div>
+                <div id="fc-label" style="text-align: center; font-size: 11px; font-weight: bold; color: #6b7280; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">
+                    QUESTION
                 </div>
+                
+                <div id="fc-text" style="font-size: 18px; line-height: 1.6; text-align: center; min-height: 200px; display: flex; align-items: center; justify-content: center; overflow-y: auto; max-height: 300px;">
+                    <!-- Texte injecté ici -->
+                </div>
+            </div>
 
-                <!-- Face RÉPONSE -->
-                <div class="flashcard-new-face flashcard-new-answer" style="display: none;">
-                    <div class="flashcard-new-label">RÉPONSE</div>
-                    <div class="flashcard-new-text" id="flashcard-a-new"></div>
-                    
-                    <!-- Boutons de difficulté -->
-                    <div class="flashcard-new-actions">
-                        <button class="flashcard-new-btn flashcard-new-btn-hard" onclick="rateCardNew(3)">
-                            😫<br><span>Difficile</span>
+            <!-- Boutons -->
+            <div id="fc-buttons">
+                <!-- Bouton "Voir réponse" (montré par défaut) -->
+                <button id="fc-btn-flip" onclick="showAnswer()" style="width: 100%; padding: 16px; background: #2563eb; color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 20px;">
+                    👁️ Voir la réponse
+                </button>
+
+                <!-- Boutons difficulté (cachés par défaut) -->
+                <div id="fc-btn-difficulty" style="display: none; margin-top: 20px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                        <button onclick="rate(3)" style="padding: 16px 10px; background: #ef4444; color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 600;">
+                            😫<br>Difficile
                         </button>
-                        <button class="flashcard-new-btn flashcard-new-btn-medium" onclick="rateCardNew(2)">
-                            😐<br><span>Moyen</span>
+                        <button onclick="rate(2)" style="padding: 16px 10px; background: #f59e0b; color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 600;">
+                            😐<br>Moyen
                         </button>
-                        <button class="flashcard-new-btn flashcard-new-btn-easy" onclick="rateCardNew(1)">
-                            😊<br><span>Facile</span>
+                        <button onclick="rate(1)" style="padding: 16px 10px; background: #10b981; color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 600;">
+                            😊<br>Facile
                         </button>
                     </div>
                 </div>
-
             </div>
         </div>
 
         <!-- Stats -->
-        <div class="flashcard-new-stats">
-            <div class="flashcard-new-stat">
-                <div class="flashcard-new-stat-icon">😊</div>
-                <div class="flashcard-new-stat-value" id="stat-easy-new">0</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px;">
+            <div style="background: white; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <div style="font-size: 28px;">😊</div>
+                <div id="fc-stat-easy" style="font-size: 24px; font-weight: bold; color: #2563eb;">0</div>
             </div>
-            <div class="flashcard-new-stat">
-                <div class="flashcard-new-stat-icon">😐</div>
-                <div class="flashcard-new-stat-value" id="stat-medium-new">0</div>
+            <div style="background: white; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <div style="font-size: 28px;">😐</div>
+                <div id="fc-stat-medium" style="font-size: 24px; font-weight: bold; color: #2563eb;">0</div>
             </div>
-            <div class="flashcard-new-stat">
-                <div class="flashcard-new-stat-icon">😫</div>
-                <div class="flashcard-new-stat-value" id="stat-hard-new">0</div>
+            <div style="background: white; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <div style="font-size: 28px;">😫</div>
+                <div id="fc-stat-hard" style="font-size: 24px; font-weight: bold; color: #2563eb;">0</div>
             </div>
         </div>
 
         <!-- Bouton mélanger -->
-        <button class="flashcard-new-btn-shuffle" onclick="shuffleFlashcardsNew()">
+        <button onclick="shuffle()" style="width: 100%; padding: 14px; margin-top: 20px; background: white; border: 2px solid #e5e7eb; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer;">
             🔀 Mélanger les cartes
         </button>
 
     </div>
 </div>
-
     <!-- Modal Progression -->
     <div class="modal" id="progressModal">
         <div class="modal-overlay" id="progressOverlay"></div>

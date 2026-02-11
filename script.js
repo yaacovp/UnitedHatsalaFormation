@@ -652,120 +652,148 @@
         }
 
 
-
 // ========================================
-// FLASHCARDS - NOUVELLE VERSION SIMPLE
+// FLASHCARDS - VERSION ULTRA-SIMPLE
 // ========================================
 
-let flashcards = [];
-let currentFlashcardIndex = 0;
-let flashcardStats = { easy: 0, medium: 0, hard: 0 };
+let cards = [];
+let idx = 0;
+let stats = { easy: 0, medium: 0, hard: 0 };
+let currentQuestion = '';
+let currentAnswer = '';
 
+// Charger les flashcards
 async function loadFlashcards() {
     try {
-        const response = await fetch('data/flashcards.json');
-        const data = await response.json();
-        flashcards = data.flashcards;
-        console.log('✅ Flashcards chargées:', flashcards.length);
-    } catch (error) {
-        console.error('❌ Erreur chargement flashcards:', error);
+        const res = await fetch('data/flashcards.json');
+        const data = await res.json();
+        cards = data.flashcards;
+        console.log('✅ Flashcards chargées:', cards.length);
+    } catch (err) {
+        console.error('❌ Erreur:', err);
+        alert('Erreur de chargement des flashcards');
     }
 }
 
+// Initialiser le mode flashcards
 function initFlashcardMode() {
-    // Bouton header
+    // Bouton header (desktop)
     const headerBtn = document.getElementById('flashcardsHeaderBtn');
     if (headerBtn) {
-        headerBtn.addEventListener('click', showFlashcardsSection);
+        headerBtn.addEventListener('click', openFlashcards);
     }
     
-    // Bottom nav
-    document.getElementById('navFlashcards').addEventListener('click', () => {
-        showFlashcardsSection();
-        document.querySelectorAll('.bottom-nav-item').forEach(item => item.classList.remove('active'));
-        document.getElementById('navFlashcards').classList.add('active');
-    });
+    // Bottom nav (mobile)
+    const navBtn = document.getElementById('navFlashcards');
+    if (navBtn) {
+        navBtn.addEventListener('click', openFlashcards);
+    }
     
     // Bouton home
-    document.getElementById('navHome').addEventListener('click', () => {
-        hideFlashcardsSection();
-        document.querySelectorAll('.bottom-nav-item').forEach(item => item.classList.remove('active'));
-        document.getElementById('navHome').classList.add('active');
-    });
+    const homeBtn = document.getElementById('navHome');
+    if (homeBtn) {
+        homeBtn.addEventListener('click', () => {
+            hideFlashcardsSection();
+            document.querySelectorAll('.bottom-nav-item').forEach(i => i.classList.remove('active'));
+            homeBtn.classList.add('active');
+        });
+    }
 }
 
-function showFlashcardsSection() {
+// Ouvrir les flashcards
+function openFlashcards() {
+    if (cards.length === 0) {
+        alert('⏳ Chargement en cours...');
+        return;
+    }
+    
     document.getElementById('contentArea').style.display = 'none';
     document.getElementById('flashcards-section').style.display = 'block';
     
-    if (flashcards.length > 0) {
-        currentFlashcardIndex = 0;
-        showCardNew(0);
-    }
+    // Mettre à jour bottom nav
+    document.querySelectorAll('.bottom-nav-item').forEach(i => i.classList.remove('active'));
+    const navBtn = document.getElementById('navFlashcards');
+    if (navBtn) navBtn.classList.add('active');
+    
+    // Afficher première carte
+    idx = 0;
+    showCard();
 }
 
+// Fermer les flashcards
 function hideFlashcardsSection() {
     document.getElementById('contentArea').style.display = 'block';
     document.getElementById('flashcards-section').style.display = 'none';
 }
 
-function shuffleFlashcardsNew() {
-    for (let i = flashcards.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
-    }
-    currentFlashcardIndex = 0;
-    showCardNew(0);
-}
-
-function showCardNew(index) {
-    if (index < 0 || index >= flashcards.length) return;
+// Afficher une carte
+function showCard() {
+    if (idx < 0 || idx >= cards.length) return;
     
-    const card = flashcards[index];
+    const card = cards[idx];
+    currentQuestion = card.question;
+    currentAnswer = card.answer;
     
-    // Afficher question
-    document.getElementById('flashcard-q-new').textContent = card.question;
-    document.getElementById('flashcard-a-new').innerHTML = card.answer;
+    // Afficher la question
+    document.getElementById('fc-label').textContent = 'QUESTION';
+    document.getElementById('fc-text').textContent = currentQuestion;
+    document.getElementById('fc-text').style.textAlign = 'center';
+    document.getElementById('fc-text').style.fontSize = '18px';
     
-    // Réinitialiser l'affichage (montrer question)
-    document.querySelector('.flashcard-new-question').style.display = 'flex';
-    document.querySelector('.flashcard-new-answer').style.display = 'none';
+    // Montrer bouton "Voir réponse"
+    document.getElementById('fc-btn-flip').style.display = 'block';
+    document.getElementById('fc-btn-difficulty').style.display = 'none';
     
     // Compteur
-    document.getElementById('flashcard-counter-new').textContent = `${index + 1} / ${flashcards.length}`;
+    document.getElementById('fc-counter').textContent = `${idx + 1} / ${cards.length}`;
     
     // Barre de progression
-    const progress = ((index + 1) / flashcards.length) * 100;
-    document.getElementById('flashcard-progress-new').style.width = progress + '%';
-    
-    currentFlashcardIndex = index;
+    const pct = ((idx + 1) / cards.length) * 100;
+    document.getElementById('fc-progress').style.width = pct + '%';
 }
 
-function flipCardNew() {
-    // Cacher question, montrer réponse
-    document.querySelector('.flashcard-new-question').style.display = 'none';
-    document.querySelector('.flashcard-new-answer').style.display = 'flex';
+// Montrer la réponse
+function showAnswer() {
+    document.getElementById('fc-label').textContent = 'RÉPONSE';
+    document.getElementById('fc-text').innerHTML = currentAnswer;
+    document.getElementById('fc-text').style.textAlign = 'left';
+    document.getElementById('fc-text').style.fontSize = '16px';
+    
+    // Cacher bouton flip, montrer boutons difficulté
+    document.getElementById('fc-btn-flip').style.display = 'none';
+    document.getElementById('fc-btn-difficulty').style.display = 'block';
 }
 
-function rateCardNew(difficulty) {
-    // Incrémenter stats
-    if (difficulty === 1) flashcardStats.easy++;
-    else if (difficulty === 2) flashcardStats.medium++;
-    else if (difficulty === 3) flashcardStats.hard++;
+// Noter la difficulté
+function rate(difficulty) {
+    if (difficulty === 1) stats.easy++;
+    else if (difficulty === 2) stats.medium++;
+    else if (difficulty === 3) stats.hard++;
     
-    // Mettre à jour affichage
-    document.getElementById('stat-easy-new').textContent = flashcardStats.easy;
-    document.getElementById('stat-medium-new').textContent = flashcardStats.medium;
-    document.getElementById('stat-hard-new').textContent = flashcardStats.hard;
+    // Mettre à jour stats
+    document.getElementById('fc-stat-easy').textContent = stats.easy;
+    document.getElementById('fc-stat-medium').textContent = stats.medium;
+    document.getElementById('fc-stat-hard').textContent = stats.hard;
     
-    // Carte suivante
-    if (currentFlashcardIndex < flashcards.length - 1) {
-        setTimeout(() => showCardNew(currentFlashcardIndex + 1), 200);
+    // Passer à la suivante
+    if (idx < cards.length - 1) {
+        idx++;
+        setTimeout(showCard, 200);
     } else {
-        alert(`🎉 Terminé !\n\n😊 Faciles : ${flashcardStats.easy}\n😐 Moyennes : ${flashcardStats.medium}\n😫 Difficiles : ${flashcardStats.hard}`);
-        currentFlashcardIndex = 0;
-        showCardNew(0);
+        alert(`🎉 Terminé !\n\n😊 Faciles : ${stats.easy}\n😐 Moyennes : ${stats.medium}\n😫 Difficiles : ${stats.hard}`);
+        idx = 0;
+        showCard();
     }
+}
+
+// Mélanger les cartes
+function shuffle() {
+    for (let i = cards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
+    idx = 0;
+    showCard();
 }
 
         // ========================================
