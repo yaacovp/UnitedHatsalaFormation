@@ -663,14 +663,15 @@
 
 
 // ========================================
-// FLASHCARDS - VERSION ULTRA-SIMPLE
+// FLASHCARDS - VERSION COMPLÈTE
 // ========================================
 
 let cards = [];
+let filteredCards = [];
 let idx = 0;
 let stats = { easy: 0, medium: 0, hard: 0 };
-let currentQuestion = '';
-let currentAnswer = '';
+let isFlipped = false;
+let currentFilter = 'all';
 
 // Charger les flashcards
 async function loadFlashcards() {
@@ -678,10 +679,54 @@ async function loadFlashcards() {
         const res = await fetch('data/flashcards.json');
         const data = await res.json();
         cards = data.flashcards;
+        
+        // Charger progression depuis localStorage
+        loadProgress();
+        
+        filteredCards = [...cards];
         console.log('✅ Flashcards chargées:', cards.length);
     } catch (err) {
         console.error('❌ Erreur:', err);
         alert('Erreur de chargement des flashcards');
+    }
+}
+
+// Charger la progression
+function loadProgress() {
+    try {
+        const saved = localStorage.getItem('flashcardProgress');
+        if (saved) {
+            const progress = JSON.parse(saved);
+            
+            stats = { easy: 0, medium: 0, hard: 0 };
+            
+            cards.forEach(card => {
+                if (progress[card.id]) {
+                    card.difficulty = progress[card.id];
+                    
+                    if (card.difficulty === 1) stats.easy++;
+                    else if (card.difficulty === 2) stats.medium++;
+                    else if (card.difficulty === 3) stats.hard++;
+                }
+            });
+        }
+    } catch (err) {
+        console.error('Erreur chargement progression:', err);
+    }
+}
+
+// Sauvegarder la progression
+function saveProgress() {
+    try {
+        const progress = {};
+        cards.forEach(card => {
+            if (card.difficulty) {
+                progress[card.id] = card.difficulty;
+            }
+        });
+        localStorage.setItem('flashcardProgress', JSON.stringify(progress));
+    } catch (err) {
+        console.error('Erreur sauvegarde progression:', err);
     }
 }
 
@@ -708,6 +753,80 @@ function initFlashcardMode() {
             homeBtn.classList.add('active');
         });
     }
+    
+    // Swipe gestures
+    initSwipeGestures();
+    const cardWrapper = document.getElementById('fc-card-wrapper');
+    if (cardWrapper) {
+        cardWrapper.addEventListener('click', (e) => {
+            // Ne pas retourner si on clique sur un bouton
+            if (e.target.tagName === 'BUTTON') return;
+            
+            // Retourner la carte
+            flipCard();
+        });
+    }
+}
+
+// Swipe gestures pour mobile
+function initSwipeGestures() {
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    const cardWrapper = document.getElementById('fc-card-wrapper');
+    if (!cardWrapper) return;
+    
+    cardWrapper.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+    
+    cardWrapper.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchEndX - touchStartX;
+        
+        if (Math.abs(diff) > swipeThreshold && isFlipped) {
+            // Swipe sur le verso = noter
+            if (diff > 0) {
+                rate(1); // Swipe droite = facile
+            } else {
+                rate(3); // Swipe gauche = difficile
+            }
+        }
+    }
+}
+
+// Filtrer les cartes par section
+function filterCards(section) {
+    currentFilter = section;
+    
+    // Mettre à jour les boutons
+    document.querySelectorAll('.fc-filter-btn').forEach(btn => {
+        btn.style.background = 'var(--bg-card)';
+        btn.style.color = 'var(--text-primary)';
+        btn.style.border = '2px solid var(--border)';
+    });
+    
+    const activeBtn = document.getElementById(`filter-${section}`);
+    if (activeBtn) {
+        activeBtn.style.background = 'var(--primary)';
+        activeBtn.style.color = 'white';
+        activeBtn.style.border = 'none';
+    }
+    
+    // Filtrer les cartes
+    if (section === 'all') {
+        filteredCards = [...cards];
+    } else {
+        filteredCards = cards.filter(card => card.section.startsWith(section));
+    }
+    
+    idx = 0;
+    showCard();
 }
 
 // Ouvrir les flashcards
@@ -727,88 +846,114 @@ function openFlashcards() {
     
     // Afficher première carte
     idx = 0;
+    updateStats();
     showCard();
 }
 
 // Fermer les flashcards
 function hideFlashcardsSection() {
-    // Cacher les flashcards
     document.getElementById('flashcards-section').style.display = 'none';
-    
-    // Réafficher le contenu
     const contentArea = document.getElementById('contentArea');
     contentArea.style.display = 'block';
     
-    // Si le contenu est vide, le recharger
     if (!contentArea.innerHTML || contentArea.innerHTML.trim() === '') {
         loadAllSections();
     }
 }
+
 // Afficher une carte
 function showCard() {
-    if (idx < 0 || idx >= cards.length) return;
+    if (idx < 0 || idx >= filteredCards.length) return;
     
-    const card = cards[idx];
-    currentQuestion = card.question;
-    currentAnswer = card.answer;
+    const card = filteredCards[idx];
     
-    // Afficher la question
-    document.getElementById('fc-label').textContent = 'QUESTION';
-    document.getElementById('fc-text').textContent = currentQuestion;
-    document.getElementById('fc-text').style.textAlign = 'center';
-    document.getElementById('fc-text').style.fontSize = '18px';
+    // Réinitialiser le flip
+    isFlipped = false;
+    document.getElementById('fc-card').style.transform = 'rotateY(0deg)';
     
-    // Montrer bouton "Voir réponse"
-    document.getElementById('fc-btn-flip').style.display = 'block';
-    document.getElementById('fc-btn-difficulty').style.display = 'none';
+    // Afficher question
+    document.getElementById('fc-question').textContent = card.question;
+    document.getElementById('fc-answer').innerHTML = card.answer;
     
     // Compteur
-    document.getElementById('fc-counter').textContent = `${idx + 1} / ${cards.length}`;
+    document.getElementById('fc-counter').textContent = `${idx + 1} / ${filteredCards.length}`;
     
     // Barre de progression
-    const pct = ((idx + 1) / cards.length) * 100;
+    const pct = ((idx + 1) / filteredCards.length) * 100;
     document.getElementById('fc-progress').style.width = pct + '%';
 }
 
-// Montrer la réponse
-function showAnswer() {
-    document.getElementById('fc-label').textContent = 'RÉPONSE';
-    document.getElementById('fc-text').innerHTML = currentAnswer;
-    document.getElementById('fc-text').style.textAlign = 'left';
-    document.getElementById('fc-text').style.fontSize = '16px';
-    
-    // Cacher bouton flip, montrer boutons difficulté
-    document.getElementById('fc-btn-flip').style.display = 'none';
-    document.getElementById('fc-btn-difficulty').style.display = 'block';
+// Retourner la carte (flip 3D)
+function flipCard() {
+    isFlipped = !isFlipped;
+    const rotation = isFlipped ? 180 : 0;
+    document.getElementById('fc-card').style.transform = `rotateY(${rotation}deg)`;
 }
 
 // Noter la difficulté
 function rate(difficulty) {
+    const card = filteredCards[idx];
+    
+    // Retirer ancienne difficulté des stats
+    if (card.difficulty === 1) stats.easy--;
+    else if (card.difficulty === 2) stats.medium--;
+    else if (card.difficulty === 3) stats.hard--;
+    
+    // Ajouter nouvelle difficulté
+    card.difficulty = difficulty;
     if (difficulty === 1) stats.easy++;
     else if (difficulty === 2) stats.medium++;
     else if (difficulty === 3) stats.hard++;
     
-    // Mettre à jour stats
-    document.getElementById('fc-stat-easy').textContent = stats.easy;
-    document.getElementById('fc-stat-medium').textContent = stats.medium;
-    document.getElementById('fc-stat-hard').textContent = stats.hard;
+    updateStats();
+    saveProgress();
     
     // Passer à la suivante
-    if (idx < cards.length - 1) {
+    if (idx < filteredCards.length - 1) {
         idx++;
         setTimeout(showCard, 200);
     } else {
-        alert(`🎉 Terminé !\n\n😊 Faciles : ${stats.easy}\n😐 Moyennes : ${stats.medium}\n😫 Difficiles : ${stats.hard}`);
-        idx = 0;
+        setTimeout(() => {
+            alert(`🎉 Terminé !\n\n😊 Faciles : ${stats.easy}\n😐 Moyennes : ${stats.medium}\n😫 Difficiles : ${stats.hard}`);
+            idx = 0;
+            showCard();
+        }, 200);
+    }
+}
+
+// Mettre à jour les stats
+function updateStats() {
+    document.getElementById('fc-stat-easy').textContent = stats.easy;
+    document.getElementById('fc-stat-medium').textContent = stats.medium;
+    document.getElementById('fc-stat-hard').textContent = stats.hard;
+}
+
+// Carte précédente
+function previousCard() {
+    if (idx > 0) {
+        idx--;
         showCard();
     }
 }
 
+// Carte suivante
+function nextCard() {
+    if (idx < filteredCards.length - 1) {
+        idx++;
+        showCard();
+    }
+}
+
+// Passer la carte
+function skipCard() {
+    nextCard();
+}
+
 // Mélanger les cartes
 function shuffle() {
-    for (let i = cards.length - 1; i > 0; i--) {
+    for (let i = filteredCards.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [cards[i], cards[j]] = [cards[j], cards[i]];
+        [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
     }
     idx = 0;
     showCard();
