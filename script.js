@@ -1,6 +1,18 @@
        // Données du contenu - Chargement depuis JSON
         let content = {};
         
+        // États globaux (progression, préférences, session)
+        // ⚠️ Important : ces variables doivent être définies avant tout appel
+        // pour éviter les erreurs JavaScript qui peuvent bloquer le rendu,
+        // en particulier sur mobile / PWA.
+        let readSections = new Set();
+        let sessionStartTime = Date.now();
+        let preferences = {
+            fontSize: 16,
+            accentColor: '#2563eb',
+            dyslexicMode: false
+        };
+        
         // Fonction pour charger le contenu
         async function loadContent() {
             try {
