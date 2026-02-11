@@ -756,29 +756,49 @@ function initFlashcardMode() {
     // Swipe gestures
     initSwipeGestures();
     
-    // Clic sur la carte pour retourner (AVEC PROTECTION CONTRE LE SCROLL)
+    // Clic sur la carte pour retourner (AVEC VRAIE DÉTECTION SCROLL vs CLIC)
     const cardWrapper = document.getElementById('fc-card-wrapper');
-    let isScrolling = false;
+    let touchStartY = 0;
+    let touchEndY = 0;
+    let hasMoved = false;
     
     if (cardWrapper) {
-        // Détecter le début du scroll
-        cardWrapper.addEventListener('touchstart', () => {
-            isScrolling = false;
-        });
+        // Enregistrer la position de départ
+        cardWrapper.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+            hasMoved = false;
+        }, { passive: true });
         
-        // Détecter si on scroll
-        cardWrapper.addEventListener('touchmove', () => {
-            isScrolling = true;
-        });
-        
-        // Clic pour retourner (sauf si on scrollait)
-        cardWrapper.addEventListener('click', (e) => {
-            // Ne pas retourner si :
-            // - On clique sur un bouton
-            // - On était en train de scroller
-            if (e.target.tagName === 'BUTTON' || isScrolling) return;
+        // Détecter si le doigt bouge (= scroll)
+        cardWrapper.addEventListener('touchmove', (e) => {
+            touchEndY = e.touches[0].clientY;
+            const distance = Math.abs(touchEndY - touchStartY);
             
-            // Retourner la carte
+            // Si le doigt a bougé de plus de 10px, c'est un scroll
+            if (distance > 10) {
+                hasMoved = true;
+            }
+        }, { passive: true });
+        
+        // Au relâchement : flip seulement si pas de mouvement
+        cardWrapper.addEventListener('touchend', (e) => {
+            // Ne pas retourner si :
+            // - On a scrollé (hasMoved = true)
+            // - On clique sur un bouton
+            if (hasMoved || e.target.tagName === 'BUTTON') {
+                return;
+            }
+            
+            // Sinon, c'est un vrai clic → retourner la carte
+            flipCard();
+        }, { passive: true });
+        
+        // Pour desktop (clic souris)
+        cardWrapper.addEventListener('click', (e) => {
+            // Ne retourner que si ce n'est PAS un touchend (mobile déjà géré)
+            if (e.target.tagName === 'BUTTON') return;
+            
+            // Sur desktop, pas de problème de scroll, on flip directement
             flipCard();
         });
     }
