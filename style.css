@@ -993,12 +993,16 @@
     background: var(--danger);
     color: white;
     transform: rotate(90deg);
-}/* ========================================
+}
+
+/* ========================================
    FLASHCARDS - VERSION UX OPTIMISÉE
    ======================================== */
 
 .flashcard-container {
     max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
 }
 
 .flashcard-header {
@@ -1009,6 +1013,7 @@
 .flashcard-header h2 {
     margin: 0 0 16px 0;
     color: var(--text-primary);
+    font-size: 1.75rem;
 }
 
 .flashcard-filters {
@@ -1032,11 +1037,23 @@
 
 .flashcard-filter:hover {
     border-color: var(--primary);
+    background: var(--bg-card);
 }
 
+.flashcard-filter.active {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: white;
+}
+
+/* ====== PROGRESSION ====== */
 .flashcard-progress {
     text-align: center;
     margin-bottom: 24px;
+    padding: 16px;
+    background: var(--bg-card);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .flashcard-progress span {
@@ -1044,12 +1061,13 @@
     color: var(--text-secondary);
     margin-bottom: 8px;
     display: block;
+    font-weight: 500;
 }
 
 .progress-bar-container {
     width: 100%;
     height: 8px;
-    background: var(--bg-secondary);
+    background: var(--bg-main);
     border-radius: 4px;
     overflow: hidden;
 }
@@ -1062,19 +1080,18 @@
     width: 0%;
 }
 
+/* ====== CARTE PRINCIPALE ====== */
 .flashcard {
     perspective: 1000px;
     margin-bottom: 24px;
-    min-height: 350px;
-    max-height: 65vh;
+    height: 450px;
+    position: relative;
 }
 
 .flashcard-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 350px;
-    max-height: 65vh;
     text-align: center;
     transition: transform 0.6s;
     transform-style: preserve-3d;
@@ -1090,50 +1107,84 @@
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    background: var(--bg-secondary);
+    background: var(--bg-card);
+    border: 2px solid var(--border);
     border-radius: 16px;
-    padding: 28px 24px;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: stretch;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
 .flashcard-back {
     transform: rotateY(180deg);
 }
 
+/* ====== EN-TÊTE DE CARTE ====== */
 .flashcard-label {
     font-size: 11px;
     font-weight: 700;
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 16px;
     text-align: center;
     flex-shrink: 0;
+    padding: 16px 24px 12px 24px;
+    background: var(--bg-main);
+    border-bottom: 1px solid var(--border);
 }
 
+/* ====== CONTENU DE LA CARTE ====== */
 .flashcard-text {
-    font-size: 18px;
-    line-height: 1.55;
-    color: var(--text-primary);
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 24px;
     overflow-y: auto;
     overflow-x: hidden;
     width: 100%;
-    padding: 8px;
     text-align: center;
-    margin: 0;
+}
+
+.flashcard-text > div {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Style du texte QUESTION (recto) */
+.flashcard-front .flashcard-text {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Style du texte RÉPONSE (verso) */
+.flashcard-back .flashcard-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    text-align: left;
+}
+
+/* Formatage HTML dans les réponses */
+.flashcard-back .flashcard-text strong {
+    color: var(--primary);
+    font-weight: 600;
+    display: inline-block;
+}
+
+.flashcard-back .flashcard-text br {
+    display: block;
+    content: "";
+    margin: 0.4rem 0;
 }
 
 /* Scrollbar personnalisée */
 .flashcard-text::-webkit-scrollbar {
-    width: 5px;
+    width: 6px;
 }
 
 .flashcard-text::-webkit-scrollbar-track {
@@ -1141,39 +1192,58 @@
 }
 
 .flashcard-text::-webkit-scrollbar-thumb {
-    background: var(--text-secondary);
+    background: var(--border);
     border-radius: 10px;
-    opacity: 0.5;
 }
 
 .flashcard-text::-webkit-scrollbar-thumb:hover {
     background: var(--primary);
 }
 
+/* ====== BOUTON RETOURNER ====== */
 .flashcard-flip-btn {
-    margin-top: 20px;
     flex-shrink: 0;
+    margin: 16px 24px 20px 24px;
+    padding: 12px 24px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
+.flashcard-flip-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* ====== BOUTONS DE DIFFICULTÉ ====== */
 .difficulty-buttons {
     display: flex;
     gap: 10px;
-    margin-top: 20px;
-    flex-wrap: wrap;
+    padding: 16px 24px 20px 24px;
+    flex-wrap: nowrap;
     justify-content: center;
     flex-shrink: 0;
+    background: var(--bg-main);
+    border-top: 1px solid var(--border);
 }
 
 .btn-difficulty {
-    padding: 11px 22px;
+    padding: 12px 20px;
     border: none;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
-    font-size: 15px;
+    font-size: 14px;
     flex: 1;
-    min-width: 100px;
+    min-width: 0;
+    white-space: nowrap;
 }
 
 .difficulty-easy {
@@ -1209,6 +1279,11 @@
     box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
+.btn-difficulty:active {
+    transform: translateY(0);
+}
+
+/* ====== NAVIGATION ====== */
 .flashcard-navigation {
     display: flex;
     gap: 12px;
@@ -1216,32 +1291,114 @@
     margin-bottom: 24px;
 }
 
+.flashcard-navigation button {
+    padding: 10px 20px;
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.flashcard-navigation button:hover {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: white;
+}
+
+/* ====== STATISTIQUES ====== */
 .flashcard-stats {
     display: flex;
-    gap: 16px;
+    gap: 24px;
     justify-content: center;
-    padding-top: 24px;
+    padding: 20px;
     border-top: 1px solid var(--border);
+    background: var(--bg-card);
+    border-radius: 12px;
+    margin-top: 24px;
 }
 
 .stat-item {
     text-align: center;
+    flex: 1;
 }
 
 .stat-label {
     display: block;
     font-size: 12px;
     color: var(--text-secondary);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
 }
 
 .stat-value {
     display: block;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 700;
     color: var(--primary);
 }
 
+/* ====== RESPONSIVE MOBILE ====== */
+@media (max-width: 640px) {
+    .flashcard-container {
+        padding: 0.5rem;
+    }
+
+    .flashcard {
+        height: 500px;
+    }
+
+    .flashcard-front .flashcard-text {
+        font-size: 1.125rem;
+        padding: 20px;
+    }
+
+    .flashcard-back .flashcard-text {
+        font-size: 0.9375rem;
+        padding: 20px;
+    }
+
+    .difficulty-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .btn-difficulty {
+        width: 100%;
+        padding: 14px;
+    }
+
+    .flashcard-stats {
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .stat-value {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 400px) {
+    .flashcard {
+        height: 480px;
+    }
+
+    .flashcard-front .flashcard-text {
+        font-size: 1rem;
+    }
+
+    .flashcard-back .flashcard-text {
+        font-size: 0.875rem;
+    }
+
+    .flashcard-label {
+        font-size: 10px;
+    }
+}
 /* ========================================
    PROGRESSION
    ======================================== */
