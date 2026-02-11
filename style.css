@@ -994,8 +994,9 @@
     color: white;
     transform: rotate(90deg);
 }
+
 /* ========================================
-   FLASHCARDS - NOUVELLE CONCEPTION MOBILE
+   FLASHCARDS - VERSION FLIP 3D
    ======================================== */
 
 .flashcard-new-container {
@@ -1007,7 +1008,6 @@
     flex-direction: column;
 }
 
-/* Header */
 .flashcard-new-header {
     display: flex;
     justify-content: space-between;
@@ -1030,12 +1030,8 @@
     color: var(--text-primary);
     font-size: 1.5rem;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-/* Compteur */
 .flashcard-new-counter {
     text-align: center;
     font-size: 1.125rem;
@@ -1044,7 +1040,6 @@
     margin-bottom: 12px;
 }
 
-/* Barre de progression */
 .flashcard-new-progress {
     width: 100%;
     height: 8px;
@@ -1062,35 +1057,51 @@
     width: 0%;
 }
 
-/* Wrapper de la carte */
+/* Wrapper avec perspective pour 3D */
 .flashcard-new-wrapper {
-    flex: 1;
+    perspective: 1000px;
+    margin-bottom: 24px;
+    min-height: 450px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 24px;
-    min-height: 400px;
 }
 
-/* Carte principale */
+/* Carte avec transition 3D */
 .flashcard-new {
+    position: relative;
     width: 100%;
     max-width: 500px;
-    background: var(--bg-card);
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-    overflow: hidden;
+    height: 450px;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
 }
 
-/* Face de la carte */
+/* Rotation quand flipped */
+.flashcard-new.flipped {
+    transform: rotateY(180deg);
+}
+
+/* Faces de la carte */
 .flashcard-new-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background: var(--bg-card);
+    border-radius: 20px;
     padding: 32px 24px;
     display: flex;
     flex-direction: column;
-    min-height: 400px;
+    justify-content: space-between;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* Label QUESTION/RÉPONSE */
+/* Face arrière retournée de 180° */
+.flashcard-new-answer {
+    transform: rotateY(180deg);
+}
+
 .flashcard-new-label {
     text-align: center;
     font-size: 0.75rem;
@@ -1101,13 +1112,11 @@
     margin-bottom: 24px;
 }
 
-/* Texte de la carte */
 .flashcard-new-text {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
     font-size: 1.125rem;
     line-height: 1.7;
     color: var(--text-primary);
@@ -1115,25 +1124,25 @@
     overflow-y: auto;
 }
 
-/* Texte question (plus gros) */
+/* Question (centré, gros) */
 .flashcard-new-question .flashcard-new-text {
+    text-align: center;
     font-size: 1.25rem;
     font-weight: 500;
 }
 
-/* Texte réponse (aligné à gauche) */
+/* Réponse (gauche, normal) */
 .flashcard-new-answer .flashcard-new-text {
     text-align: left;
     font-size: 1rem;
 }
 
-/* Support HTML dans les réponses */
 .flashcard-new-answer .flashcard-new-text strong {
     color: var(--primary);
     font-weight: 600;
 }
 
-/* Bouton "Voir la réponse" */
+/* Bouton flip */
 .flashcard-new-btn-flip {
     width: 100%;
     padding: 16px;
@@ -1150,10 +1159,9 @@
 
 .flashcard-new-btn-flip:active {
     transform: scale(0.98);
-    background: #1d4ed8;
 }
 
-/* Actions (boutons difficulté) */
+/* Boutons difficulté */
 .flashcard-new-actions {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -1177,8 +1185,6 @@
 
 .flashcard-new-btn span {
     font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 .flashcard-new-btn:active {
@@ -1224,7 +1230,6 @@
 .flashcard-new-stat-value {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--primary);
 }
 
 /* Bouton mélanger */
@@ -1243,9 +1248,6 @@
 
 .flashcard-new-btn-shuffle:active {
     transform: scale(0.98);
-    border-color: var(--primary);
-    background: var(--primary);
-    color: white;
 }
 
 /* Scrollbar */
@@ -1674,24 +1676,61 @@
    ======================================== */
 
 @media print {
-    .modal-overlay,
-    .modal-close,
-    .quick-review-actions,
-    .header,
-    .sidebar,
-    .bottom-nav,
-    .scroll-top {
+    /* Forcer un fond clair (éviter les pages noires en mode sombre) */
+    html,
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    /* Masquer tout le reste de l'application par défaut */
+    body * {
         display: none !important;
     }
 
-    .modal-content {
-        max-width: 100%;
-        padding: 0;
-        box-shadow: none;
+    /* Ne garder visibles que les éléments utiles de la Révision Rapide */
+    #quickReviewModal,
+    #quickReviewModal .modal-content,
+    #quickReviewModal .quick-review-header,
+    #quickReviewContent,
+    #quickReviewContent * {
+        display: block !important;
     }
 
+    /* Ne jamais imprimer l'overlay ou les boutons d'action */
+    #quickReviewOverlay,
+    #closeQuickReview,
+    .quick-review-actions {
+        display: none !important;
+    }
+
+    /* Forcer la modale en mode "page" plein écran pour l'impression */
+    #quickReviewModal {
+        position: static !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    #quickReviewModal .modal-content {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 10mm !important; /* marges papier confortables */
+        box-shadow: none !important;
+        background: #ffffff !important;
+        max-height: none !important;      /* ne pas couper à 90vh */
+        overflow: visible !important;     /* tout le contenu doit être imprimé */
+    }
+
+    /* S'assurer que la zone de contenu n'est pas scrollée mais entièrement imprimée */
+    #quickReviewContent {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    /* Chaque point critique évite d'être coupé en plein milieu de page */
     .critical-point {
         page-break-inside: avoid;
+        background: transparent !important;
     }
 }
 

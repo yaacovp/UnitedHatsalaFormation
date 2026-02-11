@@ -111,125 +111,131 @@
         <img id="lightboxImg" src="" alt="">
     </div>
 
-<!-- SECTION FLASHCARDS - VERSION COMPLÈTE -->
-<div id="flashcards-section" style="display: none;">
-    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        
-        <!-- Header avec bouton fermer -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <h2 style="margin: 0; color: var(--text-primary);">🎴 Flashcards</h2>
-            <button onclick="hideFlashcardsSection()" style="font-size: 24px; background: none; border: none; cursor: pointer; color: var(--text-primary);">✕</button>
-        </div>
+    <!-- SECTION FLASHCARDS - structurée avec .flashcard-new-* mais compatible JS existant -->
+    <div id="flashcards-section" style="display: none;">
+        <div class="flashcard-new-container">
+            
+            <!-- Header avec bouton fermer -->
+            <div class="flashcard-new-header">
+                <h2>🎴 Flashcards</h2>
+                <button type="button" class="btn-close-flashcards" onclick="hideFlashcardsSection()">✕</button>
+            </div>
 
-        <!-- Filtres par section -->
-        <div style="display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px;">
-            <button onclick="filterCards('all')" id="filter-all" class="fc-filter-btn" style="padding: 8px 16px; background: var(--primary); color: white; border: none; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;">
-                Toutes
-            </button>
-            <button onclick="filterCards('intro')" id="filter-intro" class="fc-filter-btn" style="padding: 8px 16px; background: var(--bg-card); color: var(--text-primary); border: 2px solid var(--border); border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;">
-                Intro
-            </button>
-            <button onclick="filterCards('nerveux')" id="filter-nerveux" class="fc-filter-btn" style="padding: 8px 16px; background: var(--bg-card); color: var(--text-primary); border: 2px solid var(--border); border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;">
-                Nerveux
-            </button>
-            <button onclick="filterCards('respiratoire')" id="filter-respiratoire" class="fc-filter-btn" style="padding: 8px 16px; background: var(--bg-card); color: var(--text-primary); border: 2px solid var(--border); border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;">
-                Respiratoire
-            </button>
-            <button onclick="filterCards('cardio')" id="filter-cardio" class="fc-filter-btn" style="padding: 8px 16px; background: var(--bg-card); color: var(--text-primary); border: 2px solid var(--border); border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;">
-                Cardio
-            </button>
-        </div>
+            <!-- Filtres par section -->
+            <div style="display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px;">
+                <button onclick="filterCards('all')" id="filter-all" class="fc-filter-btn" style="padding: 8px 16px; background: var(--primary); color: white; border: none; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                    Toutes
+                </button>
+                <button onclick="filterCards('intro')" id="filter-intro" class="fc-filter-btn" style="padding: 8px 16px; background: var(--bg-card); color: var(--text-primary); border: 2px solid var(--border); border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                    Intro
+                </button>
+                <button onclick="filterCards('nerveux')" id="filter-nerveux" class="fc-filter-btn" style="padding: 8px 16px; background: var(--bg-card); color: var(--text-primary); border: 2px solid var(--border); border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                    Nerveux
+                </button>
+                <button onclick="filterCards('respiratoire')" id="filter-respiratoire" class="fc-filter-btn" style="padding: 8px 16px; background: var(--bg-card); color: var(--text-primary); border: 2px solid var(--border); border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                    Respiratoire
+                </button>
+                <button onclick="filterCards('cardio')" id="filter-cardio" class="fc-filter-btn" style="padding: 8px 16px; background: var(--bg-card); color: var(--text-primary); border: 2px solid var(--border); border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                    Cardio
+                </button>
+            </div>
 
-        <!-- Compteur -->
-        <div id="fc-counter" style="text-align: center; font-size: 18px; font-weight: bold; margin-bottom: 10px; color: var(--text-primary);">
-            1 / 30
-        </div>
+            <!-- Compteur -->
+            <div id="fc-counter" class="flashcard-new-counter">
+                1 / 30
+            </div>
 
-        <!-- Barre de progression -->
-        <div style="width: 100%; height: 6px; background: var(--bg-main); border-radius: 3px; margin-bottom: 30px; overflow: hidden;">
-            <div id="fc-progress" style="height: 100%; background: linear-gradient(90deg, var(--primary), var(--success)); width: 0%; transition: width 0.3s;"></div>
-        </div>
+            <!-- Barre de progression -->
+            <div class="flashcard-new-progress">
+                <div id="fc-progress" class="flashcard-new-progress-fill"></div>
+            </div>
 
-        <!-- CARTE avec flip 3D -->
-        <div id="fc-card-wrapper" style="perspective: 1000px; margin-bottom: 30px; min-height: 400px;">
-            <div id="fc-card" style="position: relative; width: 100%; min-height: 400px; transition: transform 0.6s; transform-style: preserve-3d;">
-                
-                <!-- FACE AVANT (Question) -->
-                <div id="fc-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: var(--bg-card); color: var(--text-primary); border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between;">
-                    <div>
-                        <div style="text-align: center; font-size: 11px; font-weight: bold; color: var(--text-secondary); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">
-                            QUESTION
+            <!-- Carte (sans 3D, gérée via JS en affichant/cachant les faces) -->
+            <div id="fc-card-wrapper" class="flashcard-new-wrapper">
+                <div id="fc-card" class="flashcard-new">
+                    
+                    <!-- FACE AVANT (Question) -->
+                    <div id="fc-front" class="flashcard-new-face flashcard-new-question">
+                        <div>
+                            <div class="flashcard-new-label">
+                                QUESTION
+                            </div>
+                            <div id="fc-question" class="flashcard-new-text">
+                                <!-- Question -->
+                            </div>
                         </div>
-                        <div id="fc-question" style="font-size: 18px; line-height: 1.6; text-align: center; color: var(--text-primary); min-height: 200px; display: flex; align-items: center; justify-content: center; overflow-y: auto; max-height: 250px;">
-                            <!-- Question -->
+                        <button type="button" class="flashcard-new-btn-flip" onclick="flipCard()">
+                            👁️ Voir la réponse
+                        </button>
+                    </div>
+
+                    <!-- FACE ARRIÈRE (Réponse) -->
+                    <div id="fc-back" class="flashcard-new-face flashcard-new-answer">
+                        <div>
+                            <div class="flashcard-new-label">
+                                RÉPONSE
+                            </div>
+                            <div id="fc-answer" class="flashcard-new-text">
+                                <!-- Réponse -->
+                            </div>
+                        </div>
+                        <div class="flashcard-new-actions">
+                            <button type="button" class="flashcard-new-btn flashcard-new-btn-hard" onclick="rate(3)">
+                                😫
+                                <span>Difficile</span>
+                            </button>
+                            <button type="button" class="flashcard-new-btn flashcard-new-btn-medium" onclick="rate(2)">
+                                😐
+                                <span>Moyen</span>
+                            </button>
+                            <button type="button" class="flashcard-new-btn flashcard-new-btn-easy" onclick="rate(1)">
+                                😊
+                                <span>Facile</span>
+                            </button>
                         </div>
                     </div>
-                    <button onclick="flipCard()" style="width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 20px;">
-                        👁️ Voir la réponse
-                    </button>
                 </div>
+            </div>
 
-                <!-- FACE ARRIÈRE (Réponse) -->
-                <div id="fc-back" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: var(--bg-card); color: var(--text-primary); border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between; transform: rotateY(180deg);">
-                    <div>
-                        <div style="text-align: center; font-size: 11px; font-weight: bold; color: var(--text-secondary); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">
-                            RÉPONSE
-                        </div>
-                        <div id="fc-answer" style="font-size: 16px; line-height: 1.7; text-align: left; color: var(--text-primary); min-height: 200px; overflow-y: auto; max-height: 250px;">
-                            <!-- Réponse -->
-                        </div>
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px;">
-                        <button onclick="rate(3)" style="padding: 16px 10px; background: var(--danger); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 600;">
-                            😫<br>Difficile
-                        </button>
-                        <button onclick="rate(2)" style="padding: 16px 10px; background: var(--warning); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 600;">
-                            😐<br>Moyen
-                        </button>
-                        <button onclick="rate(1)" style="padding: 16px 10px; background: var(--success); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 600;">
-                            😊<br>Facile
-                        </button>
-                    </div>
+            <!-- Navigation : Précédent / Passer / Suivant -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+                <button type="button" onclick="previousCard()" style="padding: 12px; background: var(--bg-card); color: var(--text-primary); border: 2px solid var(--border); border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer;">
+                    ← Précédent
+                </button>
+                <button type="button" onclick="skipCard()" style="padding: 12px; background: var(--bg-card); color: var(--text-primary); border: 2px solid var(--border); border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer;">
+                    Passer →
+                </button>
+                <button type="button" onclick="nextCard()" style="padding: 12px; background: var(--bg-card); color: var(--text-primary); border: 2px solid var(--border); border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer;">
+                    Suivant →
+                </button>
+            </div>
+
+            <!-- Stats -->
+            <div class="flashcard-new-stats">
+                <div class="flashcard-new-stat">
+                    <div class="flashcard-new-stat-icon">😊</div>
+                    <div id="fc-stat-easy" class="flashcard-new-stat-value">0</div>
+                </div>
+                <div class="flashcard-new-stat">
+                    <div class="flashcard-new-stat-icon">😐</div>
+                    <div id="fc-stat-medium" class="flashcard-new-stat-value">0</div>
+                </div>
+                <div class="flashcard-new-stat">
+                    <div class="flashcard-new-stat-icon">😫</div>
+                    <div id="fc-stat-hard" class="flashcard-new-stat-value">0</div>
                 </div>
             </div>
-        </div>
 
-        <!-- Navigation : Précédent / Passer / Suivant -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px;">
-            <button onclick="previousCard()" style="padding: 12px; background: var(--bg-card); color: var(--text-primary); border: 2px solid var(--border); border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer;">
-                ← Précédent
+            <!-- Bouton mélanger -->
+            <button
+                type="button"
+                class="flashcard-new-btn-shuffle"
+                onclick="shuffle()">
+                🔀 Mélanger les cartes
             </button>
-            <button onclick="skipCard()" style="padding: 12px; background: var(--bg-card); color: var(--text-primary); border: 2px solid var(--border); border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer;">
-                Passer →
-            </button>
-            <button onclick="nextCard()" style="padding: 12px; background: var(--bg-card); color: var(--text-primary); border: 2px solid var(--border); border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer;">
-                Suivant →
-            </button>
+
         </div>
-
-        <!-- Stats -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px;">
-            <div style="background: var(--bg-card); border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                <div style="font-size: 28px;">😊</div>
-                <div id="fc-stat-easy" style="font-size: 24px; font-weight: bold; color: var(--success);">0</div>
-            </div>
-            <div style="background: var(--bg-card); border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                <div style="font-size: 28px;">😐</div>
-                <div id="fc-stat-medium" style="font-size: 24px; font-weight: bold; color: var(--warning);">0</div>
-            </div>
-            <div style="background: var(--bg-card); border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                <div style="font-size: 28px;">😫</div>
-                <div id="fc-stat-hard" style="font-size: 24px; font-weight: bold; color: var(--danger);">0</div>
-            </div>
-        </div>
-
-        <!-- Bouton mélanger -->
-        <button onclick="shuffle()" style="width: 100%; padding: 14px; background: var(--bg-card); border: 2px solid var(--border); border-radius: 12px; color: var(--text-primary); font-size: 16px; font-weight: 600; cursor: pointer;">
-            🔀 Mélanger les cartes
-        </button>
-
     </div>
-</div>
     <!-- Modal Progression -->
     <div class="modal" id="progressModal">
         <div class="modal-overlay" id="progressOverlay"></div>

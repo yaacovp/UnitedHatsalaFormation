@@ -867,27 +867,44 @@ function showCard() {
     
     const card = filteredCards[idx];
     
-    // Réinitialiser le flip
+    // Réinitialiser le flip (retour face question)
     isFlipped = false;
-    document.getElementById('fc-card').style.transform = 'rotateY(0deg)';
+    const cardEl = document.getElementById('fc-card');
+    if (cardEl) {
+        cardEl.classList.remove('flipped');
+    }
     
-    // Afficher question
-    document.getElementById('fc-question').textContent = card.question;
-    document.getElementById('fc-answer').innerHTML = card.answer;
+    // Afficher question + réponse
+    const questionEl = document.getElementById('fc-question');
+    const answerEl = document.getElementById('fc-answer');
+    
+    if (questionEl) questionEl.textContent = card.question;
+    if (answerEl) answerEl.innerHTML = card.answer;
     
     // Compteur
-    document.getElementById('fc-counter').textContent = `${idx + 1} / ${filteredCards.length}`;
+    const counterEl = document.getElementById('fc-counter');
+    if (counterEl) counterEl.textContent = `${idx + 1} / ${filteredCards.length}`;
     
     // Barre de progression
-    const pct = ((idx + 1) / filteredCards.length) * 100;
-    document.getElementById('fc-progress').style.width = pct + '%';
+    const progressEl = document.getElementById('fc-progress');
+    if (progressEl) {
+        const pct = ((idx + 1) / filteredCards.length) * 100;
+        progressEl.style.width = pct + '%';
+    }
 }
 
 // Retourner la carte (flip 3D)
 function flipCard() {
     isFlipped = !isFlipped;
-    const rotation = isFlipped ? 180 : 0;
-    document.getElementById('fc-card').style.transform = `rotateY(${rotation}deg)`;
+    const cardEl = document.getElementById('fc-card');
+    
+    if (cardEl) {
+        if (isFlipped) {
+            cardEl.classList.add('flipped');
+        } else {
+            cardEl.classList.remove('flipped');
+        }
+    }
 }
 
 // Noter la difficulté
