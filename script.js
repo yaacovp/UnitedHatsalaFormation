@@ -696,121 +696,106 @@
         // MODE FLASHCARDS
         // ========================================
 
-        function initFlashcardMode() {
-            const modal = document.getElementById('flashcardModal');
-            const overlay = document.getElementById('flashcardOverlay');
-            const closeBtn = document.getElementById('closeFlashcards');
-            const navBtn = document.getElementById('navFlashcards');
-            const headerBtn = document.getElementById('flashcardsHeaderBtn');
-            
-            // Ouvrir modal
-            navBtn.addEventListener('click', () => {
-                if (flashcards.length === 0) {
-                    alert('Aucune flashcard disponible. Vérifiez data/flashcards.json');
-                    return;
-                }
-                modal.classList.add('active');
-                shuffleFlashcards();
-                showFlashcard(0);
-            });
+        // ========================================
+        // CHARGEMENT DES FLASHCARDS
+        // ========================================
 
+        async function loadFlashcards() {
+            try {
+                const response = await fetch('data/flashcards.json');
+                const data = await response.json();
+                flashcards = data.flashcards;
+                
+                // Charger la progression depuis localStorage
+                const saved = localStorage.getItem('flashcardProgress');
+                if (saved) {
+                    const progress = JSON.parse(saved);
+                    flashcards.forEach(card => {
+                        if (progress[card.id] !== undefined) {
+                            card.difficulty = progress[card.id];
+                        }
+                    });
+                }
+                
+                filteredFlashcards = [...flashcards];
+                console.log('Flashcards chargées :', flashcards.length);
+            } catch (error) {
+                console.error('Erreur chargement flashcards:', error);
+            }
+        }
+
+        // ========================================
+        // MODE FLASHCARDS
+        // ========================================
+
+        function initFlashcardMode() {
+            // Ouvrir la section flashcards depuis le header (desktop)
+            const headerBtn = document.getElementById('flashcardsHeaderBtn');
             if (headerBtn) {
-                headerBtn.addEventListener('click', () => {
-                    if (flashcards.length === 0) {
-                        alert('Aucune flashcard disponible. Vérifiez data/flashcards.json');
-                        return;
-                    }
-                    modal.classList.add('active');
-                    shuffleFlashcards();
-                    showFlashcard(0);
-                });
+                headerBtn.addEventListener('click', showFlashcardsSection);
             }
             
-            // Fermer modal
-            const closeModal = () => modal.classList.remove('active');
-            closeBtn.addEventListener('click', closeModal);
-            overlay.addEventListener('click', closeModal);
-            
-            // Filtrage par section
-            document.getElementById('flashcardSection').addEventListener('change', (e) => {
-                const section = e.target.value;
-                if (section === 'all') {
-                    filteredFlashcards = [...flashcards];
-                } else {
-                    filteredFlashcards = flashcards.filter(card => card.section === section);
-                }
-                shuffleFlashcards();
-                showFlashcard(0);
+            // Ouvrir la section flashcards depuis bottom nav (mobile)
+            document.getElementById('navFlashcards').addEventListener('click', () => {
+                showFlashcardsSection();
+                
+                // Mettre à jour bottom nav
+                document.querySelectorAll('.bottom-nav-item').forEach(item => item.classList.remove('active'));
+                document.getElementById('navFlashcards').classList.add('active');
             });
             
-            // Mélanger
-            document.getElementById('shuffleFlashcards').addEventListener('click', () => {
-                shuffleFlashcards();
-                showFlashcard(0);
+            // Bouton home pour revenir au contenu
+            document.getElementById('navHome').addEventListener('click', () => {
+                hideFlashcardsSection();
+                
+                // Mettre à jour bottom nav
+                document.querySelectorAll('.bottom-nav-item').forEach(item => item.classList.remove('active'));
+                document.getElementById('navHome').classList.add('active');
             });
             
-            // Retourner la carte
-            document.getElementById('flipToBack').addEventListener('click', flipCard);
-            document.getElementById('flashcard').addEventListener('click', (e) => {
-                if (e.target.closest('.difficulty-buttons') || e.target.closest('.flashcard-flip-btn')) return;
-                flipCard();
-            });
-            
-            // Boutons de difficulté
-            document.querySelectorAll('.btn-difficulty').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const difficulty = parseInt(e.target.dataset.difficulty);
-                    rateCard(difficulty);
+            // Filtres de section
+            document.querySelectorAll('.flashcard-filter').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.dataset.filter;
+                    
+                    // Mettre à jour l'état actif
+                    document.querySelectorAll('.flashcard-filter').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Filtrer
+                    filterFlashcards(filter);
                 });
             });
+        }
+
+        function showFlashcardsSection() {
+            // Cacher le contenu principal
+            document.getElementById('contentArea').style.display = 'none';
+            document.getElementById('flashcards-section').style.display = 'block';
             
-            // Navigation
-            document.getElementById('prevFlashcard').addEventListener('click', () => {
-                if (currentFlashcardIndex > 0) {
-                    showFlashcard(currentFlashcardIndex - 1);
-                }
-            });
+            // Charger la première carte si pas encore fait
+            if (filteredFlashcards.length > 0) {
+                showFlashcard(0);
+            }
+        }
+
+        function hideFlashcardsSection() {
+            document.getElementById('contentArea').style.display = 'block';
+            document.getElementById('flashcards-section').style.display = 'none';
+        }
+
+        function filterFlashcards(section) {
+            if (section === 'all') {
+                filteredFlashcards = [...flashcards];
+            } else {
+                filteredFlashcards = flashcards.filter(card => card.section.startsWith(section));
+            }
             
-            document.getElementById('nextFlashcard').addEventListener('click', () => {
-                if (currentFlashcardIndex < filteredFlashcards.length - 1) {
-                    showFlashcard(currentFlashcardIndex + 1);
-                }
-            });
-            
-            document.getElementById('skipFlashcard').addEventListener('click', () => {
-                if (currentFlashcardIndex < filteredFlashcards.length - 1) {
-                    showFlashcard(currentFlashcardIndex + 1);
-                }
-            });
-            
-            // Swipe gestures
-            let touchStartX = 0;
-            let touchEndX = 0;
-            
-            const flashcardElement = document.getElementById('flashcard');
-            flashcardElement.addEventListener('touchstart', (e) => {
-                touchStartX = e.changedTouches[0].screenX;
-            });
-            
-            flashcardElement.addEventListener('touchend', (e) => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleFlashcardSwipe();
-            });
-            
-            function handleFlashcardSwipe() {
-                const swipeThreshold = 50;
-                const diff = touchEndX - touchStartX;
-                
-                if (Math.abs(diff) > swipeThreshold) {
-                    if (document.getElementById('flashcard').classList.contains('flipped')) {
-                        // Sur le verso, swipe = noter
-                        if (diff > 0) {
-                            rateCard(1); // Swipe droite = facile
-                        } else {
-                            rateCard(3); // Swipe gauche = difficile
-                        }
-                    }
-                }
+            currentFlashcardIndex = 0;
+            if (filteredFlashcards.length > 0) {
+                showFlashcard(0);
+            } else {
+                console.warn('Aucune flashcard trouvée pour cette section');
             }
         }
 
@@ -819,6 +804,8 @@
                 const j = Math.floor(Math.random() * (i + 1));
                 [filteredFlashcards[i], filteredFlashcards[j]] = [filteredFlashcards[j], filteredFlashcards[i]];
             }
+            currentFlashcardIndex = 0;
+            showFlashcard(0);
         }
 
         function showFlashcard(index) {
@@ -827,21 +814,17 @@
             currentFlashcardIndex = index;
             const card = filteredFlashcards[index];
 
-            document.getElementById('flashcardQuestion').textContent = card.question;
-            document.getElementById('flashcardAnswer').innerHTML = card.answer;
-            document.getElementById('flashcardCounter').textContent = `${index + 1} / ${filteredFlashcards.length}`;
+            // ⚠️ IDs AVEC TIRETS (comme dans ton HTML)
+            document.getElementById('flashcard-question').textContent = card.question;
+            document.getElementById('flashcard-answer').innerHTML = card.answer;
+            document.getElementById('flashcard-counter').textContent = `Carte ${index + 1} / ${filteredFlashcards.length}`;
 
             // Reset flip
             document.getElementById('flashcard').classList.remove('flipped');
 
             // Progress bar
             const progress = ((index + 1) / filteredFlashcards.length) * 100;
-            document.getElementById('flashcardProgressBar').style.width = `${progress}%`;
-
-            // Désactiver boutons si limites
-            document.getElementById('prevFlashcard').disabled = index === 0;
-            document.getElementById('nextFlashcard').disabled = index === filteredFlashcards.length - 1;
-            document.getElementById('skipFlashcard').disabled = index === filteredFlashcards.length - 1;
+            document.getElementById('flashcard-progress-bar').style.width = `${progress}%`;
         }
 
         function flipCard() {
@@ -850,37 +833,57 @@
 
         function rateCard(difficulty) {
             const card = filteredFlashcards[currentFlashcardIndex];
-            card.difficulty = difficulty;
             
-            // Mettre à jour stats
+            // Retirer l'ancienne difficulté
+            if (card.difficulty === 1) flashcardStats.easy--;
+            else if (card.difficulty === 2) flashcardStats.medium--;
+            else if (card.difficulty === 3) flashcardStats.hard--;
+            
+            // Ajouter la nouvelle
+            card.difficulty = difficulty;
             if (difficulty === 1) flashcardStats.easy++;
             else if (difficulty === 2) flashcardStats.medium++;
             else if (difficulty === 3) flashcardStats.hard++;
 
-            document.getElementById('easyCount').textContent = flashcardStats.easy;
-            document.getElementById('mediumCount').textContent = flashcardStats.medium;
-            document.getElementById('hardCount').textContent = flashcardStats.hard;
+            // Mettre à jour l'affichage
+            document.getElementById('stat-easy').textContent = flashcardStats.easy;
+            document.getElementById('stat-medium').textContent = flashcardStats.medium;
+            document.getElementById('stat-hard').textContent = flashcardStats.hard;
 
             // Sauvegarder
             saveFlashcardProgress();
 
             // Passer à la suivante
             if (currentFlashcardIndex < filteredFlashcards.length - 1) {
-                setTimeout(() => showFlashcard(currentFlashcardIndex + 1), 300);
+                setTimeout(() => nextCard(), 300);
             } else {
-                // Fin du deck
-                alert(`🎉 Bravo ! Vous avez terminé toutes les flashcards !\n\n😊 Faciles : ${flashcardStats.easy}\n😐 Moyennes : ${flashcardStats.medium}\n😓 Difficiles : ${flashcardStats.hard}`);
+                setTimeout(() => {
+                    alert(`🎉 Bravo ! Terminé !\n\n😊 Faciles : ${flashcardStats.easy}\n😐 Moyennes : ${flashcardStats.medium}\n😫 Difficiles : ${flashcardStats.hard}`);
+                }, 300);
+            }
+        }
+
+        function nextCard() {
+            if (currentFlashcardIndex < filteredFlashcards.length - 1) {
+                showFlashcard(currentFlashcardIndex + 1);
+            }
+        }
+
+        function previousCard() {
+            if (currentFlashcardIndex > 0) {
+                showFlashcard(currentFlashcardIndex - 1);
             }
         }
 
         function saveFlashcardProgress() {
             const progress = {};
             flashcards.forEach(card => {
-                progress[card.id] = card.difficulty;
+                if (card.difficulty) {
+                    progress[card.id] = card.difficulty;
+                }
             });
             localStorage.setItem('flashcardProgress', JSON.stringify(progress));
         }
-
         // ========================================
         // PROGRESSION DE LECTURE
         // ========================================

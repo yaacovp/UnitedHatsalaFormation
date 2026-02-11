@@ -111,92 +111,102 @@
         <img id="lightboxImg" src="" alt="">
     </div>
 
-    <!-- Modal Flashcards -->
-    <div class="modal" id="flashcardModal">
-        <div class="modal-overlay" id="flashcardOverlay"></div>
-        <div class="modal-content flashcard-container">
-            <button class="modal-close" id="closeFlashcards">✕</button>
+    <!-- SECTION FLASHCARDS -->
+    <div id="flashcards-section" class="content-card" style="display: none;">
+        <div class="flashcard-container">
             
+            <!-- En-tête -->
             <div class="flashcard-header">
                 <h2>🎴 Mode Flashcards</h2>
                 <div class="flashcard-filters">
-                    <select id="flashcardSection" class="flashcard-filter">
-                        <option value="all">Toutes les sections</option>
-                        <option value="intro">Introduction</option>
-                        <option value="biologie">Biologie</option>
-                        <option value="nerveux">Système nerveux</option>
-                        <option value="nerveux-cerveau">Le cerveau</option>
-                        <option value="nerveux-snp">SNP</option>
-                        <option value="nerveux-nerfs">Nerfs</option>
-                        <option value="respiratoire">Système respiratoire</option>
-                        <option value="respiratoire-anatomie">Anatomie respiratoire</option>
-                        <option value="respiratoire-echanges">Échanges gazeux</option>
-                        <option value="cardio">Système cardio-vasculaire</option>
-                        <option value="cardio-coeur">Le cœur</option>
-                        <option value="cardio-vaisseaux">Vaisseaux</option>
-                        <option value="cardio-sang">Le sang</option>
-                    </select>
-                    <button class="btn-secondary" id="shuffleFlashcards">🔀 Mélanger</button>
+                    <button class="flashcard-filter active" data-filter="all">Toutes</button>
+                    <button class="flashcard-filter" data-filter="intro">Introduction</button>
+                    <button class="flashcard-filter" data-filter="nerveux">Nerveux</button>
+                    <button class="flashcard-filter" data-filter="respiratoire">Respiratoire</button>
+                    <button class="flashcard-filter" data-filter="cardio">Cardio</button>
                 </div>
             </div>
 
+            <!-- Progression -->
             <div class="flashcard-progress">
-                <span id="flashcardCounter">0 / 0</span>
+                <span id="flashcard-counter">Carte 1 / 30</span>
                 <div class="progress-bar-container">
-                    <div class="progress-bar-fill" id="flashcardProgressBar"></div>
+                    <div class="progress-bar-fill" id="flashcard-progress-bar"></div>
                 </div>
             </div>
 
+            <!-- Carte principale -->
             <div class="flashcard" id="flashcard">
                 <div class="flashcard-inner">
+                    
+                    <!-- FACE AVANT (Question) -->
                     <div class="flashcard-front">
                         <div class="flashcard-label">QUESTION</div>
-                        <div class="flashcard-text" id="flashcardQuestion"></div>
-                        <button class="btn-primary flashcard-flip-btn" id="flipToBack">
-                            Voir la réponse →
+                        <div class="flashcard-content">
+                            <div class="flashcard-text" id="flashcard-question">
+                                <!-- Question injectée ici par JavaScript -->
+                            </div>
+                        </div>
+                        <button class="flashcard-flip-btn" onclick="flipCard()">
+                            👀 Voir la réponse
                         </button>
                     </div>
+
+                    <!-- FACE ARRIÈRE (Réponse) -->
                     <div class="flashcard-back">
                         <div class="flashcard-label">RÉPONSE</div>
-                        <div class="flashcard-text" id="flashcardAnswer"></div>
+                        <div class="flashcard-content">
+                            <div class="flashcard-text" id="flashcard-answer">
+                                <!-- Réponse injectée ici par JavaScript -->
+                            </div>
+                        </div>
                         <div class="difficulty-buttons">
-                            <button class="btn-difficulty difficulty-hard" data-difficulty="3">
-                                😓 Difficile
+                            <button class="btn-difficulty difficulty-hard" onclick="rateCard(3)">
+                                😫 Difficile
                             </button>
-                            <button class="btn-difficulty difficulty-medium" data-difficulty="2">
+                            <button class="btn-difficulty difficulty-medium" onclick="rateCard(2)">
                                 😐 Moyen
                             </button>
-                            <button class="btn-difficulty difficulty-easy" data-difficulty="1">
+                            <button class="btn-difficulty difficulty-easy" onclick="rateCard(1)">
                                 😊 Facile
                             </button>
                         </div>
                     </div>
+
                 </div>
             </div>
 
+            <!-- Navigation -->
             <div class="flashcard-navigation">
-                <button class="btn-secondary" id="prevFlashcard">← Précédente</button>
-                <button class="btn-secondary" id="skipFlashcard">Passer</button>
-                <button class="btn-secondary" id="nextFlashcard">Suivante →</button>
+                <button onclick="previousCard()">
+                    ← Précédente
+                </button>
+                <button onclick="shuffleFlashcards()">
+                    🔀 Mélanger
+                </button>
+                <button onclick="nextCard()">
+                    Suivante →
+                </button>
             </div>
 
+            <!-- Statistiques -->
             <div class="flashcard-stats">
                 <div class="stat-item">
                     <span class="stat-label">Faciles</span>
-                    <span class="stat-value" id="easyCount">0</span>
+                    <span class="stat-value" id="stat-easy">0</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">Moyennes</span>
-                    <span class="stat-value" id="mediumCount">0</span>
+                    <span class="stat-value" id="stat-medium">0</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">Difficiles</span>
-                    <span class="stat-value" id="hardCount">0</span>
+                    <span class="stat-value" id="stat-hard">0</span>
                 </div>
             </div>
+
         </div>
     </div>
-
     <!-- Modal Progression -->
     <div class="modal" id="progressModal">
         <div class="modal-overlay" id="progressOverlay"></div>

@@ -996,7 +996,7 @@
 }
 
 /* ========================================
-   FLASHCARDS - VERSION UX OPTIMISÉE
+   FLASHCARDS - VERSION UX OPTIMISÉE FIXÉE
    ======================================== */
 
 .flashcard-container {
@@ -1092,7 +1092,6 @@
     position: relative;
     width: 100%;
     height: 100%;
-    text-align: center;
     transition: transform 0.6s;
     transform-style: preserve-3d;
 }
@@ -1110,7 +1109,6 @@
     background: var(--bg-card);
     border: 2px solid var(--border);
     border-radius: 16px;
-    padding: 0;
     display: flex;
     flex-direction: column;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -1136,7 +1134,7 @@
 }
 
 /* ====== CONTENU DE LA CARTE ====== */
-.flashcard-text {
+.flashcard-content {
     flex: 1;
     display: flex;
     align-items: center;
@@ -1144,13 +1142,13 @@
     padding: 24px;
     overflow-y: auto;
     overflow-x: hidden;
-    width: 100%;
-    text-align: center;
 }
 
-.flashcard-text > div {
+.flashcard-text {
     width: 100%;
     max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* Style du texte QUESTION (recto) */
@@ -1159,6 +1157,7 @@
     line-height: 1.6;
     color: var(--text-primary);
     font-weight: 500;
+    text-align: center;
 }
 
 /* Style du texte RÉPONSE (verso) */
@@ -1173,77 +1172,81 @@
 .flashcard-back .flashcard-text strong {
     color: var(--primary);
     font-weight: 600;
-    display: inline-block;
 }
 
 .flashcard-back .flashcard-text br {
     display: block;
     content: "";
-    margin: 0.4rem 0;
+    margin: 0.5rem 0;
+}
+
+/* Gestion des emojis et symboles */
+.flashcard-text .emoji {
+    font-size: 1.2em;
+    vertical-align: middle;
+    margin-right: 0.25rem;
 }
 
 /* Scrollbar personnalisée */
-.flashcard-text::-webkit-scrollbar {
+.flashcard-content::-webkit-scrollbar {
     width: 6px;
 }
 
-.flashcard-text::-webkit-scrollbar-track {
+.flashcard-content::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.flashcard-text::-webkit-scrollbar-thumb {
+.flashcard-content::-webkit-scrollbar-thumb {
     background: var(--border);
     border-radius: 10px;
 }
 
-.flashcard-text::-webkit-scrollbar-thumb:hover {
+.flashcard-content::-webkit-scrollbar-thumb:hover {
     background: var(--primary);
 }
 
 /* ====== BOUTON RETOURNER ====== */
 .flashcard-flip-btn {
     flex-shrink: 0;
-    margin: 16px 24px 20px 24px;
-    padding: 12px 24px;
+    margin: 0;
+    padding: 14px 24px;
     background: var(--primary);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 0;
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
     transition: all 0.2s;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .flashcard-flip-btn:hover {
     background: #1d4ed8;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
 /* ====== BOUTONS DE DIFFICULTÉ ====== */
 .difficulty-buttons {
     display: flex;
-    gap: 10px;
-    padding: 16px 24px 20px 24px;
-    flex-wrap: nowrap;
-    justify-content: center;
+    gap: 0;
     flex-shrink: 0;
-    background: var(--bg-main);
     border-top: 1px solid var(--border);
 }
 
 .btn-difficulty {
-    padding: 12px 20px;
+    padding: 14px 20px;
     border: none;
-    border-radius: 8px;
+    border-radius: 0;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
     font-size: 14px;
     flex: 1;
-    min-width: 0;
-    white-space: nowrap;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.btn-difficulty:last-child {
+    border-right: none;
 }
 
 .difficulty-easy {
@@ -1253,8 +1256,6 @@
 
 .difficulty-easy:hover {
     background: #059669;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 .difficulty-medium {
@@ -1264,8 +1265,6 @@
 
 .difficulty-medium:hover {
     background: #d97706;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }
 
 .difficulty-hard {
@@ -1275,12 +1274,10 @@
 
 .difficulty-hard:hover {
     background: #dc2626;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
 .btn-difficulty:active {
-    transform: translateY(0);
+    transform: scale(0.98);
 }
 
 /* ====== NAVIGATION ====== */
@@ -1352,24 +1349,30 @@
         height: 500px;
     }
 
+    .flashcard-content {
+        padding: 20px;
+    }
+
     .flashcard-front .flashcard-text {
         font-size: 1.125rem;
-        padding: 20px;
     }
 
     .flashcard-back .flashcard-text {
         font-size: 0.9375rem;
-        padding: 20px;
     }
 
     .difficulty-buttons {
         flex-direction: column;
-        gap: 8px;
+        gap: 0;
     }
 
     .btn-difficulty {
-        width: 100%;
-        padding: 14px;
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-difficulty:last-child {
+        border-bottom: none;
     }
 
     .flashcard-stats {
@@ -1399,6 +1402,8 @@
         font-size: 10px;
     }
 }
+
+
 /* ========================================
    PROGRESSION
    ======================================== */
