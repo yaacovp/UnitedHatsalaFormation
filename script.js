@@ -730,7 +730,6 @@ function saveProgress() {
     }
 }
 
-// Initialiser le mode flashcards
 function initFlashcardMode() {
     // Bouton header (desktop)
     const headerBtn = document.getElementById('flashcardsHeaderBtn');
@@ -756,11 +755,28 @@ function initFlashcardMode() {
     
     // Swipe gestures
     initSwipeGestures();
+    
+    // Clic sur la carte pour retourner (AVEC PROTECTION CONTRE LE SCROLL)
     const cardWrapper = document.getElementById('fc-card-wrapper');
+    let isScrolling = false;
+    
     if (cardWrapper) {
+        // Détecter le début du scroll
+        cardWrapper.addEventListener('touchstart', () => {
+            isScrolling = false;
+        });
+        
+        // Détecter si on scroll
+        cardWrapper.addEventListener('touchmove', () => {
+            isScrolling = true;
+        });
+        
+        // Clic pour retourner (sauf si on scrollait)
         cardWrapper.addEventListener('click', (e) => {
-            // Ne pas retourner si on clique sur un bouton
-            if (e.target.tagName === 'BUTTON') return;
+            // Ne pas retourner si :
+            // - On clique sur un bouton
+            // - On était en train de scroller
+            if (e.target.tagName === 'BUTTON' || isScrolling) return;
             
             // Retourner la carte
             flipCard();

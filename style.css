@@ -1115,8 +1115,8 @@
 .flashcard-new-text {
     flex: 1;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     font-size: 1.125rem;
     line-height: 1.7;
     color: var(--text-primary);
