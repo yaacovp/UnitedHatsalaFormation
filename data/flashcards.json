@@ -3,8 +3,8 @@
     {
       "id": "card_001",
       "section": "intro",
-      "question": "Quelles sont les 3 choses interdites pour un secouriste ?",
-      "answer": "<strong>1️⃣ Déclarer un décès</strong><br><strong>2️⃣ Violer le secret médical</strong><br><strong>3️⃣ Dépasser ses compétences</strong>",
+      "question": "Quelles sont les 3 choses qu'un secouriste ne doit JAMAIS faire ?",
+      "answer": "<div style='text-align: left;'><strong>1️⃣ Déclarer un décès</strong><br><br><strong>2️⃣ Violer le secret médical</strong><br><br><strong>3️⃣ Dépasser ses compétences/autorisations</strong></div>",
       "difficulty": 0
     },
     {

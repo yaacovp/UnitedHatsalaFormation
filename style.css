@@ -1122,6 +1122,7 @@
     color: var(--text-primary);
     padding: 16px;
     overflow-y: auto;
+    max-height: 200px;
 }
 
 /* Question (centré, gros) */
