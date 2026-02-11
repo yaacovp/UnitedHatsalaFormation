@@ -11,7 +11,7 @@
       "id": "card_002",
       "section": "intro",
       "question": "Quelle est la logique d'intervention ?",
-      "answer": "<strong>1️⃣ Sécurité</strong> (soi, victime, témoins)<br><strong>2️⃣ A-B-C</strong> (Airway-Breathing-Circulation)<br><strong>3️⃣ Appel des secours</strong><br><strong>4️⃣ Gestes adaptés</strong>",
+      "answer": "<strong>1️⃣ Sécurité</strong> (soi, victime, témoins)<br><br><strong>2️⃣ A-B-C</strong> (Airway-Breathing-Circulation)<br><br><strong>3️⃣ Appel des secours</strong><br><br><strong>4️⃣ Gestes adaptés</strong>",
       "difficulty": 0
     },
     {
@@ -25,7 +25,7 @@
       "id": "card_004",
       "section": "nerveux",
       "question": "Quelle est la différence entre le SNC et le SNP ?",
-      "answer": "🧠 <strong>SNC</strong> (Système Nerveux Central) : Cerveau + Moelle épinière<br><br>🔀 <strong>SNP</strong> (Système Nerveux Périphérique) : Tous les nerfs dans le corps",
+      "answer": "<strong>🧠 SNC (Système Nerveux Central)</strong><br>Cerveau + Moelle épinière<br><br><strong>🔀 SNP (Système Nerveux Périphérique)</strong><br>Tous les nerfs dans le corps",
       "difficulty": 0
     },
     {
@@ -60,14 +60,14 @@
       "id": "card_009",
       "section": "nerveux-snp",
       "question": "Quelle est la différence entre le système nerveux somatique et autonome ?",
-      "answer": "🦾 <strong>Somatique</strong> : Mouvements VOLONTAIRES (marcher, lever le bras)<br><br>❤️ <strong>Autonome</strong> : Fonctions INVOLONTAIRES (battements du cœur, digestion)",
+      "answer": "<strong>🦾 Somatique</strong><br>Mouvements VOLONTAIRES (marcher, lever le bras)<br><br><strong>❤️ Autonome</strong><br>Fonctions INVOLONTAIRES (battements du cœur, digestion)",
       "difficulty": 0
     },
     {
       "id": "card_010",
       "section": "nerveux-snp",
-      "question": "Sympathique vs Parasympathique ?",
-      "answer": "<strong>🚨 Sympathique (alerte)</strong><br>Pupilles dilatées • Cœur rapide<br>Bronches dilatées • Digestion arrêtée<br><br><strong>😌 Parasympathique (repos)</strong><br>Pupilles contractées • Cœur ralenti<br>Bronches contractées • Digestion active",
+      "question": "Quelles sont les différences entre le système sympathique et parasympathique ?",
+      "answer": "<strong>🚨 Sympathique (alerte)</strong><br>• Pupilles dilatées<br>• Cœur rapide<br>• Bronches dilatées<br>• Digestion arrêtée<br><br><strong>😌 Parasympathique (repos)</strong><br>• Pupilles contractées<br>• Cœur ralenti<br>• Bronches contractées<br>• Digestion active",
       "difficulty": 0
     },
 
@@ -75,10 +75,10 @@
       "id": "card_011",
       "section": "nerveux-nerfs",
       "question": "Comment le signal nerveux est-il transmis ?",
-      "answer": "⚡ <strong>À l'intérieur d'un neurone</strong> : Signal ÉLECTRIQUE<br><br>🧪 <strong>Entre deux neurones (synapse)</strong> : Signal CHIMIQUE",
+      "answer": "<strong>⚡ À l'intérieur d'un neurone</strong><br>Signal ÉLECTRIQUE<br><br><strong>🧪 Entre deux neurones (synapse)</strong><br>Signal CHIMIQUE",
       "difficulty": 0
     },
-    {
+        {
       "id": "card_012",
       "section": "respiratoire",
       "question": "Quels sont les 2 objectifs principaux de la respiration ?",
@@ -110,7 +110,7 @@
       "id": "card_016",
       "section": "respiratoire-echanges",
       "question": "Quelles sont les 3 conditions nécessaires pour des échanges gazeux corrects ?",
-      "answer": "1️⃣ <strong>Ventilation</strong> : Faire entrer/sortir l'air<br>2️⃣ <strong>Diffusion</strong> : Échanges air ↔ sang (alvéoles)<br>3️⃣ <strong>Perfusion</strong> : Circulation du sang dans tout le corps",
+      "answer": "<strong>1️⃣ Ventilation</strong><br>Faire entrer/sortir l'air<br><br><strong>2️⃣ Diffusion</strong><br>Échanges air ↔ sang (alvéoles)<br><br><strong>3️⃣ Perfusion</strong><br>Circulation du sang dans tout le corps",
       "difficulty": 0
     },
     {
@@ -131,7 +131,7 @@
       "id": "card_019",
       "section": "cardio-coeur",
       "question": "Quelles sont les 4 cavités du cœur ?",
-      "answer": "⬆️ <strong>En haut</strong> : 2 atriums (oreillettes)<br>⬇️ <strong>En bas</strong> : 2 ventricules<br><br>🔵 Côté droit : sang pauvre en O₂<br>🔴 Côté gauche : sang riche en O₂",
+      "answer": "<strong>⬆️ En haut</strong><br>2 atriums (oreillettes)<br><br><strong>⬇️ En bas</strong><br>2 ventricules<br><br><strong>🔵 Côté droit</strong><br>Sang pauvre en O₂<br><br><strong>🔴 Côté gauche</strong><br>Sang riche en O₂",
       "difficulty": 0
     },
     {
@@ -144,7 +144,7 @@
     {
       "id": "card_021",
       "section": "cardio-coeur",
-      "question": "Différence systole / diastole ?",
+      "question": "Quelle est la différence entre systole et diastole ?",
       "answer": "<strong>💥 SYSTOLE (contraction)</strong><br>• Valves mitrale/tricuspide fermées<br>• Valves aortique/pulmonaire ouvertes<br>• Éjection du sang<br><br><strong>😌 DIASTOLE (relâchement)</strong><br>• Valves aortique/pulmonaire fermées<br>• Valves mitrale/tricuspide ouvertes<br>• Remplissage des ventricules",
       "difficulty": 0
     },
@@ -159,7 +159,7 @@
       "id": "card_023",
       "section": "cardio-vaisseaux",
       "question": "Quelle est la règle fondamentale pour différencier artères et veines ?",
-      "answer": "🔴 <strong>Artère</strong> : Vaisseau qui PART du cœur<br>🔵 <strong>Veine</strong> : Vaisseau qui REVIENT vers le cœur<br><br>💡 Mémo : Veine = V = Vient vers le cœur",
+      "answer": "<strong>🔴 Artère</strong><br>Vaisseau qui PART du cœur<br><br><strong>🔵 Veine</strong><br>Vaisseau qui REVIENT vers le cœur<br><br><strong>💡 Mémo</strong><br>Veine = V = Vient vers le cœur",
       "difficulty": 0
     },
     {
@@ -172,7 +172,7 @@
     {
       "id": "card_025",
       "section": "cardio-vaisseaux",
-      "question": "Différences artères / veines ?",
+      "question": "Quelles sont les principales différences entre artères et veines ?",
       "answer": "<strong>🔴 Artères</strong><br>• Paroi épaisse<br>• Flux pulsatile<br>• Partent du cœur<br><br><strong>🔵 Veines</strong><br>• Paroi fine<br>• Valves anti-retour<br>• Flux continu<br>• Reviennent au cœur",
       "difficulty": 0
     },
@@ -194,7 +194,7 @@
       "id": "card_028",
       "section": "cardio-sang",
       "question": "Quelle est la composition du sang (en pourcentage) ?",
-      "answer": "🟡 <strong>Plasma</strong> : ~55% (liquide avec protéines)<br>🔴 <strong>Globules rouges</strong> : ~45% (transport O₂)<br>⚪ <strong>Globules blancs</strong> : ~1% (défense immunitaire)<br>🟠 <strong>Plaquettes</strong> : ~1% (coagulation)",
+      "answer": "<strong>🟡 Plasma : ~55%</strong><br>Liquide avec protéines<br><br><strong>🔴 Globules rouges : ~45%</strong><br>Transport O₂<br><br><strong>⚪ Globules blancs : ~1%</strong><br>Défense immunitaire<br><br><strong>🟠 Plaquettes : ~1%</strong><br>Coagulation",
       "difficulty": 0
     },
     {
@@ -208,7 +208,7 @@
       "id": "card_030",
       "section": "cardio-sang",
       "question": "Quelle est la durée de vie des plaquettes et leur rôle ?",
-      "answer": "🟠 <strong>Durée de vie</strong> : 7-10 jours<br><strong>Rôle</strong> : Essentielles pour la coagulation. Sans plaquettes, les petites brèches ne se colmatent pas.",
+      "answer": "<strong>⏱️ Durée de vie</strong><br>7-10 jours<br><br><strong>🩹 Rôle</strong><br>Essentielles pour la coagulation. Sans plaquettes, les petites brèches ne se colmatent pas.",
       "difficulty": 0
     }
   ]

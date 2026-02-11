@@ -8,8 +8,6 @@
                 content = await response.json();
                 buildSearchIndex();
                 loadAllSections('intro');
-                
-                // ← AJOUTER CES LIGNES APRÈS loadAllSections
                 initScrollAnimations(); // Pour les animations
                 updateMenuBadges(); // Pour les badges de progression
                 
@@ -722,10 +720,18 @@ function openFlashcards() {
 
 // Fermer les flashcards
 function hideFlashcardsSection() {
-    document.getElementById('contentArea').style.display = 'block';
+    // Cacher les flashcards
     document.getElementById('flashcards-section').style.display = 'none';
+    
+    // Réafficher le contenu
+    const contentArea = document.getElementById('contentArea');
+    contentArea.style.display = 'block';
+    
+    // Si le contenu est vide, le recharger
+    if (!contentArea.innerHTML || contentArea.innerHTML.trim() === '') {
+        loadAllSections();
+    }
 }
-
 // Afficher une carte
 function showCard() {
     if (idx < 0 || idx >= cards.length) return;
