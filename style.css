@@ -994,85 +994,67 @@
     color: white;
     transform: rotate(90deg);
 }
-
 /* ========================================
-   FLASHCARDS - VERSION UX OPTIMISÉE FIXÉE
+   FLASHCARDS - NOUVELLE CONCEPTION MOBILE
    ======================================== */
 
-.flashcard-container {
+.flashcard-new-container {
     max-width: 600px;
     margin: 0 auto;
-    padding: 1rem;
-}
-
-.flashcard-header {
-    text-align: center;
-    margin-bottom: 24px;
-}
-
-.flashcard-header h2 {
-    margin: 0 0 16px 0;
-    color: var(--text-primary);
-    font-size: 1.75rem;
-}
-
-.flashcard-filters {
+    padding: 16px;
+    min-height: 100vh;
     display: flex;
-    gap: 12px;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    flex-direction: column;
 }
 
-.flashcard-filter {
-    padding: 8px 16px;
-    border: 2px solid var(--border);
-    border-radius: 8px;
+/* Header */
+.flashcard-new-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.flashcard-new-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+.btn-close-flashcards {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
     background: var(--bg-main);
     color: var(--text-primary);
-    font-size: 14px;
+    font-size: 1.5rem;
     cursor: pointer;
-    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.flashcard-filter:hover {
-    border-color: var(--primary);
-    background: var(--bg-card);
-}
-
-.flashcard-filter.active {
-    border-color: var(--primary);
-    background: var(--primary);
-    color: white;
-}
-
-/* ====== PROGRESSION ====== */
-.flashcard-progress {
+/* Compteur */
+.flashcard-new-counter {
     text-align: center;
-    margin-bottom: 24px;
-    padding: 16px;
-    background: var(--bg-card);
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
 }
 
-.flashcard-progress span {
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
-    display: block;
-    font-weight: 500;
-}
-
-.progress-bar-container {
+/* Barre de progression */
+.flashcard-new-progress {
     width: 100%;
     height: 8px;
     background: var(--bg-main);
     border-radius: 4px;
     overflow: hidden;
+    margin-bottom: 24px;
 }
 
-.progress-bar-fill {
+.flashcard-new-progress-fill {
     height: 100%;
     background: linear-gradient(90deg, var(--primary), var(--success));
     border-radius: 4px;
@@ -1080,327 +1062,200 @@
     width: 0%;
 }
 
-/* ====== CARTE PRINCIPALE ====== */
-.flashcard {
-    perspective: 1000px;
-    margin-bottom: 24px;
-    height: 450px;
-    position: relative;
-}
-
-.flashcard-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-}
-
-.flashcard.flipped .flashcard-inner {
-    transform: rotateY(180deg);
-}
-
-.flashcard-front,
-.flashcard-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    background: var(--bg-card);
-    border: 2px solid var(--border);
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-.flashcard-back {
-    transform: rotateY(180deg);
-}
-
-/* ====== EN-TÊTE DE CARTE ====== */
-.flashcard-label {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-align: center;
-    flex-shrink: 0;
-    padding: 16px 24px 12px 24px;
-    background: var(--bg-main);
-    border-bottom: 1px solid var(--border);
-}
-
-/* ====== CONTENU DE LA CARTE ====== */
-.flashcard-content {
+/* Wrapper de la carte */
+.flashcard-new-wrapper {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    margin-bottom: 24px;
+    min-height: 400px;
 }
 
-.flashcard-text {
+/* Carte principale */
+.flashcard-new {
     width: 100%;
-    max-width: 100%;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    max-width: 500px;
+    background: var(--bg-card);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
 }
 
-/* Style du texte QUESTION (recto) */
-.flashcard-front .flashcard-text {
-    font-size: 1.25rem;
-    line-height: 1.6;
-    color: var(--text-primary);
-    font-weight: 500;
+/* Face de la carte */
+.flashcard-new-face {
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+}
+
+/* Label QUESTION/RÉPONSE */
+.flashcard-new-label {
     text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-bottom: 24px;
 }
 
-/* Style du texte RÉPONSE (verso) */
-.flashcard-back .flashcard-text {
-    font-size: 1rem;
+/* Texte de la carte */
+.flashcard-new-text {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.125rem;
     line-height: 1.7;
     color: var(--text-primary);
-    text-align: left;
+    padding: 16px;
+    overflow-y: auto;
 }
 
-/* Formatage HTML dans les réponses */
-.flashcard-back .flashcard-text strong {
+/* Texte question (plus gros) */
+.flashcard-new-question .flashcard-new-text {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+/* Texte réponse (aligné à gauche) */
+.flashcard-new-answer .flashcard-new-text {
+    text-align: left;
+    font-size: 1rem;
+}
+
+/* Support HTML dans les réponses */
+.flashcard-new-answer .flashcard-new-text strong {
     color: var(--primary);
     font-weight: 600;
 }
 
-.flashcard-back .flashcard-text br {
-    display: block;
-    content: "";
-    margin: 0.5rem 0;
-}
-
-/* Gestion des emojis et symboles */
-.flashcard-text .emoji {
-    font-size: 1.2em;
-    vertical-align: middle;
-    margin-right: 0.25rem;
-}
-
-/* Scrollbar personnalisée */
-.flashcard-content::-webkit-scrollbar {
-    width: 6px;
-}
-
-.flashcard-content::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.flashcard-content::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 10px;
-}
-
-.flashcard-content::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
-}
-
-/* ====== BOUTON RETOURNER ====== */
-.flashcard-flip-btn {
-    flex-shrink: 0;
-    margin: 0;
-    padding: 14px 24px;
+/* Bouton "Voir la réponse" */
+.flashcard-new-btn-flip {
+    width: 100%;
+    padding: 16px;
     background: var(--primary);
     color: white;
     border: none;
-    border-radius: 0;
+    border-radius: 12px;
+    font-size: 1rem;
     font-weight: 600;
-    font-size: 14px;
     cursor: pointer;
     transition: all 0.2s;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: 16px;
 }
 
-.flashcard-flip-btn:hover {
+.flashcard-new-btn-flip:active {
+    transform: scale(0.98);
     background: #1d4ed8;
 }
 
-/* ====== BOUTONS DE DIFFICULTÉ ====== */
-.difficulty-buttons {
-    display: flex;
-    gap: 0;
-    flex-shrink: 0;
-    border-top: 1px solid var(--border);
+/* Actions (boutons difficulté) */
+.flashcard-new-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
 }
 
-.btn-difficulty {
-    padding: 14px 20px;
+.flashcard-new-btn {
+    padding: 16px 12px;
     border: none;
-    border-radius: 0;
+    border-radius: 12px;
+    font-size: 1.5rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
-    font-size: 14px;
-    flex: 1;
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
 }
 
-.btn-difficulty:last-child {
-    border-right: none;
+.flashcard-new-btn span {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.difficulty-easy {
+.flashcard-new-btn:active {
+    transform: scale(0.95);
+}
+
+.flashcard-new-btn-easy {
     background: var(--success);
     color: white;
 }
 
-.difficulty-easy:hover {
-    background: #059669;
-}
-
-.difficulty-medium {
+.flashcard-new-btn-medium {
     background: var(--warning);
     color: white;
 }
 
-.difficulty-medium:hover {
-    background: #d97706;
-}
-
-.difficulty-hard {
+.flashcard-new-btn-hard {
     background: var(--danger);
     color: white;
 }
 
-.difficulty-hard:hover {
-    background: #dc2626;
-}
-
-.btn-difficulty:active {
-    transform: scale(0.98);
-}
-
-/* ====== NAVIGATION ====== */
-.flashcard-navigation {
-    display: flex;
+/* Stats */
+.flashcard-new-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 12px;
-    justify-content: center;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
-.flashcard-navigation button {
-    padding: 10px 20px;
+.flashcard-new-stat {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.flashcard-new-stat-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.flashcard-new-stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Bouton mélanger */
+.flashcard-new-btn-shuffle {
+    width: 100%;
+    padding: 14px;
     background: var(--bg-card);
     border: 2px solid var(--border);
-    border-radius: 8px;
+    border-radius: 12px;
     color: var(--text-primary);
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
 }
 
-.flashcard-navigation button:hover {
+.flashcard-new-btn-shuffle:active {
+    transform: scale(0.98);
     border-color: var(--primary);
     background: var(--primary);
     color: white;
 }
 
-/* ====== STATISTIQUES ====== */
-.flashcard-stats {
-    display: flex;
-    gap: 24px;
-    justify-content: center;
-    padding: 20px;
-    border-top: 1px solid var(--border);
-    background: var(--bg-card);
-    border-radius: 12px;
-    margin-top: 24px;
+/* Scrollbar */
+.flashcard-new-text::-webkit-scrollbar {
+    width: 6px;
 }
 
-.stat-item {
-    text-align: center;
-    flex: 1;
-}
-
-.stat-label {
-    display: block;
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
-}
-
-.stat-value {
-    display: block;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--primary);
-}
-
-/* ====== RESPONSIVE MOBILE ====== */
-@media (max-width: 640px) {
-    .flashcard-container {
-        padding: 0.5rem;
-    }
-
-    .flashcard {
-        height: 500px;
-    }
-
-    .flashcard-content {
-        padding: 20px;
-    }
-
-    .flashcard-front .flashcard-text {
-        font-size: 1.125rem;
-    }
-
-    .flashcard-back .flashcard-text {
-        font-size: 0.9375rem;
-    }
-
-    .difficulty-buttons {
-        flex-direction: column;
-        gap: 0;
-    }
-
-    .btn-difficulty {
-        border-right: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    .btn-difficulty:last-child {
-        border-bottom: none;
-    }
-
-    .flashcard-stats {
-        gap: 16px;
-        padding: 16px;
-    }
-
-    .stat-value {
-        font-size: 24px;
-    }
-}
-
-@media (max-width: 400px) {
-    .flashcard {
-        height: 480px;
-    }
-
-    .flashcard-front .flashcard-text {
-        font-size: 1rem;
-    }
-
-    .flashcard-back .flashcard-text {
-        font-size: 0.875rem;
-    }
-
-    .flashcard-label {
-        font-size: 10px;
-    }
+.flashcard-new-text::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
 }
 
 

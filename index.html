@@ -111,102 +111,85 @@
         <img id="lightboxImg" src="" alt="">
     </div>
 
-    <!-- SECTION FLASHCARDS -->
-    <div id="flashcards-section" class="content-card" style="display: none;">
-        <div class="flashcard-container">
-            
-            <!-- En-tête -->
-            <div class="flashcard-header">
-                <h2>🎴 Mode Flashcards</h2>
-                <div class="flashcard-filters">
-                    <button class="flashcard-filter active" data-filter="all">Toutes</button>
-                    <button class="flashcard-filter" data-filter="intro">Introduction</button>
-                    <button class="flashcard-filter" data-filter="nerveux">Nerveux</button>
-                    <button class="flashcard-filter" data-filter="respiratoire">Respiratoire</button>
-                    <button class="flashcard-filter" data-filter="cardio">Cardio</button>
-                </div>
-            </div>
+<!-- SECTION FLASHCARDS - NOUVELLE CONCEPTION -->
+<div id="flashcards-section" class="content-card" style="display: none;">
+    <div class="flashcard-new-container">
+        
+        <!-- Header -->
+        <div class="flashcard-new-header">
+            <h2>🎴 Flashcards</h2>
+            <button class="btn-close-flashcards" onclick="hideFlashcardsSection()">✕</button>
+        </div>
 
-            <!-- Progression -->
-            <div class="flashcard-progress">
-                <span id="flashcard-counter">Carte 1 / 30</span>
-                <div class="progress-bar-container">
-                    <div class="progress-bar-fill" id="flashcard-progress-bar"></div>
-                </div>
-            </div>
+        <!-- Compteur -->
+        <div class="flashcard-new-counter">
+            <span id="flashcard-counter-new">1 / 30</span>
+        </div>
 
-            <!-- Carte principale -->
-            <div class="flashcard" id="flashcard">
-                <div class="flashcard-inner">
+        <!-- Barre de progression -->
+        <div class="flashcard-new-progress">
+            <div class="flashcard-new-progress-fill" id="flashcard-progress-new"></div>
+        </div>
+
+        <!-- CARTE (nouvelle conception) -->
+        <div class="flashcard-new-wrapper">
+            <div class="flashcard-new" id="flashcard-new">
+                
+                <!-- Face QUESTION -->
+                <div class="flashcard-new-face flashcard-new-question">
+                    <div class="flashcard-new-label">QUESTION</div>
+                    <div class="flashcard-new-text" id="flashcard-q-new"></div>
+                    <button class="flashcard-new-btn-flip" onclick="flipCardNew()">
+                        👁️ Voir la réponse
+                    </button>
+                </div>
+
+                <!-- Face RÉPONSE -->
+                <div class="flashcard-new-face flashcard-new-answer" style="display: none;">
+                    <div class="flashcard-new-label">RÉPONSE</div>
+                    <div class="flashcard-new-text" id="flashcard-a-new"></div>
                     
-                    <!-- FACE AVANT (Question) -->
-                    <div class="flashcard-front">
-                        <div class="flashcard-label">QUESTION</div>
-                        <div class="flashcard-content">
-                            <div class="flashcard-text" id="flashcard-question">
-                                <!-- Question injectée ici par JavaScript -->
-                            </div>
-                        </div>
-                        <button class="flashcard-flip-btn" onclick="flipCard()">
-                            👀 Voir la réponse
+                    <!-- Boutons de difficulté -->
+                    <div class="flashcard-new-actions">
+                        <button class="flashcard-new-btn flashcard-new-btn-hard" onclick="rateCardNew(3)">
+                            😫<br><span>Difficile</span>
+                        </button>
+                        <button class="flashcard-new-btn flashcard-new-btn-medium" onclick="rateCardNew(2)">
+                            😐<br><span>Moyen</span>
+                        </button>
+                        <button class="flashcard-new-btn flashcard-new-btn-easy" onclick="rateCardNew(1)">
+                            😊<br><span>Facile</span>
                         </button>
                     </div>
-
-                    <!-- FACE ARRIÈRE (Réponse) -->
-                    <div class="flashcard-back">
-                        <div class="flashcard-label">RÉPONSE</div>
-                        <div class="flashcard-content">
-                            <div class="flashcard-text" id="flashcard-answer">
-                                <!-- Réponse injectée ici par JavaScript -->
-                            </div>
-                        </div>
-                        <div class="difficulty-buttons">
-                            <button class="btn-difficulty difficulty-hard" onclick="rateCard(3)">
-                                😫 Difficile
-                            </button>
-                            <button class="btn-difficulty difficulty-medium" onclick="rateCard(2)">
-                                😐 Moyen
-                            </button>
-                            <button class="btn-difficulty difficulty-easy" onclick="rateCard(1)">
-                                😊 Facile
-                            </button>
-                        </div>
-                    </div>
-
                 </div>
+
             </div>
-
-            <!-- Navigation -->
-            <div class="flashcard-navigation">
-                <button onclick="previousCard()">
-                    ← Précédente
-                </button>
-                <button onclick="shuffleFlashcards()">
-                    🔀 Mélanger
-                </button>
-                <button onclick="nextCard()">
-                    Suivante →
-                </button>
-            </div>
-
-            <!-- Statistiques -->
-            <div class="flashcard-stats">
-                <div class="stat-item">
-                    <span class="stat-label">Faciles</span>
-                    <span class="stat-value" id="stat-easy">0</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">Moyennes</span>
-                    <span class="stat-value" id="stat-medium">0</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">Difficiles</span>
-                    <span class="stat-value" id="stat-hard">0</span>
-                </div>
-            </div>
-
         </div>
+
+        <!-- Stats -->
+        <div class="flashcard-new-stats">
+            <div class="flashcard-new-stat">
+                <div class="flashcard-new-stat-icon">😊</div>
+                <div class="flashcard-new-stat-value" id="stat-easy-new">0</div>
+            </div>
+            <div class="flashcard-new-stat">
+                <div class="flashcard-new-stat-icon">😐</div>
+                <div class="flashcard-new-stat-value" id="stat-medium-new">0</div>
+            </div>
+            <div class="flashcard-new-stat">
+                <div class="flashcard-new-stat-icon">😫</div>
+                <div class="flashcard-new-stat-value" id="stat-hard-new">0</div>
+            </div>
+        </div>
+
+        <!-- Bouton mélanger -->
+        <button class="flashcard-new-btn-shuffle" onclick="shuffleFlashcardsNew()">
+            🔀 Mélanger les cartes
+        </button>
+
     </div>
+</div>
+
     <!-- Modal Progression -->
     <div class="modal" id="progressModal">
         <div class="modal-overlay" id="progressOverlay"></div>
