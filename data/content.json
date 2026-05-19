@@ -66,7 +66,8 @@
         "list": [
           "SNC : Système Nerveux Central (cerveau + moelle épinière)",
           "SNP : Système Nerveux Périphérique (nerfs dans tout le corps)"
-        ]
+        ],
+        "details": "Le cerveau consomme environ 20% de l'oxygène total du corps, pour seulement 2% de la masse corporelle. Des dommages irréversibles peuvent survenir après seulement 4 à 6 minutes sans oxygène. En secourisme, protéger l'oxygénation cérébrale est une priorité absolue."
       },
       {
         "subtitle": "Organisation générale",
@@ -176,35 +177,7 @@
       }
     ]
   },
-  "nerveux-snp": {
-    "title": "🔀 Système nerveux périphérique (SNP)",
-    "emoji": "🔀",
-    "sections": [
-      {
-        "subtitle": "Système nerveux somatique",
-        "text": "🦾 Responsable des mouvements volontaires",
-        "list": [
-          "Tout mouvement conscient dépend du système somatique",
-          "Exemples : lever le bras, marcher, saisir un objet"
-        ]
-      },
-      {
-        "subtitle": "Système nerveux autonome",
-        "text": "❤️ Responsable des fonctions involontaires",
-        "list": [
-          "Battements du cœur",
-          "Respiration (partiellement autonome)",
-          "Digestion"
-        ]
-      },
-      {
-        "subtitle": "Sympathique vs Parasympathique",
-        "type": "warning",
-        "text": "<strong>🚨 Sympathique (mode alerte)</strong> : pupilles dilatées, cœur rapide, bronches dilatées, arrêt digestion, production d'adrénaline<br><br><strong>😌 Parasympathique (mode repos)</strong> : pupilles contractées, cœur ralenti, bronches contractées, digestion active"
-      }
-    ]
-  },
-    "nerveux-nerfs": {
+  "nerveux-nerfs": {
     "title": "🔌 Nerfs et transmission nerveuse",
     "emoji": "🔌",
     "sections": [
@@ -238,25 +211,60 @@
       }
     ]
   },
+  "nerveux-snp": {
+    "title": "🔀 Système nerveux périphérique (SNP)",
+    "emoji": "🔀",
+    "sections": [
+      {
+        "subtitle": "Système nerveux somatique",
+        "text": "🦾 Responsable des mouvements volontaires",
+        "list": [
+          "Tout mouvement conscient dépend du système somatique",
+          "Exemples : lever le bras, marcher, saisir un objet"
+        ],
+        "details": "C'est le système que vous 'contrôlez'. Toute action intentionnelle passe par lui. En revanche, un réflexe (retirer la main d'un feu) court-circuite partiellement le cerveau via la moelle épinière pour aller plus vite."
+      },
+      {
+        "subtitle": "Système nerveux autonome (SNA)",
+        "text": "❤️ Responsable des fonctions involontaires. Fonctionne sans contrôle conscient.",
+        "list": [
+          "Battements du cœur",
+          "Respiration (partiellement autonome)",
+          "Digestion",
+          "Régulation de la pression artérielle et de la température"
+        ],
+        "details": "Le SNA est crucial en secourisme : une tachycardie (cœur rapide) ou une peau moite signalent que le SNA réagit à une situation de stress ou de danger. Ces signes ne 'mentent' pas — ils reflètent l'état physiologique réel de la victime."
+      },
+      {
+        "subtitle": "Sympathique vs Parasympathique",
+        "type": "warning",
+        "text": "<strong>🚨 Sympathique (mode alerte / 'fight or flight')</strong><br>Pupilles dilatées, cœur rapide, bronches dilatées, arrêt digestion, production d'adrénaline/noradrénaline, rétention urinaire<br><br><strong>😌 Parasympathique (mode repos / 'rest and digest')</strong><br>Pupilles contractées, cœur ralenti, bronches contractées, digestion active, production urinaire",
+        "details": "Les deux systèmes agissent sur les mêmes organes mais avec des effets opposés. En situation d'urgence, le sympathique prend le dessus : c'est pour cela qu'une victime en état de choc a souvent la peau froide et moite, le cœur rapide, et les pupilles dilatées."
+      }
+    ]
+  },
   "respiratoire": {
     "title": "🫁 Système respiratoire",
     "emoji": "🫁",
     "sections": [
       {
         "subtitle": "Vue d'ensemble",
-        "text": "👀 La respiration est un signe de vie facile à observer. Objectifs principaux :",
+        "text": "👀 La respiration est un signe de vie facile à observer. Ce n'est pas le seul, mais c'est souvent le premier vérifié : 'est-ce que la personne respire ?'",
         "list": [
           "Apporter de l'oxygène (O₂) aux organes",
           "Éliminer le dioxyde de carbone (CO₂)"
-        ]
+        ],
+        "details": "Le but de la respiration n'est pas seulement de faire entrer de l'air, mais d'oxygéner les cellules. Trois conditions sont nécessaires : ventilation (faire entrer/sortir l'air), diffusion (échanges air↔sang dans les alvéoles), perfusion (circulation du sang). Si l'une est défaillante, l'oxygénation peut être insuffisante même si la personne 'respire'."
       },
       {
         "subtitle": "Cycle respiratoire",
-        "text": "➡️ <strong>Inspiration</strong> : Entrée de l'air, processus actif nécessitant de l'énergie<br>⬅️ <strong>Expiration</strong> : Sortie de l'air, processus principalement passif"
+        "text": "➡️ <strong>Inspiration</strong> : Entrée de l'air, processus actif nécessitant de l'énergie et des muscles (diaphragme, intercostaux)<br>⬅️ <strong>Expiration</strong> : Sortie de l'air, processus principalement passif (élastique)",
+        "details": "L'inspiration peut être contrôlée volontairement (retenir son souffle). Mais l'expiration finit toujours par se produire — c'est un mécanisme de sécurité du corps. La respiration est automatique mais peut être modulée consciemment. En cas de détresse, le corps recrute des muscles accessoires (cou, abdomen) : c'est un signe d'alerte visible."
       },
       {
         "subtitle": "Trajet de l'air",
-        "text": "Nez/Bouche → Pharynx (gorge) → Larynx → Trachée → Bronches → Poumons → Alvéoles"
+        "text": "Nez/Bouche → Pharynx (gorge) → Larynx → Trachée → Bronches → Alvéoles",
+        "details": "Le nez est la meilleure voie : l'air y est filtré, humidifié et réchauffé. La bouche est une voie alternative, mais l'air y est moins bien préparé. La trachée est maintenue ouverte par des anneaux cartilagineux en C. Elle se divise en bronche droite (3 lobes) et gauche (2 lobes)."
       }
     ]
   },
@@ -531,6 +539,720 @@
       {
         "subtitle": "Plaquettes (thrombocytes)",
         "text": "🟠 Essentielles pour la coagulation. Durée de vie : 7-10 jours. Sans plaquettes, les petites brèches ne se colmatent pas."
+      }
+    ]
+  },
+
+  "bilan": {
+    "title": "🧾 Bilan en Secourisme",
+    "emoji": "🧾",
+    "sections": [
+      {
+        "subtitle": "Qu'est-ce que le bilan ?",
+        "text": "Le bilan est l'enquête rapide mais rigoureuse que mène le secouriste pour identifier l'origine du problème, évaluer sa gravité et anticiper son évolution. C'est l'étape qui précède et guide chaque geste.",
+        "details": "Le bilan n'est pas qu'une liste de cases à cocher. C'est un art qui combine l'observation visuelle, la communication avec la victime et la maîtrise de gestes techniques. Un bon bilan est la clé qui permet de passer d'une simple assistance à un soin précis. Une erreur d'évaluation peut mener à un diagnostic erroné et, par conséquent, à une action inadaptée, voire dangereuse."
+      },
+      {
+        "subtitle": "Principe fondamental",
+        "type": "warning",
+        "text": "\"Mes yeux avant ses mots\" — L'observation visuelle prime toujours sur ce que dit la victime. L'interrogatoire vient compléter ce que vous voyez, pas le remplacer.",
+        "analogy": "C'est comme un mécanicien : le client dit 'je pense que c'est juste la batterie', mais si le mécanicien voit de la fumée et une flaque d'huile, il ne va pas tester uniquement la batterie."
+      },
+      {
+        "subtitle": "Structure d'un bilan complet",
+        "type": "success",
+        "text": "Le bilan suit un ordre logique :",
+        "list": [
+          "Étape 1 — Approche & interrogatoire (observation + anamnèse)",
+          "Étape 2 — Bilan structuré des fonctions vitales (ABCDE)",
+          "Étape 3 — Transmission du bilan aux secours (SAMU, pompiers)"
+        ]
+      }
+    ]
+  },
+
+  "bilan-pieges": {
+    "title": "⚠️ Pièges Mentaux du Secouriste",
+    "emoji": "⚠️",
+    "sections": [
+      {
+        "subtitle": "Piège n°1 : La Fixation sur le Motif de l'Appel",
+        "text": "Se focaliser sur l'information initiale (ex: 'chute dans l'escalier') au point d'ignorer d'autres signes évidents. Le premier diagnostic n'est souvent qu'une interprétation.",
+        "analogy": "Comme porter des œillères : un cheval avec des œillères ne voit que droit devant lui. Le secouriste doit avoir une vision à 360°.",
+        "example": "Une équipe est appelée pour une 'douleur thoracique'. La stagiaire se lance immédiatement dans le protocole cardiaque, sans chercher d'autres causes. Une investigation plus large aurait pu révéler un problème digestif ou pulmonaire.",
+        "details": "Garder un esprit ouvert et investiguer toutes les pistes. Même si la jambe cassée semble évidente, ne pas oublier de vérifier si la victime respire. Ne jamais prendre pour argent comptant l'information initiale transmise au téléphone."
+      },
+      {
+        "subtitle": "Piège n°2 : Croire les Mots Plutôt que les Signes",
+        "text": "Croire ce que dit la victime ('ça va') tout en ignorant les signes physiques qui hurlent le contraire.",
+        "analogy": "Une personne, sous l'effet de la douleur ou du manque d'oxygène, peut minimiser ses symptômes sans en avoir conscience.",
+        "example": "Un homme assis, penché en avant, lèvres bleutées, peau moite. Il répond 'non... non... ça va...'. Sa posture et sa couleur crient la détresse respiratoire — vos yeux ont posé le diagnostic avant même qu'il parle.",
+        "details": "Votre première source d'information, c'est votre observation. L'interrogatoire (anamnèse) vient compléter ce que vous voyez. La cyanose (lèvres bleues) et la position en trépied sont des signes objectifs qui ne mentent pas."
+      },
+      {
+        "subtitle": "Comment déjouer ces pièges",
+        "type": "success",
+        "text": "Règles pratiques :",
+        "list": [
+          "Observer avant d'écouter : analyser la scène 3 secondes avant tout",
+          "Rester curieux : un diagnostic donné d'emblée est une hypothèse, pas une certitude",
+          "Chercher le signe qui 'ne colle pas' avec le motif de l'appel",
+          "Vérifier systématiquement les fonctions vitales, même si 'ça semble aller'"
+        ]
+      }
+    ]
+  },
+
+  "bilan-interrogatoire": {
+    "title": "💬 L'Interrogatoire de la Victime",
+    "emoji": "💬",
+    "sections": [
+      {
+        "subtitle": "La posture du secouriste",
+        "text": "Se mettre à la hauteur de la victime (s'agenouiller, s'asseoir). Dominer une personne allongée est intimidant et nuit à la communication.",
+        "analogy": "C'est comme parler à un enfant : on se met instinctivement à sa hauteur pour ne pas l'effrayer et établir une connexion.",
+        "example": "Arrivée auprès d'une personne âgée assise sur son canapé : au lieu de rester debout, vous vous agenouillez à côté d'elle. La personne se sent immédiatement en confiance et parle plus librement."
+      },
+      {
+        "subtitle": "Questions ouvertes vs questions fermées",
+        "text": "Une question ouverte ne peut pas être répondue par 'oui' ou 'non'. Elle laisse la victime s'exprimer librement.",
+        "list": [
+          "❌ Mauvaise : 'Avez-vous mal au cœur ?' → oriente la réponse",
+          "❌ Mauvaise : 'Vous n'avez pas de problème d'asthme n'est-ce pas ?'",
+          "✅ Bonne : 'Décrivez-moi ce que vous ressentez'",
+          "✅ Bonne : 'Avez-vous des antécédents médicaux particuliers ?'"
+        ],
+        "details": "Les questions fermées limitent et orientent la réponse. Les questions ouvertes permettent de récolter des informations riches et parfois inattendues que vous n'auriez pas songé à demander."
+      },
+      {
+        "subtitle": "Les 4 Règles d'Or",
+        "type": "mnemonic",
+        "text": "À respecter à chaque interrogatoire :",
+        "list": [
+          "1. Se concentrer sur le problème actuel (symptômes présents)",
+          "2. Garder un ordre logique (ne pas sauter des questions)",
+          "3. Laisser la victime répondre pleinement (ne jamais couper la parole)",
+          "4. Un seul interlocuteur (éviter de submerger la victime)"
+        ]
+      },
+      {
+        "subtitle": "Situations complexes",
+        "type": "warning",
+        "text": "Adaptations nécessaires :",
+        "list": [
+          "Victime inconsciente → action prime sur les questions, interroger l'entourage après les gestes d'urgence",
+          "Barrière de la langue → gestes simples, interprète si possible",
+          "Entourage paniqué → rester calme, directif, éloigner si nécessaire",
+          "Environnement bruyant → se rapprocher, parler distinctement"
+        ]
+      }
+    ]
+  },
+
+  "bilan-faras": {
+    "title": "🫁 Évaluation Respiratoire — FARAS",
+    "emoji": "🫁",
+    "sections": [
+      {
+        "subtitle": "Niveau A — Conscience et Voies Aériennes",
+        "text": "Premier geste : vérifier si la victime est éveillée et si ses voies aériennes sont libres.",
+        "list": [
+          "Stimulation verbale : 'Madame, ouvrez les yeux ! Serrez-moi la main !'",
+          "Si pas de réponse → stimulation physique (pression brève sur l'ongle)",
+          "Si inconsciente → s'assurer que la langue ne bloque pas les voies aériennes"
+        ]
+      },
+      {
+        "subtitle": "Niveau B — Respiration (méthode FARAS)",
+        "type": "mnemonic",
+        "text": "Si la victime est consciente, analyser la respiration avec FARAS :",
+        "list": [
+          "F — Fréquence : 12 à 20 cycles/min (compter 15s × 4)",
+          "A — Amplitude : profonde ou superficielle ?",
+          "R — Régularité : rythme constant ou avec pauses anarchiques ?",
+          "A — Aspect : bruits ? tirages ? cyanose (lèvres bleues) ? balancement thoraco-abdominal ?",
+          "S — Saturation (SpO2) : normale ≥ 95%, critique < 94%"
+        ]
+      },
+      {
+        "subtitle": "F — Fréquence Respiratoire",
+        "text": "Compter les cycles respiratoires sur 15 secondes, multiplier par 4.",
+        "list": [
+          "Normale : 12 à 20 cycles/minute",
+          "Bradypnée (trop lent) : < 12 — le corps ne fait pas assez de cycles",
+          "Tachypnée (trop rapide) : > 20 — le corps compense un manque d'oxygène"
+        ],
+        "analogy": "La tachypnée c'est comme essayer de remplir une piscine en courant avec un tout petit verre d'eau : beaucoup d'allers-retours, mais la piscine ne se remplit pas efficacement.",
+        "details": "Une respiration rapide mais superficielle peut être trompeuse : elle montre l'effort mais ne garantit pas l'efficacité. Il faut toujours combiner la fréquence avec l'amplitude."
+      },
+      {
+        "subtitle": "A — Aspect (signes visibles et audibles)",
+        "text": "Observer et écouter attentivement :",
+        "list": [
+          "Tirages : creusement visible entre les côtes ou au-dessus des clavicules → effort intense (dyspnée)",
+          "Bruits : sifflement (asthme), gargouillis (liquide), ronflement (obstruction) → une respiration normale est silencieuse",
+          "Cyanose : lèvres ou ongles bleutés → signe tardif de manque grave d'oxygène (hypoxie)",
+          "Balancement thoraco-abdominal : mouvements désynchronisés → épuisement des muscles respiratoires"
+        ]
+      },
+      {
+        "subtitle": "S — Saturation en Oxygène (SpO2)",
+        "text": "Pourcentage d'hémoglobine actuellement chargée en oxygène, mesurée avec un oxymètre de pouls au bout du doigt.",
+        "list": [
+          "Normale : 95% à 100%",
+          "Anormale / critique : < 94%"
+        ],
+        "analogy": "La saturation, c'est le pourcentage de camions (hémoglobine) qui roulent avec leur benne pleine de sable (oxygène). 99% = 99 camions sur 100 sont pleins.",
+        "details": "⚠️ Attention aux faux amis : froid aux doigts, vernis à ongles foncé, hypotension, tremblements ou batterie faible peuvent donner une valeur erronée. Si le chiffre semble aberrant (ex: 57% chez quelqu'un qui parle normalement), se fier aux signes cliniques plutôt qu'à l'appareil."
+      }
+    ]
+  },
+
+  "bilan-farattt": {
+    "title": "🫀 Évaluation Circulatoire — FARATTT",
+    "emoji": "🫀",
+    "sections": [
+      {
+        "subtitle": "Niveau C — Circulation (méthode FARATTT)",
+        "type": "mnemonic",
+        "text": "Évaluer l'efficacité de la pompe cardiaque et du transport sanguin :",
+        "list": [
+          "F — Fréquence : 60 à 100 BPM (compter 15s × 4)",
+          "A — Amplitude : pouls 'bien frappé' ou 'filant' ?",
+          "R — Régularité + symétrie : rythme constant des deux côtés ?",
+          "A — Aspect de la peau : pâleur ? conjonctives roses ?",
+          "T — Tension Artérielle : mesurer + demander la valeur de référence habituelle",
+          "T — TRC (Temps de Recoloration Cutanée) : doit être < 3 secondes",
+          "T — Température + Humidité : peau froide + moite = ALERTE MAXIMALE"
+        ]
+      },
+      {
+        "subtitle": "F — Fréquence du Pouls",
+        "text": "Compter les pulsations (poignet ou cou) sur 15 secondes, multiplier par 4.",
+        "list": [
+          "Normale : 60 à 100 BPM",
+          "Bradycardie (lent) : < 60 BPM",
+          "Tachycardie (rapide) : > 100 BPM — signe classique de choc"
+        ],
+        "details": "Un pouls rapide et filant (tachycardie + amplitude faible) est la combinaison classique de l'état de choc. Le corps accélère pour compenser un débit insuffisant."
+      },
+      {
+        "subtitle": "T — Temps de Recoloration Cutanée (TRC)",
+        "text": "Appuyer fermement sur l'ongle 3 à 5 secondes jusqu'au blanchissement, relâcher et chronométrer le retour du rose.",
+        "list": [
+          "Normal : < 3 secondes",
+          "Anormal : > 3 secondes → mauvaise perfusion périphérique"
+        ],
+        "analogy": "Comme une éponge gorgée d'eau : quand on la presse, l'eau est chassée. Quand on relâche, elle se ré-imbibe quasi instantanément. Un TRC long = débit sanguin insuffisant.",
+        "details": "Le TRC est particulièrement utile chez l'enfant. Chez l'adulte, il peut être influencé par la température ambiante. Le comparer au TRC du secouriste lui-même comme référence."
+      },
+      {
+        "subtitle": "T — Température et Humidité de la Peau",
+        "type": "danger",
+        "text": "🚨 Peau FROIDE + MOITE = Signal de stress physiologique extrême",
+        "list": [
+          "Peau froide seule : mauvaise perfusion (le corps centralise le sang vers les organes vitaux)",
+          "Peau moite (sueurs) : réaction du système nerveux à un stress intense",
+          "Froid + Moite ensemble : état de choc avancé, urgence absolue",
+          "Application : douleur thoracique + sueurs froides = suspicion d'infarctus, urgence absolue"
+        ]
+      },
+      {
+        "subtitle": "A — Aspect de la Peau (Perfusion)",
+        "text": "La couleur et l'état de la peau reflètent la qualité de la circulation :",
+        "list": [
+          "Pâleur : sang ne circule plus correctement sous la peau → mauvaise perfusion",
+          "Marbrures : taches irrégulières sur la peau → état de choc avancé",
+          "Conjonctives (intérieur de la paupière inférieure) : doivent être roses — si pâles → anémie ou mauvaise perfusion",
+          "Cyanose (bleuissement) : manque d'oxygène dans le sang"
+        ]
+      }
+    ]
+  },
+
+  "bilan-pieges-tech": {
+    "title": "🔬 Pièges Techniques à Connaître",
+    "emoji": "🔬",
+    "sections": [
+      {
+        "subtitle": "Le Piège de l'Oxymètre",
+        "text": "Un bon chiffre de saturation est rassurant, mais peut être un dangereux 'faux ami'.",
+        "list": [
+          "Facteurs qui faussent la mesure : froid aux doigts, vernis à ongles foncé, hypotension, tremblements, batterie faible",
+          "Règle : si le chiffre semble aberrant (ex: 57% chez quelqu'un qui parle normalement), remettre en question la mesure",
+          "Principe : on s'occupe de la victime, pas de l'appareil — le bilan clinique prime toujours"
+        ]
+      },
+      {
+        "subtitle": "Le Piège Mortel : Intoxication au CO",
+        "type": "danger",
+        "text": "🚨 En cas d'incendie ou de CO : NE JAMAIS SE FIER À LA SATURATION",
+        "list": [
+          "Mécanisme : l'hémoglobine a une affinité 200× plus forte pour le CO que pour l'O₂",
+          "Conséquence : les transporteurs sont 'pleins' de CO mais l'oxymètre affiche 99% (il ne fait pas la différence)",
+          "La victime s'asphyxie au niveau cellulaire malgré une SpO2 apparemment normale",
+          "À retenir : sur intervention pour incendie, considérer d'emblée la victime en détresse respiratoire grave"
+        ],
+        "analogy": "Les camions de livraison (hémoglobine) préfèrent transporter des 'cailloux empoisonnés' (CO) plutôt que du sable (oxygène). Ils sont tous pleins, mais ils ne livrent rien d'utile.",
+        "details": "Le seul appareil capable de différencier l'oxyhémoglobine de la carboxyhémoglobine est le CO-oxymètre, différent de l'oxymètre de pouls classique. En l'absence de cet appareil spécialisé, toujours traiter comme une intoxication au CO sur une intervention incendie."
+      },
+      {
+        "subtitle": "Principe fondamental du bilan",
+        "type": "success",
+        "text": "On s'occupe de la victime, pas de l'appareil. Un bilan clinique (ce que l'on voit, entend, touche) prime toujours sur une mesure technique potentiellement erronée.",
+        "list": [
+          "Chaque paramètre isolé a peu de valeur — c'est l'ensemble qui raconte l'histoire",
+          "Assembler les pièces : fréquence + amplitude + aspect + TRC + température = tableau complet",
+          "Cette rigueur fait la différence entre un secouriste qui subit la situation et un qui la maîtrise"
+        ]
+      }
+    ]
+  },
+
+  "traitement": {
+    "title": "🏥 Traitement de la Victime — Protocole ABCDE",
+    "emoji": "🏥",
+    "sections": [
+      {
+        "subtitle": "Pourquoi une méthode structurée ?",
+        "text": "Sans méthode, le risque est de s'éparpiller, d'oublier une étape cruciale ou de se mettre soi-même en danger. L'approche ABCDE garantit de traiter les problèmes dans le bon ordre : du plus vital au moins urgent.",
+        "details": "Agir dans le désordre peut mener à des erreurs critiques. Traiter une blessure visible avant de vérifier que la personne respire peut être fatal. Cette méthode n'est pas une procédure administrative — c'est une feuille de route pour la survie."
+      },
+      {
+        "subtitle": "ÉTAPE 0 — SAFETY (Sécurité) — Le Prérequis Absolu",
+        "type": "danger",
+        "text": "🚨 Avant de toucher la victime, analyser la scène : on ne peut pas aider efficacement si on devient soi-même une victime.",
+        "list": [
+          "Analyse de la zone : danger visible ? (feu, fil électrique, instabilité) / danger potentiel ? (agressivité, circulation)",
+          "EPI obligatoires : gants (minimum absolu), masque si infection respiratoire suspectée, gilet haute visibilité sur la voie publique",
+          "Attendre les renforts spécialisés si le danger dépasse vos compétences"
+        ]
+      },
+      {
+        "subtitle": "L'Anamnèse (interrogatoire en parallèle)",
+        "text": "Pendant le déroulé A-B-C-D-E, on mène simultanément l'anamnèse : l'interrogatoire médical de la victime ou de son entourage.",
+        "list": [
+          "'Prenez-vous des médicaments actuellement ?'",
+          "'Est-ce la première fois que cela vous arrive ?'",
+          "'Depuis combien de temps avez-vous cette douleur ?'",
+          "'Avez-vous des allergies connues ?'",
+          "'Souffrez-vous d'une maladie particulière (diabète, problèmes cardiaques...) ?'"
+        ],
+        "details": "L'anamnèse n'est pas une étape distincte. C'est un dialogue qui se tisse tout au long de l'examen. Les réponses de la victime orientent les vérifications, et les résultats des vérifications inspirent de nouvelles questions. C'est une synergie entre observation et questionnement."
+      },
+      {
+        "subtitle": "La Règle d'Or du Protocole ABCDE",
+        "type": "warning",
+        "text": "\"Treat First What Kills First\" — À chaque étape, si un problème est découvert, le traiter IMMÉDIATEMENT avant de passer à l'étape suivante.",
+        "analogy": "C'est comme réparer une maison en feu. Si le feu a pris dans la cuisine (problème A), on n'ira pas d'abord vérifier une fuite d'eau à l'étage (problème C). On éteint le feu d'abord — c'est la menace la plus destructrice."
+      }
+    ]
+  },
+
+  "traitement-a": {
+    "title": "🌬️ A — Airway (Voies Aériennes)",
+    "emoji": "🌬️",
+    "sections": [
+      {
+        "subtitle": "Qu'est-ce que le 'A' ?",
+        "text": "S'assurer que le chemin emprunté par l'air pour aller aux poumons est libre et dégagé. Si l'air ne peut pas passer, tout le reste est inutile.",
+        "details": "Une personne inconsciente peut s'étouffer avec sa propre langue qui chute vers l'arrière, ou avec un corps étranger. C'est pourquoi le 'A' est toujours la première priorité."
+      },
+      {
+        "subtitle": "Vérifications du 'A'",
+        "text": "Si la personne parle : voies aériennes ouvertes. Sinon, ouvrir la bouche et vérifier :",
+        "list": [
+          "Corps étrangers : objet visible ? (ex : dentier décroché chez un inconscient)",
+          "Liquides : sang, vomissures, salive excessive",
+          "Brûlures : suie sur le visage, autour des lèvres → risque d'œdème interne et obstruction rapide",
+          "Voix soudainement rauque ou cassée → possible gonflement des cordes vocales",
+          "Saignement ou gonflement visible du cou ou du visage"
+        ],
+        "analogy": "Les brûlures externes, c'est comme voir de la fumée sous une porte. Même si on ne voit pas le feu, on sait que le danger est imminent."
+      },
+      {
+        "subtitle": "Soins du 'A'",
+        "type": "success",
+        "text": "Actions selon le problème identifié :",
+        "list": [
+          "Aspiration des sécrétions : éviter que la victime s'étouffe avec ses propres fluides",
+          "Extraction d'un corps étranger visible : retirer avec précaution (jamais les doigts à l'aveugle dans la bouche)",
+          "Bascule de la tête en arrière : chez un inconscient, la langue chute et bloque l'air — ce geste la tire vers l'avant et dégage instantanément le passage",
+          "Canule de Guedel (oropharyngée) : dispositif en plastique pour maintenir la langue en avant chez un inconscient"
+        ],
+        "details": "La canule de Guedel agit comme un 'tuteur' pour la langue : elle l'empêche de s'affaisser et de bloquer la gorge. Elle ne peut être utilisée que chez un patient inconscient, car un patient conscient la rejetterait."
+      }
+    ]
+  },
+
+  "traitement-b": {
+    "title": "🫁 B — Breathing (Respiration)",
+    "emoji": "🫁",
+    "sections": [
+      {
+        "subtitle": "Vérifications du 'B'",
+        "text": "Une fois les voies aériennes libres (A), vérifier si la personne respire efficacement. Utiliser la méthode FARAS (voir section dédiée).",
+        "list": [
+          "Fréquence (12-20/min), Amplitude, Régularité, Aspect, Saturation SpO2",
+          "Difficulté à parler : ne peut pas finir une phrase sans reprendre son souffle → détresse sévère",
+          "Position du trépied : assis penché en avant, en appui sur les mains → utilise les muscles accessoires",
+          "Battement des ailes du nez : narines qui se dilatent à chaque inspiration → effort important"
+        ]
+      },
+      {
+        "subtitle": "Signe de gravité extrême",
+        "type": "danger",
+        "text": "🚨 Absence d'effort respiratoire : la personne qui luttait devient soudainement passive. C'est une phase pré-arrêt respiratoire. Agir immédiatement."
+      },
+      {
+        "subtitle": "Soins du 'B' — Choix entre MHC et BAVU",
+        "type": "mnemonic",
+        "text": "Question clé : la victime peut-elle faire le travail de respirer seule ?",
+        "list": [
+          "OUI (≥ 6 respirations/min) → Masque à Haute Concentration (MHC) : on aide la respiration en fournissant un meilleur carburant (O₂)",
+          "NON (< 6/min, inconscient) → BAVU (Ballon Auto-remplisseur) : on remplace sa respiration en ventilant pour elle",
+          "Dans tous les cas, mettre la victime en position assise facilite le travail des muscles respiratoires"
+        ],
+        "details": "Le BAVU s'utilise au rythme d'une insufflation toutes les 5-6 secondes pour un adulte. La position assise est un geste simple mais efficace : elle permet aux muscles accessoires de la respiration de fonctionner dans de meilleures conditions."
+      }
+    ]
+  },
+
+  "traitement-c": {
+    "title": "🫀 C — Circulation & Douleur",
+    "emoji": "🫀",
+    "sections": [
+      {
+        "subtitle": "Les 4 piliers de l'évaluation circulatoire",
+        "text": "Vérifier l'efficacité de la pompe cardiaque et du transport sanguin :",
+        "list": [
+          "1. Pouls : fréquence (60-100 BPM), amplitude (bien frappé / filant), régularité",
+          "2. État de la peau : couleur (pâle, cyanosée), température (froide, chaude), humidité (moite, sèche)",
+          "3. TRC (Temps de Recoloration Cutanée) : appuyer sur l'ongle 3s, relâcher → doit redevenir rose en < 2s",
+          "4. Tension artérielle : mesurer ET demander la valeur de référence habituelle de la victime"
+        ],
+        "analogy": "Le TRC c'est comme pincer un tuyau d'arrosage : quand on relâche, l'eau doit revenir instantanément. Si elle met du temps, c'est qu'il y a un problème de débit ou de pression."
+      },
+      {
+        "subtitle": "Soins du 'C'",
+        "type": "success",
+        "text": "Actions selon le problème identifié :",
+        "list": [
+          "Arrêter les hémorragies massives : priorité absolue de l'étape C",
+          "Injection d'Épipen® (Adrénaline) : uniquement en cas de choc anaphylactique (allergie sévère)",
+          "Administration d'Aspirine : uniquement sur suspicion de crise cardiaque (fluidifie le sang, limite l'extension du caillot)",
+          "Pose de perfusion + solutés : pour 'remplir' le système vasculaire en cas d'hypotension (compétence paramédicale/médicale)"
+        ]
+      },
+      {
+        "subtitle": "Évaluer la Douleur — Méthode OPQRST",
+        "type": "mnemonic",
+        "text": "Pour caractériser précisément une douleur thoracique ou autre :",
+        "list": [
+          "O — Onset (Origine) : qu'est-ce qui a déclenché la douleur ?",
+          "P — Provocation/Palliation : qu'est-ce qui l'aggrave ou la soulage ?",
+          "Q — Quality (Qualité) : comment est la douleur ? (serre, brûle, pique...)",
+          "R — Région/Radiation : où est-elle ? Se propage-t-elle ? (bras gauche, mâchoire...)",
+          "S — Sévérité : sur une échelle de 1 à 10 ?",
+          "T — Time (Temporalité) : depuis combien de temps ? Constante ou intermittente ?"
+        ],
+        "details": "La radiation de la douleur est particulièrement importante : une douleur thoracique qui irradie dans le bras gauche ou la mâchoire est un signe fortement évocateur d'infarctus. Une douleur thoracique qui s'aggrave à l'inspiration est plutôt un problème pulmonaire (pleurésie, embolie)."
+      }
+    ]
+  },
+
+  "traitement-de": {
+    "title": "🧠 D — Disability & E — Exposure",
+    "emoji": "🧠",
+    "sections": [
+      {
+        "subtitle": "D — État Neurologique (Disability)",
+        "text": "Évaluer les fonctions cérébrales : le centre de commande du corps.",
+        "details": "Cette étape évalue si le cerveau reçoit suffisamment d'oxygène et fonctionne correctement. Des anomalies ici peuvent indiquer un AVC, un traumatisme crânien, une hypoglycémie ou un manque d'oxygène."
+      },
+      {
+        "subtitle": "Échelle AVPU (conscience)",
+        "type": "mnemonic",
+        "text": "Évaluer le niveau de réactivité avec l'échelle AVPU :",
+        "list": [
+          "A — Alert (Alerte) : éveillé, parle spontanément",
+          "V — Voice (Voix) : réagit seulement quand on lui parle",
+          "P — Pain (Douleur) : réagit seulement à un stimulus douloureux",
+          "U — Unresponsive (Inconscient) : ne réagit à rien"
+        ]
+      },
+      {
+        "subtitle": "Autres vérifications neurologiques",
+        "text": "Compléter l'évaluation neurologique :",
+        "list": [
+          "Orientation : 'Savez-vous où nous sommes ?' / 'Savez-vous quel jour on est ?' (temps et espace)",
+          "Motricité : 'Serrez-moi les mains' / 'Poussez sur mes mains avec vos pieds'",
+          "Sensibilité : 'Sentez-vous que je vous touche ?' (yeux fermés)",
+          "Pupilles : taille, symétrie, réactivité à la lumière (asymétrie = signe grave)"
+        ],
+        "analogy": "Les pupilles fonctionnent comme le diaphragme d'un appareil photo : elles doivent s'adapter rapidement à la lumière. Si le mécanisme est lent ou bloqué, il y a un problème interne.",
+        "details": "Un test moteur asymétrique (une main qui serre moins que l'autre) peut indiquer un AVC ou une lésion cérébrale. Les pupilles inégales (anisocorie) ou non réactives sont un signe neurologique grave nécessitant une évacuation immédiate."
+      },
+      {
+        "subtitle": "Glycémie",
+        "type": "warning",
+        "text": "⚠️ Mesurer le taux de sucre dans le sang : une hypoglycémie peut mimer un AVC et causer une perte de conscience.",
+        "list": [
+          "Valeur normale : 0,7 à 1,1 g/L (70-110 mg/dL)",
+          "Hypoglycémie : < 0,6 g/L → donne du sucre",
+          "Victime consciente : sucre par la bouche (jus de fruit, morceau de sucre)",
+          "Victime inconsciente : RIEN par la bouche → gel de sucre (Glucogel®) sur les gencives"
+        ]
+      },
+      {
+        "subtitle": "E — Exposition (Exposure)",
+        "text": "Dernière étape : déshabiller partiellement la victime pour chercher des indices cachés.",
+        "list": [
+          "Blessures cachées : plaies, hématomes, déformations, brûlures non visibles",
+          "Dispositifs médicaux : patchs (nitroglycérine, fentanyl), pompe à insuline, sonde urinaire",
+          "Informations personnelles : bracelets ou colliers d'alerte médicale ('Diabétique', 'Allergique Pénicilline'...)"
+        ],
+        "details": "L'exposition se fait en respectant l'intimité de la victime. On déshabille uniquement ce qui est nécessaire, dans un ordre logique (tête → pieds). En environnement froid, protéger thermiquement après l'examen pour éviter l'hypothermie."
+      },
+      {
+        "subtitle": "Récapitulatif ABCDE",
+        "type": "success",
+        "text": "Séquence complète du protocole :",
+        "list": [
+          "0️⃣ SAFETY : analyser la scène, mettre ses EPI",
+          "A — Airway : voies aériennes libres ? → basculer la tête, canule de Guedel",
+          "B — Breathing : respiration efficace ? → MHC (≥6/min) ou BAVU (<6/min)",
+          "C — Circulation : pouls ? hémorragie ? peau ? TRC ? TA ? → stopper hémorragie, Aspirine/Épipen",
+          "D — Disability : AVPU ? orientation ? motricité ? pupilles ? glycémie ?",
+          "E — Exposure : blessures cachées ? dispositifs médicaux ? alertes médicales ?"
+        ]
+      }
+    ]
+  },
+
+  "traitement-evacuation": {
+    "title": "🚑 Décision d'évacuation",
+    "emoji": "🚑",
+    "sections": [
+      {
+        "subtitle": "Deux types d'évacuation",
+        "text": "Après le bilan ABCDE, il faut décider du type d'évacuation.",
+        "mnemonic": {
+          "title": "Évacuation URGENTE vs NON URGENTE",
+          "items": [
+            "🔴 URGENTE : détresse vitale (A, B ou C compromis) → SMUR / évacuation immédiate",
+            "🟡 NON URGENTE : victime stable mais nécessite un bilan médical → transport médicalisé ou non"
+          ]
+        }
+      },
+      {
+        "subtitle": "Besoin d'un médecin sur place (ALS) ?",
+        "text": "Certaines situations nécessitent un renfort Advanced Life Support avant ou pendant le transport :",
+        "list": [
+          "Arrêt cardio-respiratoire (ACR) en cours ou récent",
+          "Détresse respiratoire sévère (SpO₂ < 85 % malgré O₂)",
+          "Choc hémodynamique (TA systolique < 80 mmHg)",
+          "Trouble neurologique grave (Score de Glasgow ≤ 8)",
+          "Intoxication sévère / overdose avec perte de conscience"
+        ],
+        "details": "ALS = Advanced Life Support. En pratique, c'est le médecin SMUR ou le paramédic avec défibrillateur, intubation et drogues IV. Si le doute existe, demander l'avis médical par radio avant de transporter."
+      },
+      {
+        "subtitle": "⛔ Interdit : véhicule privé",
+        "type": "danger",
+        "text": "Il est FORMELLEMENT INTERDIT de transporter une victime en voiture privée dans les situations suivantes :",
+        "list": [
+          "Suspicion de traumatisme vertébral (chute, AVP, plongeon)",
+          "Arrêt cardio-respiratoire ou détresse vitale",
+          "Douleur thoracique d'origine cardiaque probable",
+          "Victime inconsciente, même 'qui respire bien'",
+          "Accouchement imminent"
+        ],
+        "details": "Le transport en voiture prive la victime de surveillance continue, de matériel de réanimation et retarde l'activation du SMUR. Une victime stable peut se décompenser en route. En cas de doute, attendre les secours."
+      },
+      {
+        "subtitle": "Décision pratique : l'arbre",
+        "type": "info",
+        "text": "Comment décider rapidement :",
+        "list": [
+          "1. La victime présente-t-elle une détresse A/B/C ? → OUI → Évacuation urgente + ALS si disponible",
+          "2. Y a-t-il un mécanisme traumatique (chute, choc, AVP) ? → OUI → Immobilisation + ambulance",
+          "3. La victime est stable mais symptomatique ? → Transport médicalisé non urgent",
+          "4. Victime refuse ? → Informer des risques, faire signer refus de soins, alerter le médecin régulateur"
+        ]
+      }
+    ]
+  },
+
+  "urgences": {
+    "title": "🆘 Urgences Spécifiques",
+    "emoji": "🆘",
+    "sections": [
+      {
+        "subtitle": "Pourquoi une section à part ?",
+        "text": "Certaines situations cliniques reviennent fréquemment sur le terrain et nécessitent un protocole spécifique, en complément du bilan ABCDE classique.",
+        "list": [
+          "Victime inconsciente qui respire",
+          "Convulsions (Grand mal / Petit mal)",
+          "Transmission des informations aux secours"
+        ]
+      }
+    ]
+  },
+
+  "urgences-inconsciente": {
+    "title": "😴 Victime Inconsciente qui Respire",
+    "emoji": "😴",
+    "sections": [
+      {
+        "subtitle": "Approche initiale",
+        "text": "Une victime inconsciente qui respire n'est pas en ACR — mais elle reste en danger immédiat (risque d'obstruction des voies aériennes, vomissements, détresse respiratoire secondaire).",
+        "list": [
+          "Vérifier la sécurité de la scène",
+          "Stimuler et appeler : 'Vous m'entendez ?' + stimulation douloureuse",
+          "Si pas de réponse → inconscience confirmée"
+        ]
+      },
+      {
+        "subtitle": "Interroger l'entourage",
+        "text": "Les témoins sont une source d'information capitale :",
+        "list": [
+          "Que s'est-il passé ? (chute, malaise, convulsion, prise de toxique…)",
+          "Depuis combien de temps est-il inconscient ?",
+          "A-t-il des antécédents médicaux ? (diabète, épilepsie, problèmes cardiaques)",
+          "A-t-il pris des médicaments ou des substances ?",
+          "Y a-t-il eu des signes avant (aura, douleur thoracique, malaise antérieur) ?"
+        ],
+        "details": "La durée de l'inconscience est un indicateur pronostique important. Une inconscience < 5 min après choc crânien peut être une commotion ; > 30 min évoque une atteinte cérébrale sérieuse. Toujours noter l'heure de début."
+      },
+      {
+        "subtitle": "Bilan ABCDE rapide",
+        "type": "info",
+        "text": "Appliquer le bilan dans l'ordre, mais adapter les priorités :",
+        "list": [
+          "A — Libérer les voies aériennes : subluxation mandibulaire ou bascule tête-menton si pas de trauma cervical",
+          "B — Confirmer la respiration : regarder, écouter, sentir (MHC) pendant 10 secondes max",
+          "C — Rechercher une hémorragie externe visible",
+          "D — Évaluer le niveau de conscience : AVPU (ici U = Unresponsive)",
+          "E — Déshabiller pour chercher des blessures, des patches médicamenteux, un bracelet d'alerte"
+        ]
+      },
+      {
+        "subtitle": "Position Latérale de Sécurité (PLS)",
+        "type": "success",
+        "text": "Si la respiration est efficace et qu'il n'y a PAS de traumatisme vertébral suspecté :",
+        "list": [
+          "Mettre en PLS pour protéger les voies aériennes des vomissements",
+          "Surveiller en continu : respiration, coloration, pouls",
+          "Alerter le 15/18 si pas encore fait",
+          "Réévaluer toutes les 2-3 minutes",
+          "Préparer un BAVU en cas de dégradation de la respiration"
+        ],
+        "details": "Si traumatisme vertébral suspecté : ne PAS mettre en PLS. Maintenir la tête en position neutre, libérer les voies aériennes par subluxation mandibulaire uniquement. Attendre les renforts avec matelas immobilisateur ou minerve."
+      }
+    ]
+  },
+
+  "urgences-convulsions": {
+    "title": "⚡ Convulsions",
+    "emoji": "⚡",
+    "sections": [
+      {
+        "subtitle": "Qu'est-ce qu'une convulsion ?",
+        "text": "Une convulsion est une décharge électrique anormale et synchrone d'un grand nombre de neurones cérébraux. Elle peut être partielle (localisée) ou généralisée (tout le corps).",
+        "analogy": "Imaginez le cerveau comme un réseau électrique : une convulsion c'est un court-circuit qui se propage à toute l'installation en quelques secondes, surchargeant tous les circuits en même temps."
+      },
+      {
+        "subtitle": "Grand mal — Crise tonico-clonique",
+        "type": "warning",
+        "text": "La crise tonico-clonique généralisée se déroule en 4 phases :",
+        "mnemonic": {
+          "title": "Les 4 phases du Grand mal",
+          "items": [
+            "1️⃣ AURA (quelques secondes) : sensation prémonitoire — odeur, lumière, montée d'angoisse. Permet parfois à la personne de s'allonger avant de tomber.",
+            "2️⃣ PHASE TONIQUE (10-20 sec) : contraction musculaire généralisée, apnée, peau cyanosée, morsure de langue possible au début.",
+            "3️⃣ PHASE CLONIQUE / HYPERTONIQUE (30-60 sec) : secousses rythmiques de tout le corps (bras, jambes, tête), salivation abondante ('mousse'), possible perte d'urine.",
+            "4️⃣ PHASE POST-ICTALE (quelques min à 1h) : épuisement profond, confusion, somnolence. La personne ne sait pas ce qui s'est passé."
+          ]
+        },
+        "details": "La phase post-ictale est souvent mal interprétée. La personne peut sembler 'bizarre', agressive ou très endormie — c'est normal. Ne pas la secouer ni lui parler fort. Elle récupère progressivement."
+      },
+      {
+        "subtitle": "Conduite à tenir — Grand mal",
+        "type": "info",
+        "text": "Pendant la crise :",
+        "list": [
+          "🛡️ Protéger la tête (coussin, main) — ne pas immobiliser les membres",
+          "❌ Ne JAMAIS mettre les doigts ou un objet dans la bouche",
+          "⏱️ Chronométrer la durée de la crise",
+          "Éloigner les objets dangereux autour",
+          "Desserrer ceinture, boutons de col, cravate",
+          "Appeler le 15/18 si : première crise connue, crise > 5 min, pas de retour à la conscience, traumatisme pendant la chute, grossesse"
+        ],
+        "details": "Après la crise : mettre en PLS si inconsciente, surveiller la respiration, parler calmement en attendant le retour de conscience. Ne pas donner à boire immédiatement. Si état de mal épileptique (crise continue > 5 min), appel SMUR immédiat."
+      },
+      {
+        "subtitle": "Petit mal — Crise d'absence",
+        "text": "La crise d'absence est une forme de crise généralisée courte, sans chute ni convulsions visibles.",
+        "list": [
+          "Durée : 5 à 30 secondes",
+          "La personne 'décroche' : regard dans le vide, immobilité soudaine, arrêt en pleine phrase",
+          "Pas de chute, pas de convulsions — mais aucune réponse aux stimulations",
+          "Reprise brutale de l'activité normale, comme si rien ne s'était passé",
+          "La personne n'a aucun souvenir de l'épisode"
+        ],
+        "analogy": "Une crise d'absence, c'est comme si quelqu'un appuyait sur 'pause' sur un écran : tout s'arrête brutalement, puis 'play' reprend exactement là où ça s'était arrêté, sans mémoire de la pause.",
+        "details": "La crise d'absence est souvent non reconnue (on croit que la personne ne fait pas attention). Elle touche surtout les enfants. Signe d'alerte : l'enfant 'perd le fil' régulièrement en classe. Elle ne nécessite pas de premiers secours immédiats mais doit être signalée au médecin."
+      }
+    ]
+  },
+
+  "urgences-remise": {
+    "title": "📡 Transmission aux Secours — C'est pas fini !",
+    "emoji": "📡",
+    "sections": [
+      {
+        "subtitle": "Pourquoi la transmission est cruciale",
+        "text": "Votre bilan ne sert à rien si vous ne le transmettez pas correctement. Une mauvaise transmission peut retarder les soins ou entraîner une prise en charge inadaptée.",
+        "type": "warning"
+      },
+      {
+        "subtitle": "Identifier le chef de l'équipe qui prend le relais",
+        "text": "Avant de transmettre :",
+        "list": [
+          "Identifier clairement qui est le responsable de l'équipe secours (infirmier, médecin SMUR, chef d'ambulance)",
+          "Attendre qu'il soit disponible et vous regarde — ne pas parler dans son dos",
+          "Annoncer clairement : 'Je vous transmets le bilan de la victime'"
+        ]
+      },
+      {
+        "subtitle": "Structure de la transmission",
+        "type": "info",
+        "text": "Transmettre les informations dans un ordre logique et structuré :",
+        "mnemonic": {
+          "title": "Ordre de transmission (SBAR simplifié)",
+          "items": [
+            "👤 IDENTITÉ : Nom, prénom, âge, sexe",
+            "📋 MOTIF : Plainte principale / mécanisme (chute, malaise, douleur thoracique…)",
+            "⏱️ CHRONOLOGIE : Depuis quand ? Évolution ? Traitements déjà administrés ?",
+            "🔬 BILAN : Résultats A-B-C-D-E (constantes, conscience, respiration, pouls, TA, SpO₂, glycémie…)",
+            "🎯 DÉCISION : Ce qui a été fait, ce qui reste à faire, type d'évacuation envisagé"
+          ]
+        },
+        "details": "Soyez concis et factuel. Pas de suppositions : dites ce que vous avez vu et mesuré. Exemple : 'Femme de 67 ans, douleur thoracique depuis 20 min irradiant dans le bras gauche. Consciente, AVPU = A. FR = 18/min, SpO₂ = 96 %, FC = 110, TA = 145/90. Aspirine 250 mg donnée. Évacuation urgente recommandée.'"
+      },
+      {
+        "subtitle": "Quitter la scène si vous n'êtes plus utile",
+        "type": "success",
+        "text": "Une fois la transmission effectuée :",
+        "list": [
+          "Restez disponible pour répondre aux questions de l'équipe qui prend le relais",
+          "Si vous n'avez plus de rôle actif : dégagez la scène pour ne pas gêner",
+          "Rangez votre matériel, désinfectez si nécessaire",
+          "Rédigez votre fiche d'intervention (pour la traçabilité et la protection légale)",
+          "Débriefer avec votre équipe si la situation était difficile émotionnellement"
+        ],
+        "details": "Le départ de scène fait partie du protocole. Rester sans rôle actif encombre la zone d'intervention et peut gêner le travail du SMUR ou des pompiers. 'Bien faire et laisser faire' — votre mission s'arrête à la transmission."
       }
     ]
   }

@@ -523,23 +523,7 @@
         }
 
         /* Bouton précédent avec dégradé */
-        .cycle-nav-btn.gradient-prev {
-            background: linear-gradient(90deg, #3b82f6 0%, #ef4444 100%);
-        }
 
-        /* Bouton suivant avec dégradé */
-        .cycle-nav-btn.gradient-next {
-            background: linear-gradient(90deg, #3b82f6 0%, #ef4444 100%);
-        }
-
-        /* Pour l'étape 4 systemique (rouge vers bleu) */
-        .cycle-nav-btn.gradient-prev-rb {
-            background: linear-gradient(90deg, #ef4444 0%, #3b82f6 100%);
-        }
-
-        .cycle-nav-btn.gradient-next-rb {
-            background: linear-gradient(90deg, #ef4444 0%, #3b82f6 100%);
-        }
 
         .step-title {
             font-size: 18px;
@@ -591,34 +575,78 @@
 
         /* Boutons - dégradés ajustés (50% couleur unie + 50% dégradé) */
 
-        /* Bouton précédent - étape 4 pulmonaire (50% bleu, 50% dégradé vers rouge) */
+        /* Bouton précédent - étape 4 pulmonaire (Bleu → 50% du dégradé) */
         .cycle-nav-btn.gradient-prev-pulm {
-            background: linear-gradient(90deg, #3b82f6 0%, #3b82f6 50%, #ef4444 100%);
+            background: linear-gradient(
+                90deg,
+                #3b82f6 0%,      /* Bleu pur */
+                #3b82f6 50%,     /* Bleu pur jusqu'à 50% */
+                #8b5cf6 75%,     /* Violet (milieu) */
+                #ef4444 100%     /* Début rouge (étape 5) */
+            );
         }
 
         /* Bouton suivant - étape 4 pulmonaire (50% dégradé depuis bleu, 50% rouge) */
         .cycle-nav-btn.gradient-next-pulm {
-            background: linear-gradient(90deg, #3b82f6 0%, #ef4444 50%, #ef4444 100%);
+            background: linear-gradient(
+                90deg,
+                #ef4444 0%,      /* Suite du dégradé (étape 5) */
+                #f87171 25%,     /* Rouge moyen */
+                #ef4444 50%,     /* Rouge pur */
+                #ef4444 100%     /* Rouge pur jusqu'à la fin */
+            );
         }
 
-        /* Bouton précédent - étape 4 systémique (50% rouge, 50% dégradé vers bleu) */
+        /* Bouton précédent - étape 4 systémique (Rouge → 50% du dégradé) */
         .cycle-nav-btn.gradient-prev-syst {
-            background: linear-gradient(90deg, #ef4444 0%, #ef4444 50%, #3b82f6 100%);
+            background: linear-gradient(
+                90deg,
+                #ef4444 0%,      /* Rouge pur */
+                #ef4444 50%,     /* Rouge pur jusqu'à 50% */
+                #8b5cf6 75%,     /* Violet (milieu) */
+                #3b82f6 100%     /* Début bleu (étape 5) */
+            );
         }
 
-        /* Bouton suivant - étape 4 systémique (50% dégradé depuis rouge, 50% bleu) */
+        /* Bouton suivant - étape 4 systémique (50% du dégradé → Bleu) */
         .cycle-nav-btn.gradient-next-syst {
-            background: linear-gradient(90deg, #ef4444 0%, #3b82f6 50%, #3b82f6 100%);
+            background: linear-gradient(
+                90deg,
+                #3b82f6 0%,      /* Suite du dégradé (étape 5) */
+                #60a5fa 25%,     /* Bleu moyen */
+                #3b82f6 50%,     /* Bleu pur */
+                #3b82f6 100%     /* Bleu pur jusqu'à la fin */
+            );
         }
 
-        /* Bouton précédent - étape 5 pulmonaire (bleu vers rouge) */
+        /* Bouton précédent - étape 5 pulmonaire (dégradé complet) */
         .cycle-nav-btn.gradient-prev {
-            background: linear-gradient(90deg, #3b82f6 0%, #ef4444 100%);
+            background: linear-gradient(
+                90deg,
+                #3b82f6 0%,
+                #8b5cf6 50%,
+                #ef4444 100%
+            );
         }
 
-        /* Bouton précédent - étape 5 systémique (rouge vers bleu) */
+        /* Bouton précédent - étape 5 systémique (dégradé complet) */
         .cycle-nav-btn.gradient-prev-rb {
-            background: linear-gradient(90deg, #ef4444 0%, #3b82f6 100%);
+            background: linear-gradient(
+                90deg,
+                #ef4444 0%,
+                #8b5cf6 50%,
+                #3b82f6 100%
+            );
+        }
+
+        /* Bouton suivant - étape 5 pulmonaire (Rouge pur, retour au début) */
+        .cycle-nav-btn.gradient-next {
+            background: #ef4444;
+        }
+
+        /* Bouton suivant - étape 5 systémique (Bleu pur, retour au début) */
+        .cycle-nav-btn.gradient-next-rb {
+            background: #3b82f6;
         }
 
         .blood-type {
@@ -898,6 +926,145 @@
         .install-prompt.show {
             display: flex;
         }
+
+        /* ===== ACCORDÉON ===== */
+        .accordion-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 8px;
+            font-size: 14px;
+            color: var(--primary);
+            font-weight: 500;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .accordion-toggle:active { background: var(--border); }
+
+        .accordion-arrow {
+            font-size: 12px;
+            transition: transform 0.2s;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 12px 14px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            margin-bottom: 4px;
+            line-height: 1.7;
+        }
+
+        .accordion-content.open { display: block; }
+
+        /* ===== BOÎTE MNÉMOTECHNIQUE ===== */
+        .info-box.mnemonic {
+            background: linear-gradient(135deg, #f0f4ff, #e8edff);
+            border-left: 4px solid #6366f1;
+        }
+
+        [data-theme="dark"] .info-box.mnemonic {
+            background: linear-gradient(135deg, #1e1b4b, #2e1065);
+            border-left: 4px solid #818cf8;
+            color: #e0e7ff;
+        }
+
+        /* ===== BOÎTE ANALOGIE ===== */
+        .analogy-box {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            border: 1px solid #fbbf24;
+            border-left: 4px solid #f59e0b;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 8px 0;
+        }
+
+        [data-theme="dark"] .analogy-box {
+            background: linear-gradient(135deg, #1c1204, #2d1f04);
+            border-color: #92400e;
+            border-left-color: #b45309;
+        }
+
+        .analogy-title {
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 6px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        [data-theme="dark"] .analogy-title { color: #fbbf24; }
+
+        /* ===== BOÎTE EXEMPLE CONCRET ===== */
+        .example-box {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 1px solid #86efac;
+            border-left: 4px solid #22c55e;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 8px 0;
+        }
+
+        [data-theme="dark"] .example-box {
+            background: linear-gradient(135deg, #052e16, #14532d);
+            border-color: #15803d;
+            border-left-color: #16a34a;
+        }
+
+        .example-title {
+            font-weight: 700;
+            color: #15803d;
+            margin-bottom: 6px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        [data-theme="dark"] .example-title { color: #4ade80; }
+
+        /* ===== NAVIGATION PREV / NEXT ===== */
+        .section-nav-btns {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 28px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-nav-btn {
+            flex: 1;
+            padding: 12px 14px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--primary);
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 13px;
+            line-height: 1.4;
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        .section-nav-btn.prev { text-align: left; }
+        .section-nav-btn.next { text-align: right; }
+
+        .section-nav-btn:active,
+        .section-nav-btn:hover {
+            background: var(--border);
+            border-color: var(--primary);
+        }
+
+        /* ===== FIN DES STYLES SUPPLÉMENTAIRES ===== */
 
         .install-btn {
             padding: 8px 16px;

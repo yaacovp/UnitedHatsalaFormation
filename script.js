@@ -194,7 +194,13 @@
                         <h2 class="section-subtitle">${subsection.subtitle || ''}</h2>
                         ${subsection.cycle ? generateCycleHTML(subsection.cycle) : ''}
                         ${subsection.image ? generateImageHTML(subsection.image) : ''}
-                        ${subsection.type ? `
+                        ${subsection.type === 'mnemonic' ? `
+                            <div class="info-box mnemonic">
+                                <div class="info-box-title">🔑 ${subsection.subtitle}</div>
+                                ${subsection.text ? `<p>${subsection.text}</p>` : ''}
+                                ${subsection.list ? `<ul>${subsection.list.map(item => `<li>${item}</li>`).join('')}</ul>` : ''}
+                            </div>
+                        ` : subsection.type ? `
                             <div class="info-box ${subsection.type}">
                                 <div class="info-box-title">
                                     ${subsection.type === 'warning' ? '⚠️' : subsection.type === 'danger' ? '🚨' : '✅'}
@@ -208,6 +214,34 @@
                             ${subsection.list ? `<ul class="content-list">${subsection.list.map(item => `<li>${item}</li>`).join('')}</ul>` : ''}
                             ${subsection.examples ? `<ul class="content-list">${subsection.examples.map(item => `<li>${item}</li>`).join('')}</ul>` : ''}
                         `}
+                        ${subsection.mnemonic ? `
+                            <div class="info-box mnemonic">
+                                <div class="info-box-title">🔑 ${subsection.mnemonic.title}</div>
+                                <ul>${subsection.mnemonic.items.map(item => `<li>${item}</li>`).join('')}</ul>
+                            </div>
+                        ` : ''}
+                        ${subsection.analogy ? `
+                            <div class="analogy-box">
+                                <div class="analogy-title">💡 Analogie</div>
+                                <p>${subsection.analogy}</p>
+                            </div>
+                        ` : ''}
+                        ${subsection.example ? `
+                            <div class="example-box">
+                                <div class="example-title">📌 Exemple concret</div>
+                                <p>${subsection.example}</p>
+                            </div>
+                        ` : ''}
+                        ${subsection.details ? `
+                            <div class="accordion-toggle" onclick="toggleAccordion(this)">
+                                <span>📖 Voir l'explication complète</span>
+                                <span class="accordion-arrow">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>${subsection.details}</p>
+                                ${subsection.details_list ? `<ul class="content-list">${subsection.details_list.map(item => `<li>${item}</li>`).join('')}</ul>` : ''}
+                            </div>
+                        ` : ''}
                     `).join('');
                 }
 
@@ -644,20 +678,43 @@
             handleSwipe();
         });
 
+        function getSectionOrder() {
+            return Array.from(document.querySelectorAll('[data-section]')).map(el => el.dataset.section);
+        }
+
         function handleSwipe() {
+            // Ne pas interférer quand les flashcards sont ouvertes
+            const fc = document.getElementById('flashcards-section');
+            if (fc && fc.style.display !== 'none') return;
+
             const sidebar = document.getElementById('sidebar');
-            const swipeThreshold = 50;
-            
-            // Swipe de gauche à droite (ouvrir)
-            if (touchStartX < 30 && touchEndX - touchStartX > swipeThreshold) {
+            const swipeDist = touchEndX - touchStartX;
+
+            // Swipe depuis le bord gauche → ouvrir le menu
+            if (touchStartX < 30 && swipeDist > 50) {
                 sidebar.classList.add('active');
                 document.getElementById('overlay').classList.add('active');
+                return;
             }
-            
-            // Swipe de droite à gauche (fermer)
-            if (touchEndX - touchStartX < -swipeThreshold) {
-                sidebar.classList.remove('active');
-                document.getElementById('overlay').classList.remove('active');
+
+            // Si le menu est ouvert, swipe gauche le ferme
+            if (sidebar.classList.contains('active')) {
+                if (swipeDist < -50) {
+                    sidebar.classList.remove('active');
+                    document.getElementById('overlay').classList.remove('active');
+                }
+                return;
+            }
+
+            // Navigation entre sections (menu fermé, swipe ≥80px, pas depuis le bord gauche)
+            if (touchStartX >= 30 && Math.abs(swipeDist) >= 80) {
+                const sectionOrder = getSectionOrder();
+                const idx = sectionOrder.indexOf(currentSection);
+                if (swipeDist < 0 && idx < sectionOrder.length - 1) {
+                    loadSection(sectionOrder[idx + 1]);
+                } else if (swipeDist > 0 && idx > 0) {
+                    loadSection(sectionOrder[idx - 1]);
+                }
             }
         }
 
@@ -753,88 +810,51 @@ function initFlashcardMode() {
         });
     }
     
-    // Swipe gestures
-    initSwipeGestures();
-    
-    // Clic sur la carte pour retourner (AVEC VRAIE DÉTECTION SCROLL vs CLIC)
+    // Gestionnaire unifié : tap pour flip + swipe horizontal pour noter
     const cardWrapper = document.getElementById('fc-card-wrapper');
-    let touchStartY = 0;
-    let touchEndY = 0;
-    let hasMoved = false;
-    
     if (cardWrapper) {
-        // Enregistrer la position de départ
+        let startX = 0, startY = 0, hasMoved = false, lastTouch = 0;
+
         cardWrapper.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
             hasMoved = false;
         }, { passive: true });
-        
-        // Détecter si le doigt bouge (= scroll)
+
         cardWrapper.addEventListener('touchmove', (e) => {
-            touchEndY = e.touches[0].clientY;
-            const distance = Math.abs(touchEndY - touchStartY);
-            
-            // Si le doigt a bougé de plus de 10px, c'est un scroll
-            if (distance > 10) {
-                hasMoved = true;
-            }
+            const dx = Math.abs(e.touches[0].clientX - startX);
+            const dy = Math.abs(e.touches[0].clientY - startY);
+            if (dx > 10 || dy > 10) hasMoved = true;
         }, { passive: true });
-        
-        // Au relâchement : flip seulement si pas de mouvement
+
         cardWrapper.addEventListener('touchend', (e) => {
-            // Ne pas retourner si :
-            // - On a scrollé (hasMoved = true)
-            // - On clique sur un bouton
-            if (hasMoved || e.target.tagName === 'BUTTON') {
+            e.preventDefault(); // bloque le click synthétique mobile (fix double-flip)
+            lastTouch = Date.now();
+
+            if (e.target.closest('button')) return; // les boutons gèrent eux-mêmes
+
+            if (!hasMoved) {
+                // Tap simple → flip
+                flipCard();
                 return;
             }
-            
-            // Sinon, c'est un vrai clic → retourner la carte
-            flipCard();
-        }, { passive: true });
-        
-        // Pour desktop (clic souris)
+
+            // Swipe horizontal → noter (seulement quand le verso est visible)
+            const dist = e.changedTouches[0].clientX - startX;
+            if (Math.abs(dist) > 50 && isFlipped) {
+                dist > 0 ? rate(1) : rate(3); // droite = facile, gauche = difficile
+            }
+        }, { passive: false }); // passive:false requis pour preventDefault
+
+        // Desktop : clic souris (le guard timestamp évite le doublon post-touch)
         cardWrapper.addEventListener('click', (e) => {
-            // Ne retourner que si ce n'est PAS un touchend (mobile déjà géré)
-            if (e.target.tagName === 'BUTTON') return;
-            
-            // Sur desktop, pas de problème de scroll, on flip directement
+            if (Date.now() - lastTouch < 500) return;
+            if (e.target.closest('button')) return;
             flipCard();
         });
     }
 }
 
-// Swipe gestures pour mobile
-function initSwipeGestures() {
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    const cardWrapper = document.getElementById('fc-card-wrapper');
-    if (!cardWrapper) return;
-    
-    cardWrapper.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    });
-    
-    cardWrapper.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    });
-    
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = touchEndX - touchStartX;
-        
-        if (Math.abs(diff) > swipeThreshold && isFlipped) {
-            // Swipe sur le verso = noter
-            if (diff > 0) {
-                rate(1); // Swipe droite = facile
-            } else {
-                rate(3); // Swipe gauche = difficile
-            }
-        }
-    }
-}
 
 // Filtrer les cartes par section
 function filterCards(section) {
@@ -1421,4 +1441,19 @@ function shuffle() {
             document.querySelectorAll('.section-content').forEach(section => {
                 observer.observe(section);
             });
+        }
+
+        // Accordéon : afficher/masquer le contenu détaillé
+        function toggleAccordion(toggleEl) {
+            const content = toggleEl.nextElementSibling;
+            const isOpen = content.classList.contains('open');
+
+            content.classList.toggle('open', !isOpen);
+            toggleEl.classList.toggle('open', !isOpen);
+
+            const arrow = toggleEl.querySelector('.accordion-arrow');
+            if (arrow) arrow.textContent = isOpen ? '▼' : '▲';
+
+            const label = toggleEl.querySelector('span:first-child');
+            if (label) label.textContent = isOpen ? '📖 Voir l\'explication complète' : '📕 Masquer';
         }
