@@ -134,32 +134,86 @@
         }
 
         .search-result {
-            padding: 12px;
+            padding: 12px 14px;
             background: var(--bg-secondary);
-            border-radius: 8px;
+            border-radius: 10px;
             margin-bottom: 8px;
             cursor: pointer;
+            border: 1px solid transparent;
+            transition: background 0.15s, border-color 0.15s, transform 0.1s;
+        }
+
+        .search-result:hover {
+            background: var(--bg-card);
+            border-color: var(--primary);
+            transform: translateX(2px);
         }
 
         .search-result:active {
             background: var(--border);
+            transform: translateX(0);
         }
 
         .search-result-title {
             font-weight: 600;
             color: var(--primary);
-            margin-bottom: 4px;
+            margin-bottom: 3px;
+            font-size: 15px;
         }
 
         .search-result-path {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-secondary);
-            margin-bottom: 4px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .search-result-path::before {
+            content: '›';
+            opacity: 0.5;
         }
 
         .search-result-snippet {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .search-highlight {
+            background: #fef08a;
+            color: #713f12;
+            border-radius: 2px;
+            padding: 0 2px;
+            font-style: normal;
+        }
+
+        [data-theme="dark"] .search-highlight {
+            background: #713f12;
+            color: #fef08a;
+        }
+
+        .search-empty {
+            text-align: center;
+            padding: 24px 16px;
+            color: var(--text-secondary);
+        }
+
+        .search-empty-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .search-empty-text {
+            font-size: 15px;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        .search-empty-hint {
+            font-size: 13px;
+            opacity: 0.7;
         }
 
         /* Menu latéral */
@@ -953,17 +1007,22 @@
         }
 
         .accordion-content {
-            display: none;
-            padding: 12px 14px;
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 14px;
             background: var(--bg-secondary);
             border: 1px solid var(--border);
             border-top: none;
             border-radius: 0 0 8px 8px;
             margin-bottom: 4px;
             line-height: 1.7;
+            transition: max-height 0.35s ease, padding 0.35s ease;
         }
 
-        .accordion-content.open { display: block; }
+        .accordion-content.open {
+            max-height: 2000px;
+            padding: 12px 14px;
+        }
 
         /* ===== BOÎTE MNÉMOTECHNIQUE ===== */
         .info-box.mnemonic {
@@ -1611,6 +1670,97 @@
 }
 
 /* ========================================
+   MODAL IMPRESSION
+   ======================================== */
+
+.print-modal-container {
+    max-width: 480px;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.print-modal-header {
+    margin-bottom: 20px;
+}
+
+.print-modal-header h2 {
+    margin: 0 0 4px 0;
+}
+
+.print-modal-header p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.print-select-all-row {
+    padding: 4px 0 8px;
+}
+
+.print-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 4px 0;
+}
+
+.print-option-group {
+    padding: 8px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.print-group-title {
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+    padding: 0 8px;
+}
+
+.print-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 7px 8px;
+    border-radius: 8px;
+    transition: background 0.15s;
+    font-size: 15px;
+    user-select: none;
+}
+
+.print-label:hover {
+    background: var(--bg-secondary);
+}
+
+.print-label input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--primary);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.print-label-all {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.print-modal-actions {
+    margin-top: 20px;
+}
+
+.print-modal-actions .btn-primary {
+    width: 100%;
+    padding: 13px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* ========================================
    PERSONNALISATION
    ======================================== */
 
@@ -1840,65 +1990,293 @@
 }
 
 /* ========================================
+   TOAST / SNACKBAR
+   ======================================== */
+
+.toast {
+    position: fixed;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%) translateY(12px);
+    background: #1e293b;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    white-space: nowrap;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+@media (min-width: 768px) {
+    .toast { bottom: 24px; }
+}
+
+/* ========================================
+   MODAL RÉSULTATS FLASHCARDS
+   ======================================== */
+
+.flash-result-container {
+    max-width: 400px;
+    text-align: center;
+}
+
+.flash-result-icon {
+    font-size: 52px;
+    margin-bottom: 12px;
+    line-height: 1;
+}
+
+.flash-result-container h2 {
+    font-size: 24px;
+    margin: 0 0 6px;
+}
+
+.flash-result-subtitle {
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin: 0 0 24px;
+}
+
+.flash-result-stats {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 28px;
+}
+
+.flash-result-stat {
+    flex: 1;
+    padding: 16px 8px;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+}
+
+.flash-result-stat.easy   { border-color: #10b981; background: #ecfdf5; }
+.flash-result-stat.medium { border-color: #f59e0b; background: #fffbeb; }
+.flash-result-stat.hard   { border-color: #ef4444; background: #fef2f2; }
+
+[data-theme="dark"] .flash-result-stat.easy   { background: #022c22; }
+[data-theme="dark"] .flash-result-stat.medium { background: #1c1600; }
+[data-theme="dark"] .flash-result-stat.hard   { background: #1c0000; }
+
+.flash-result-stat-value {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.flash-result-stat.easy   .flash-result-stat-value { color: #059669; }
+.flash-result-stat.medium .flash-result-stat-value { color: #d97706; }
+.flash-result-stat.hard   .flash-result-stat-value { color: #dc2626; }
+
+.flash-result-stat-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.flash-result-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.flash-result-actions .btn-primary,
+.flash-result-actions .btn-secondary {
+    flex: 1;
+    padding: 12px;
+    font-size: 15px;
+}
+
+/* ========================================
    IMPRESSION (Mode Révision Rapide)
    ======================================== */
 
 @media print {
-    /* Forcer un fond clair (éviter les pages noires en mode sombre) */
-    html,
-    body {
-        background: #ffffff !important;
-        color: #000000 !important;
+    @page {
+        /* top | right | bottom | left */
+        margin: 16mm 20mm 20mm 28mm;
+        size: A4;
     }
 
-    /* Masquer tout le reste de l'application par défaut */
-    body * {
-        display: none !important;
+    /* ─── BASE ─── */
+    html, body {
+        background: #fff !important;
+        color: #1a1a2e !important;
+        font-family: Arial, Helvetica, sans-serif !important;
+        font-size: 10pt !important;
     }
 
-    /* Ne garder visibles que les éléments utiles de la Révision Rapide */
-    #quickReviewModal,
-    #quickReviewModal .modal-content,
-    #quickReviewModal .quick-review-header,
-    #quickReviewContent,
-    #quickReviewContent * {
+    body > *:not(#printContainer) { display: none !important; }
+
+    #printContainer {
         display: block !important;
     }
 
-    /* Ne jamais imprimer l'overlay ou les boutons d'action */
-    #quickReviewOverlay,
-    #closeQuickReview,
-    .quick-review-actions {
-        display: none !important;
-    }
-
-    /* Forcer la modale en mode "page" plein écran pour l'impression */
-    #quickReviewModal {
-        position: static !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-
-    #quickReviewModal .modal-content {
-        max-width: 100% !important;
-        width: 100% !important;
-        padding: 10mm !important; /* marges papier confortables */
+    #printContainer * {
         box-shadow: none !important;
-        background: #ffffff !important;
-        max-height: none !important;      /* ne pas couper à 90vh */
-        overflow: visible !important;     /* tout le contenu doit être imprimé */
+        text-shadow: none !important;
     }
 
-    /* S'assurer que la zone de contenu n'est pas scrollée mais entièrement imprimée */
-    #quickReviewContent {
-        max-height: none !important;
-        overflow: visible !important;
+    /* ─── COVER ─── */
+    .print-doc-title {
+        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%) !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color: #fff !important;
+        padding: 24px 28px 20px;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 0;
+        page-break-after: avoid;
     }
 
-    /* Chaque point critique évite d'être coupé en plein milieu de page */
-    .critical-point {
+    .print-doc-title h1 {
+        color: #fff !important;
+        font-size: 22pt;
+        font-weight: 900;
+        margin: 0 0 6px;
+        letter-spacing: -0.5px;
+    }
+
+    .print-doc-title p {
+        color: #c7d7ff !important;
+        font-size: 9pt;
+        margin: 0;
+        font-style: italic;
+    }
+
+    /* ─── SECTIONS ─── */
+    .print-section + .print-section {
+        page-break-before: always;
+    }
+
+    .print-section-title {
+        background: #1e3a8a !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color: #fff !important;
+        font-size: 14pt;
+        font-weight: 800;
+        padding: 11px 16px;
+        margin: 0 0 14px;
+        border-radius: 6px;
+        letter-spacing: -0.2px;
+    }
+
+    /* ─── SOUS-TITRES ─── */
+    .print-subsection-title {
+        font-size: 10.5pt;
+        font-weight: 700;
+        color: #1e3a8a !important;
+        margin: 16px 0 6px 6px;
+        padding: 4px 0 4px 12px;
+        border-left: 4px solid #2563eb;
+    }
+
+    /* ─── TEXTE ─── */
+    .print-text {
+        font-size: 9.5pt;
+        line-height: 1.75;
+        margin: 3px 0 7px;
+        color: #1a1a2e !important;
+        text-align: justify;
+    }
+
+    .print-list {
+        font-size: 9.5pt;
+        line-height: 1.75;
+        margin: 3px 0 7px;
+        padding-left: 18px;
+        color: #1a1a2e !important;
+    }
+
+    .print-list li { margin-bottom: 2px; }
+
+    /* ─── BOÎTES ─── */
+    .print-box {
+        border-radius: 0 6px 6px 0;
+        border-left: 7px solid #888;
+        border-top: 1px solid #d1d5db;
+        border-right: 1px solid #d1d5db;
+        border-bottom: 1px solid #d1d5db;
+        padding: 10px 14px 10px 16px;
+        margin: 10px 0 10px 6px;
         page-break-inside: avoid;
-        background: transparent !important;
+        font-size: 9.5pt;
+        line-height: 1.7;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* Fonds plus saturés pour être visibles même en impression pâle */
+    .print-box.warning  { border-left-color: #d97706 !important; background: #fef3c7 !important; }
+    .print-box.danger   { border-left-color: #dc2626 !important; background: #fee2e2 !important; }
+    .print-box.success  { border-left-color: #059669 !important; background: #d1fae5 !important; }
+    .print-box.mnemonic { border-left-color: #7c3aed !important; background: #ede9fe !important; }
+    .print-box.analogy  { border-left-color: #2563eb !important; background: #dbeafe !important; }
+    .print-box.example  { border-left-color: #0891b2 !important; background: #cffafe !important; }
+
+    .print-box-title {
+        font-weight: 700;
+        font-size: 10pt;
+        margin-bottom: 6px;
+    }
+
+    .print-box.warning  .print-box-title { color: #92400e !important; }
+    .print-box.danger   .print-box-title { color: #991b1b !important; }
+    .print-box.success  .print-box-title { color: #065f46 !important; }
+    .print-box.mnemonic .print-box-title { color: #4c1d95 !important; }
+    .print-box.analogy  .print-box-title { color: #1e40af !important; }
+    .print-box.example  .print-box-title { color: #155e75 !important; }
+
+    .print-box p { margin: 2px 0 4px; color: #1a1a2e !important; }
+    .print-box .print-list { margin: 3px 0; }
+
+    /* ─── FLASHCARDS ─── */
+    .print-cards-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 12px;
+    }
+
+    .print-card {
+        border: 1px solid #dde1f0;
+        border-top: 4px solid #2563eb !important;
+        border-radius: 0 0 6px 6px;
+        padding: 10px 12px;
+        page-break-inside: avoid;
+        font-size: 9pt;
+        background: #f8faff !important;
+        line-height: 1.55;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .print-card-q {
+        font-weight: 700;
+        color: #1e3a8a !important;
+        font-size: 9pt;
+        margin-bottom: 7px;
+        padding-bottom: 5px;
+        border-bottom: 1px dashed #b0b8d4;
+    }
+
+    .print-card-a {
+        color: #2d2d2d !important;
+        font-size: 9pt;
+        padding-top: 4px;
+        line-height: 1.5;
     }
 }
 

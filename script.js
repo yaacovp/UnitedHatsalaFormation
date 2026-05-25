@@ -54,8 +54,10 @@
             initEventListeners();
 
             initFlashcardMode();
+            initFlashResultModal();
             initProgressTracking();
             initQuickReview();
+            initPrintModal();
             initCustomization();
             initScrollAnimations();
             checkScrollTop();
@@ -106,49 +108,104 @@
                     searchIndex.push({
                         section: key,
                         title: section.title,
-                        subtitle: subsection.subtitle,
+                        subtitle: subsection.subtitle || '',
                         text: subsection.text || '',
-                        list: subsection.list ? subsection.list.join(' ') : ''
+                        list: subsection.list ? subsection.list.join(' ') : '',
+                        details: subsection.details || '',
+                        extra: [
+                            subsection.mnemonic ? subsection.mnemonic.items.join(' ') : '',
+                            subsection.analogy || '',
+                            subsection.example || ''
+                        ].join(' ')
                     });
                 });
             });
         }
 
-        // Recherche
+        function escapeRegex(str) {
+            return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function highlightText(text, query) {
+            if (!text || !query) return text || '';
+            const regex = new RegExp(`(${escapeRegex(query)})`, 'gi');
+            return text.replace(regex, '<mark class="search-highlight">$1</mark>');
+        }
+
+        function getSmartSnippet(text, query) {
+            if (!text) return '';
+            const idx = text.toLowerCase().indexOf(query.toLowerCase());
+            if (idx === -1) return text.substring(0, 110) + (text.length > 110 ? '…' : '');
+            const start = Math.max(0, idx - 45);
+            const end = Math.min(text.length, idx + query.length + 75);
+            let snippet = text.substring(start, end);
+            if (start > 0) snippet = '…' + snippet;
+            if (end < text.length) snippet += '…';
+            return snippet;
+        }
+
+        let _searchDebounce = null;
+
+        // Recherche avec scoring et debounce
         function performSearch(query) {
+            clearTimeout(_searchDebounce);
+            const container = document.getElementById('searchResults');
+
             if (!query.trim()) {
-                document.getElementById('searchResults').innerHTML = '';
+                container.innerHTML = '';
                 return;
             }
 
-            const results = searchIndex.filter(item => {
-                const searchText = `${item.title} ${item.subtitle} ${item.text} ${item.list}`.toLowerCase();
-                return searchText.includes(query.toLowerCase());
-            }).slice(0, 10);
+            _searchDebounce = setTimeout(() => {
+                const q = query.trim().toLowerCase();
 
-            displaySearchResults(results, query);
+                const scored = searchIndex.map(item => {
+                    let score = 0;
+                    const sub = item.subtitle.toLowerCase();
+                    const txt = item.text.toLowerCase();
+                    const lst = item.list.toLowerCase();
+                    const ttl = item.title.toLowerCase();
+
+                    if (sub.startsWith(q))   score += 14;
+                    else if (sub.includes(q)) score += 9;
+                    if (ttl.includes(q))      score += 6;
+                    if (txt.includes(q))      score += 4;
+                    if (lst.includes(q))      score += 3;
+                    if ((item.details + item.extra).toLowerCase().includes(q)) score += 1;
+
+                    return { ...item, score };
+                })
+                .filter(item => item.score > 0)
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 8);
+
+                displaySearchResults(scored, query.trim());
+            }, 250);
         }
 
         function displaySearchResults(results, query) {
             const container = document.getElementById('searchResults');
-            
+
             if (results.length === 0) {
-                container.innerHTML = '<div class="search-result">Aucun résultat trouvé</div>';
+                container.innerHTML = `
+                    <div class="search-empty">
+                        <div class="search-empty-icon">🔍</div>
+                        <div class="search-empty-text">Aucun résultat pour <strong>"${query}"</strong></div>
+                        <div class="search-empty-hint">Essaie un autre mot ou consulte le menu</div>
+                    </div>`;
                 return;
             }
 
-            container.innerHTML = results.map(result => `
-                <div class="search-result" onclick="loadSection('${result.section}')">
-                    <div class="search-result-title">${result.subtitle}</div>
-                    <div class="search-result-path">${result.title}</div>
-                    <div class="search-result-snippet">${highlightText(result.text.substring(0, 100), query)}...</div>
-                </div>
-            `).join('');
-        }
-
-        function highlightText(text, query) {
-            const regex = new RegExp(`(${query})`, 'gi');
-            return text.replace(regex, '<mark>$1</mark>');
+            container.innerHTML = results.map(result => {
+                const snippetSrc = result.text || result.list || result.details || '';
+                const snippet = getSmartSnippet(snippetSrc, query);
+                return `
+                    <div class="search-result" onclick="loadSection('${result.section}')">
+                        <div class="search-result-title">${highlightText(result.subtitle, query)}</div>
+                        <div class="search-result-path">${result.title}</div>
+                        ${snippet ? `<div class="search-result-snippet">${highlightText(snippet, query)}</div>` : ''}
+                    </div>`;
+            }).join('');
         }
 
 // Chargement d'une section individuelle (utilisé par la recherche)
@@ -828,13 +885,15 @@ function initFlashcardMode() {
         }, { passive: true });
 
         cardWrapper.addEventListener('touchend', (e) => {
-            e.preventDefault(); // bloque le click synthétique mobile (fix double-flip)
             lastTouch = Date.now();
 
-            if (e.target.closest('button')) return; // les boutons gèrent eux-mêmes
+            // Laisser les boutons gérer leur propre clic (sans preventDefault)
+            if (e.target.closest('button')) return;
+
+            // Bloquer le clic synthétique uniquement pour les zones hors bouton
+            e.preventDefault();
 
             if (!hasMoved) {
-                // Tap simple → flip
                 flipCard();
                 return;
             }
@@ -842,9 +901,9 @@ function initFlashcardMode() {
             // Swipe horizontal → noter (seulement quand le verso est visible)
             const dist = e.changedTouches[0].clientX - startX;
             if (Math.abs(dist) > 50 && isFlipped) {
-                dist > 0 ? rate(1) : rate(3); // droite = facile, gauche = difficile
+                dist > 0 ? rate(1) : rate(3);
             }
-        }, { passive: false }); // passive:false requis pour preventDefault
+        }, { passive: false });
 
         // Desktop : clic souris (le guard timestamp évite le doublon post-touch)
         cardWrapper.addEventListener('click', (e) => {
@@ -986,12 +1045,31 @@ function rate(difficulty) {
         idx++;
         setTimeout(showCard, 200);
     } else {
-        setTimeout(() => {
-            alert(`🎉 Terminé !\n\n😊 Faciles : ${stats.easy}\n😐 Moyennes : ${stats.medium}\n😫 Difficiles : ${stats.hard}`);
-            idx = 0;
-            showCard();
-        }, 200);
+        setTimeout(() => showFlashResult(), 200);
     }
+}
+
+// Modal résultats de session
+function showFlashResult() {
+    document.getElementById('fr-easy').textContent   = stats.easy;
+    document.getElementById('fr-medium').textContent = stats.medium;
+    document.getElementById('fr-hard').textContent   = stats.hard;
+    document.getElementById('flashResultModal').classList.add('active');
+}
+
+function initFlashResultModal() {
+    const modal   = document.getElementById('flashResultModal');
+    const close   = () => modal.classList.remove('active');
+
+    document.getElementById('closeFlashResult').addEventListener('click', close);
+    document.getElementById('flashResultClose').addEventListener('click', close);
+    document.getElementById('flashResultOverlay').addEventListener('click', close);
+
+    document.getElementById('flashResultRestart').addEventListener('click', () => {
+        close();
+        idx = 0;
+        showCard();
+    });
 }
 
 // Mettre à jour les stats
@@ -1092,11 +1170,26 @@ function shuffle() {
             localStorage.setItem('sessionTime', timeSpent.toString());
         }
 
+        // ========================================
+        // TOAST
+        // ========================================
+
+        let _toastTimer = null;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(_toastTimer);
+            _toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
         function toggleSectionRead(sectionKey) {
             if (readSections.has(sectionKey)) {
                 readSections.delete(sectionKey);
+                showToast('Section marquée comme non lue');
             } else {
                 readSections.add(sectionKey);
+                showToast('✓ Section marquée comme lue !');
             }
             saveProgress();
             updateMenuBadges();
@@ -1228,7 +1321,12 @@ function shuffle() {
             overlay.addEventListener('click', closeModal);
 
             // Actions
-            document.getElementById('printReview').addEventListener('click', () => window.print());
+            document.getElementById('printReview').addEventListener('click', () => {
+                modal.classList.remove('active');
+                openPrintModal();
+                const qrCheck = document.getElementById('print-quickreview');
+                if (qrCheck) { qrCheck.checked = true; syncSelectAll(); }
+            });
             document.getElementById('copyReview').addEventListener('click', copyQuickReview);
         }
 
@@ -1318,6 +1416,134 @@ function shuffle() {
             }).catch(err => {
                 console.error('Erreur copie:', err);
             });
+        }
+
+        // ========================================
+        // MODAL IMPRESSION
+        // ========================================
+
+        function initPrintModal() {
+            const modal = document.getElementById('printModal');
+            const overlay = document.getElementById('printOverlay');
+            const closeBtn = document.getElementById('closePrint');
+
+            document.getElementById('printBtn').addEventListener('click', openPrintModal);
+            document.getElementById('printBtnSidebar').addEventListener('click', () => { closeSidebar(); openPrintModal(); });
+
+            document.getElementById('printSelectAll').addEventListener('change', (e) => {
+                document.querySelectorAll('.print-option').forEach(cb => { cb.checked = e.target.checked; });
+            });
+
+            document.querySelectorAll('.print-option').forEach(cb => {
+                cb.addEventListener('change', syncSelectAll);
+            });
+
+            document.getElementById('doPrint').addEventListener('click', executePrint);
+
+            const closeModal = () => modal.classList.remove('active');
+            closeBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', closeModal);
+        }
+
+        function syncSelectAll() {
+            const all = document.querySelectorAll('.print-option');
+            const checked = document.querySelectorAll('.print-option:checked');
+            const selectAll = document.getElementById('printSelectAll');
+            selectAll.checked = all.length === checked.length;
+            selectAll.indeterminate = checked.length > 0 && checked.length < all.length;
+        }
+
+        function openPrintModal() {
+            document.getElementById('printModal').classList.add('active');
+        }
+
+        function executePrint() {
+            const selections = [...document.querySelectorAll('.print-option:checked')].map(cb => cb.value);
+            if (selections.length === 0) {
+                alert('Sélectionne au moins un élément à imprimer.');
+                return;
+            }
+            document.getElementById('printModal').classList.remove('active');
+            document.getElementById('printContainer').innerHTML = buildPrintHTML(selections);
+            setTimeout(() => window.print(), 150);
+        }
+
+        function buildPrintHTML(selections) {
+            const now = new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+            let html = `<div class="print-doc-title"><h1>🚑 PSE1/PSE2 — United Hatzalah Révisions</h1><p>Imprimé le ${now}</p></div>`;
+
+            const sectionOrder = ['intro', 'biologie', 'nerveux', 'respiratoire', 'cardio', 'bilan', 'traitement', 'urgences'];
+
+            if (selections.includes('quickreview')) html += buildQuickReviewPrint();
+            sectionOrder.forEach(key => {
+                if (selections.includes(key) && content[key]) html += buildSectionPrint(key);
+            });
+            if (selections.includes('flashcards')) html += buildFlashcardsPrint();
+
+            return html;
+        }
+
+        function buildQuickReviewPrint() {
+            let html = '<div class="print-section">';
+            html += '<div class="print-section-title">⚡ Révision Rapide — Points critiques</div>';
+            Object.keys(content).forEach(key => {
+                content[key].sections.forEach(sub => {
+                    if (sub.type === 'warning' || sub.type === 'danger') {
+                        html += buildPrintBox(sub.type, sub.subtitle, sub.text, sub.list);
+                    }
+                });
+            });
+            html += '</div>';
+            return html;
+        }
+
+        function buildSectionPrint(key) {
+            const section = content[key];
+            let html = '<div class="print-section">';
+            html += `<div class="print-section-title">${section.title}</div>`;
+            section.sections.forEach(sub => {
+                if (sub.subtitle) html += `<div class="print-subsection-title">${sub.subtitle}</div>`;
+                if (sub.type === 'mnemonic') {
+                    html += buildPrintBox('mnemonic', `🔑 ${sub.subtitle}`, sub.text, sub.list);
+                } else if (sub.type) {
+                    const icon = sub.type === 'warning' ? '⚠️' : sub.type === 'danger' ? '🚨' : '✅';
+                    html += buildPrintBox(sub.type, `${icon} ${sub.subtitle || ''}`, sub.text, sub.list);
+                } else {
+                    if (sub.text) html += `<p class="print-text">${sub.text}</p>`;
+                    if (sub.list) html += `<ul class="print-list">${sub.list.map(i => `<li>${i}</li>`).join('')}</ul>`;
+                    if (sub.examples) html += `<ul class="print-list">${sub.examples.map(i => `<li>${i}</li>`).join('')}</ul>`;
+                }
+                if (sub.mnemonic) html += buildPrintBox('mnemonic', `🔑 ${sub.mnemonic.title}`, null, sub.mnemonic.items);
+                if (sub.analogy) html += buildPrintBox('analogy', '💡 Analogie', sub.analogy, null);
+                if (sub.example) html += buildPrintBox('example', '📌 Exemple concret', sub.example, null);
+                if (sub.details) {
+                    html += `<p class="print-text"><em>${sub.details}</em></p>`;
+                    if (sub.details_list) html += `<ul class="print-list">${sub.details_list.map(i => `<li>${i}</li>`).join('')}</ul>`;
+                }
+            });
+            html += '</div>';
+            return html;
+        }
+
+        function buildPrintBox(type, title, text, list) {
+            let html = `<div class="print-box ${type}">`;
+            if (title) html += `<div class="print-box-title">${title}</div>`;
+            if (text) html += `<p>${text}</p>`;
+            if (list && list.length) html += `<ul class="print-list">${list.map(i => `<li>${i}</li>`).join('')}</ul>`;
+            html += '</div>';
+            return html;
+        }
+
+        function buildFlashcardsPrint() {
+            let html = '<div class="print-section">';
+            html += '<div class="print-section-title">🎴 Flashcards</div>';
+            html += '<div class="print-cards-grid">';
+            cards.forEach(card => {
+                const answer = card.answer.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+                html += `<div class="print-card"><div class="print-card-q">Q : ${card.question}</div><div class="print-card-a">R : ${answer}</div></div>`;
+            });
+            html += '</div></div>';
+            return html;
         }
 
         // ========================================

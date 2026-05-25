@@ -20,6 +20,7 @@
                 <button class="btn-icon" id="fontSizeBtn" aria-label="Personnalisation" title="Personnalisation">A</button>
                 <button class="btn-icon desktop-only" id="flashcardsHeaderBtn" aria-label="Flashcards" title="Flashcards">🎴</button>
                 <button class="btn-icon desktop-only" id="progressHeaderBtn" aria-label="Progression" title="Progression">📊</button>
+                <button class="btn-icon desktop-only" id="printBtn" aria-label="Imprimer" title="Imprimer">🖨️</button>
                 <button class="btn-icon" id="searchBtn" aria-label="Rechercher">🔍</button>
                 <button class="btn-icon" id="themeBtn" aria-label="Changer thème">🌙</button>
                 <button class="btn-icon" id="menuBtn" aria-label="Menu">☰</button>
@@ -77,6 +78,11 @@
             <div class="nav-sub-item" data-section="urgences-convulsions">Convulsions</div>
             <div class="nav-sub-item" data-section="urgences-remise">Transmission aux secours</div>
         </div>
+
+        <div class="nav-section nav-section-tools">
+            <div class="nav-section-title">🛠️ Outils</div>
+            <div class="nav-item" id="printBtnSidebar">🖨️ Imprimer</div>
+        </div>
     </nav>
     <div class="sidebar-tab" id="sidebarTab">📚 MENU</div>
 
@@ -122,6 +128,38 @@
     <div class="install-prompt" id="installPrompt">
         <span>📲 Installer l'app pour un accès hors-ligne ?</span>
         <button class="install-btn" id="installBtn">Installer</button>
+    </div>
+
+    <!-- Toast / Snackbar -->
+    <div class="toast" id="toast" aria-live="polite"></div>
+
+    <!-- Modal Résultats Flashcards -->
+    <div class="modal" id="flashResultModal">
+        <div class="modal-overlay" id="flashResultOverlay"></div>
+        <div class="modal-content flash-result-container">
+            <button class="modal-close" id="closeFlashResult">✕</button>
+            <div class="flash-result-icon">🎉</div>
+            <h2>Session terminée !</h2>
+            <p class="flash-result-subtitle">Voici tes résultats</p>
+            <div class="flash-result-stats">
+                <div class="flash-result-stat easy">
+                    <div class="flash-result-stat-value" id="fr-easy">0</div>
+                    <div class="flash-result-stat-label">😊 Faciles</div>
+                </div>
+                <div class="flash-result-stat medium">
+                    <div class="flash-result-stat-value" id="fr-medium">0</div>
+                    <div class="flash-result-stat-label">😐 Moyennes</div>
+                </div>
+                <div class="flash-result-stat hard">
+                    <div class="flash-result-stat-value" id="fr-hard">0</div>
+                    <div class="flash-result-stat-label">😫 Difficiles</div>
+                </div>
+            </div>
+            <div class="flash-result-actions">
+                <button class="btn-primary" id="flashResultRestart">🔄 Recommencer</button>
+                <button class="btn-secondary" id="flashResultClose">Fermer</button>
+            </div>
+        </div>
     </div>
 
     <!-- Lightbox pour images -->
@@ -325,6 +363,65 @@
             <div id="quickReviewContent"></div>
         </div>
     </div>
+
+    <!-- Modal Impression -->
+    <div class="modal" id="printModal">
+        <div class="modal-overlay" id="printOverlay"></div>
+        <div class="modal-content print-modal-container">
+            <button class="modal-close" id="closePrint">✕</button>
+
+            <div class="print-modal-header">
+                <h2>🖨️ Imprimer</h2>
+                <p>Sélectionne ce que tu veux imprimer</p>
+            </div>
+
+            <div class="print-select-all-row">
+                <label class="print-label print-label-all">
+                    <input type="checkbox" id="printSelectAll">
+                    <span>Tout sélectionner</span>
+                </label>
+            </div>
+
+            <div class="print-divider"></div>
+
+            <div class="print-option-group">
+                <label class="print-label">
+                    <input type="checkbox" class="print-option" value="quickreview" id="print-quickreview">
+                    <span>⚡ Révision Rapide — points critiques</span>
+                </label>
+            </div>
+
+            <div class="print-divider"></div>
+
+            <div class="print-option-group">
+                <div class="print-group-title">📚 Cours</div>
+                <label class="print-label"><input type="checkbox" class="print-option" value="intro"> <span>📌 Introduction</span></label>
+                <label class="print-label"><input type="checkbox" class="print-option" value="biologie"> <span>🧬 Biologie de base</span></label>
+                <label class="print-label"><input type="checkbox" class="print-option" value="nerveux"> <span>🧠 Système nerveux</span></label>
+                <label class="print-label"><input type="checkbox" class="print-option" value="respiratoire"> <span>🫁 Système respiratoire</span></label>
+                <label class="print-label"><input type="checkbox" class="print-option" value="cardio"> <span>🫀 Système cardio-vasculaire</span></label>
+                <label class="print-label"><input type="checkbox" class="print-option" value="bilan"> <span>🧾 Bilan en Secourisme</span></label>
+                <label class="print-label"><input type="checkbox" class="print-option" value="traitement"> <span>🏥 Traitement de la Victime</span></label>
+                <label class="print-label"><input type="checkbox" class="print-option" value="urgences"> <span>🆘 Urgences Spécifiques</span></label>
+            </div>
+
+            <div class="print-divider"></div>
+
+            <div class="print-option-group">
+                <label class="print-label">
+                    <input type="checkbox" class="print-option" value="flashcards" id="print-flashcards">
+                    <span>🎴 Flashcards</span>
+                </label>
+            </div>
+
+            <div class="print-modal-actions">
+                <button class="btn-primary" id="doPrint">🖨️ Imprimer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteneur caché pour l'impression -->
+    <div id="printContainer" aria-hidden="true"></div>
 
     <!-- Modal Personnalisation -->
     <div class="modal" id="customizeModal">
