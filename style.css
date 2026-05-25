@@ -73,6 +73,13 @@
         .header-actions {
             display: flex;
             gap: 8px;
+            flex-shrink: 0;
+        }
+
+        /* Sur mobile : masquer le texte du logo pour libérer de la place */
+        @media (max-width: 520px) {
+            .logo span { display: none; }
+            .header-actions { gap: 2px; }
         }
 
         .btn-icon {
@@ -97,7 +104,7 @@
         /* Barre de recherche */
         .search-bar {
             position: fixed;
-            top: 60px;
+            top: 68px;
             left: 0;
             right: 0;
             background: var(--bg-card);
@@ -219,11 +226,11 @@
         /* Menu latéral */
         .sidebar {
             position: fixed;
-            top: 60px;
+            top: 68px;
             left: -100%;
             width: 85%;
             max-width: 320px;
-            height: calc(100vh - 60px);
+            height: calc(100vh - 68px);
             background: var(--bg-card);
             border-right: 1px solid var(--border);
             transition: left 0.3s;
@@ -274,7 +281,7 @@
 
         .overlay {
             position: fixed;
-            top: 60px;
+            top: 68px;
             left: 0;
             right: 0;
             bottom: 0;
@@ -361,7 +368,7 @@
 
         /* Contenu principal */
         .main-content {
-            margin-top: 60px;
+            margin-top: 68px;
             padding: 20px 16px;
             max-width: 800px;
             margin-left: auto;
@@ -942,7 +949,7 @@
 
             .main-content {
                 margin-left: 280px;
-                margin-top: 60px;
+                margin-top: 68px;
             }
 
             .overlay {
